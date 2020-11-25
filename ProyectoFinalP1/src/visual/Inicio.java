@@ -58,21 +58,27 @@ public class Inicio extends JFrame {
 		
 	
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1027, 504);
+		setBounds(100, 100, 1200, 600);
 		panelfondo = new JPanel();
+		panelfondo.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				panelListado.setVisible(false);
+				panelADM1.setVisible(false);
+			}
+		});
 		
 		panelfondo.setBackground(new Color(47, 79, 79));
 		panelfondo.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(panelfondo);
-		dim = getToolkit().getScreenSize();
-		super.setSize(dim.width,dim.height-45);
+		
 		setLocationRelativeTo(null);
 		setUndecorated(true);
 		panelfondo.setLayout(null);
 		
 		
 		JPanel panelMenu = new JPanel();
-		panelMenu.setBounds(0, 0, 389, 1048);
+		panelMenu.setBounds(0, 0, 389, 600);
 		panelMenu.setBackground(new Color(0, 128, 128));
 		panelfondo.add(panelMenu);
 		panelMenu.setLayout(null);
@@ -228,7 +234,7 @@ public class Inicio extends JFrame {
 				
 			}
 		});
-		panelSALIR.setBounds(0, 987, 389, 48);
+		panelSALIR.setBounds(0, 552, 389, 48);
 		panelMenu.add(panelSALIR);
 		panelSALIR.setBackground(new Color(0, 139, 139));
 		panelSALIR.setForeground(new Color(0, 128, 128));
@@ -265,7 +271,7 @@ public class Inicio extends JFrame {
 		panelMenu.add(lblNewLabel_10);
 		
 		JLabel lblNewLabel_9 = new JLabel("");
-		lblNewLabel_9.setBounds(1897, 0, 23, 37);
+		lblNewLabel_9.setBounds(1177, 0, 23, 37);
 		lblNewLabel_9.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -310,6 +316,7 @@ public class Inicio extends JFrame {
 		PanelRegComponente.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				panelADM1.setVisible(false);
 				Registrar_Componente reg = new Registrar_Componente();
 				reg.setVisible(true);
 			}
@@ -379,8 +386,17 @@ public class Inicio extends JFrame {
 		panelListCliente.add(lblNewLabel_6);
 		
 		panelListComponente = new JPanel();
+		panelListComponente.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				panelListado.setVisible(false);
+				panelADM1.setVisible(false);
+				TablaComponente reg = new TablaComponente();
+				reg.setVisible(true);
+			}
+		});
 		panelListComponente.setBackground(new Color(0, 128, 128));
-		panelListComponente.setBounds(0, 49, 289, 48);
+		panelListComponente.setBounds(0, 48, 289, 48);
 		panelListado.add(panelListComponente);
 		panelListComponente.setLayout(null);
 		
@@ -397,7 +413,7 @@ public class Inicio extends JFrame {
 		
 		panelListEmpleado = new JPanel();
 		panelListEmpleado.setBackground(new Color(0, 128, 128));
-		panelListEmpleado.setBounds(0, 99, 289, 48);
+		panelListEmpleado.setBounds(0, 93, 289, 54);
 		panelListado.add(panelListEmpleado);
 		panelListEmpleado.setLayout(null);
 		

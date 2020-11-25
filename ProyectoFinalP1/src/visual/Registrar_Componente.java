@@ -513,7 +513,7 @@ public class Registrar_Componente extends JDialog {
 						
 									Componente comp;
 									int cantidad, index2, cantMemoria=0;
-									float capacidad=0,velocidadProccess=0;
+									float capacidad=0,velocidadProccess=0,preciov=0;
 									String tipo,tipoRAM,marca,modelo,NumSerie,str1,str2,str3,str4,str5;
 							
 									index = cbxTipoComponente.getSelectedIndex();
@@ -525,6 +525,7 @@ public class Registrar_Componente extends JDialog {
 										str3 = txtModeloDisco.getText();
 										str4 = txtConexion.getText();
 										index2 = cbxTipoComponente.getSelectedIndex();
+										preciov = Float.parseFloat(textPrecioVenta.getText()) * cantidad;
 										
 										if(str1.isEmpty() || str2.isEmpty() || str3.isEmpty() || str4.isEmpty())  {
 											JOptionPane.showMessageDialog(null,"Has dejado campos vacíos. Por favor, intente de nuevo.","Aviso",JOptionPane.WARNING_MESSAGE);
@@ -537,7 +538,7 @@ public class Registrar_Componente extends JDialog {
 											marca = str2;
 											modelo = str3;
 											tipo = str4;
-											comp = new DiscoDuro(500.50f,NumSerie,cantidad,marca,modelo,capacidad,tipo);
+											comp = new DiscoDuro(preciov,NumSerie,cantidad,marca,modelo,capacidad,tipo);
 											Tienda.getInstance().insertarComponente(comp);
 											JOptionPane.showMessageDialog(null,"El componente ha sido registrado.","Aviso",JOptionPane.INFORMATION_MESSAGE);
 										}
