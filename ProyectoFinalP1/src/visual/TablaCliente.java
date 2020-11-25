@@ -20,6 +20,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.Color;
 
 public class TablaCliente extends JDialog {
 
@@ -50,11 +51,14 @@ public class TablaCliente extends JDialog {
 		setBounds(100, 100, 495, 367);
 		getContentPane().setLayout(new BorderLayout());
 		setLocationRelativeTo(null);
+		contentPanel.setBackground(new Color(47, 79, 79));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(new BorderLayout(0, 0));
 		{
 			JPanel panel = new JPanel();
+			panel.setForeground(new Color(0, 128, 128));
+			panel.setBackground(new Color(0, 128, 128));
 			contentPanel.add(panel, BorderLayout.CENTER);
 			panel.setLayout(null);
 			{

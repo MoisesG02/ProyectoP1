@@ -95,7 +95,7 @@ public class Registrar_Componente extends JDialog {
 
 
 
-	public Registrar_Componente(Tienda t) {
+	public Registrar_Componente() {
 		setTitle("Registrar Componente");
 		setBounds(100, 100, 566, 336);
 		setLocationRelativeTo(null);
@@ -647,34 +647,6 @@ public class Registrar_Componente extends JDialog {
 						}
 					}
 				}
-		
-		
-			
-				
-					
-				public static String TipoComponente(int ind) {
-					String tipo = null;
-					
-					if(ind == 1) {
-						tipo = "Cheddar";
-					}
-					else if(ind == 2) {
-						tipo = "Gouda";
-					}
-					else if(ind == 3) {
-						tipo = "Mozzarella";
-					}
-					else if(ind == 4) {
-						tipo = "Parmesano";
-					}
-					else if(ind == 5) {
-						tipo = "Provolone";
-					}
-					
-					return tipo;
-				}
-	
-	
 	}
 
 

@@ -99,7 +99,7 @@ public class Login extends JFrame {
 		txtUser.setColumns(10);
 		
 		JLabel lblNewLabel_2 = new JLabel("");
-		lblNewLabel_2.setIcon(new ImageIcon("IconosProyecto/bussiness-man.png"));
+		lblNewLabel_2.setIcon(new ImageIcon(Login.class.getResource("/Iconos/bussiness-man.png")));
 		lblNewLabel_2.setBounds(210, 1, 40, 40);
 		panel.add(lblNewLabel_2);
 		
@@ -135,7 +135,7 @@ public class Login extends JFrame {
 		panel_1.add(txtPassword);
 		
 		JLabel lblNewLabel_3 = new JLabel("");
-		lblNewLabel_3.setIcon(new ImageIcon("IconosProyecto/padlock.png"));
+		lblNewLabel_3.setIcon(new ImageIcon(Login.class.getResource("/Iconos/preferences-desktop-user-password-icon (2).png")));
 		lblNewLabel_3.setBounds(209, 0, 41, 40);
 		panel_1.add(lblNewLabel_3);
 		
@@ -170,7 +170,7 @@ public class Login extends JFrame {
 		panelbtnlogin.add(lblNewLabel);
 		
 		JLabel lblNewLabel_4 = new JLabel("");
-		lblNewLabel_4.setIcon(new ImageIcon("IconosProyecto/key-icon (2).png"));
+		lblNewLabel_4.setIcon(new ImageIcon(Login.class.getResource("/Iconos/key-icon (2).png")));
 		lblNewLabel_4.setBounds(56, 0, 44, 40);
 		panelbtnlogin.add(lblNewLabel_4);
 		
@@ -181,12 +181,12 @@ public class Login extends JFrame {
 				dispose();
 			}
 		});
-		lblNewLabel_1.setIcon(new ImageIcon("IconosProyecto/Actions-edit-delete-icon.png"));
+		lblNewLabel_1.setIcon(new ImageIcon(Login.class.getResource("/Iconos/Actions-edit-delete-icon.png")));
 		lblNewLabel_1.setBounds(580, 0, 20, 20);
 		contentPane.add(lblNewLabel_1);
 		
 		lblLogo = new JLabel("");
-		lblLogo.setIcon(new ImageIcon("IconosProyecto/PC-a-icon.png"));
+		lblLogo.setIcon(new ImageIcon(Login.class.getResource("/Iconos/PC-a-icon.png")));
 		lblLogo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblLogo.setBounds(251, 49, 104, 96);
 		contentPane.add(lblLogo);

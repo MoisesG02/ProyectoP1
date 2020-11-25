@@ -26,6 +26,14 @@ public class Inicio extends JFrame {
 	private JPanel panelFACT;
 	private JPanel paneGRAFICOS;
 	private JPanel panelList;
+	private JPanel panelADM1;
+	private JLabel lblADM;
+	private JLabel lblLIST;
+	private JPanel panelListado;
+	private JPanel panelListCliente;
+	private JLabel lblNewLabel_3;
+	private JPanel panelListComponente;
+	private JPanel panelListEmpleado;
 
 	/**
 	 * Launch the application.
@@ -56,28 +64,28 @@ public class Inicio extends JFrame {
 		panelfondo.setBackground(new Color(47, 79, 79));
 		panelfondo.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(panelfondo);
-		panelfondo.setLayout(null);
 		dim = getToolkit().getScreenSize();
 		super.setSize(dim.width,dim.height-45);
 		setLocationRelativeTo(null);
 		setUndecorated(true);
+		panelfondo.setLayout(null);
 		
 		
 		JPanel panelMenu = new JPanel();
+		panelMenu.setBounds(0, 0, 389, 1048);
 		panelMenu.setBackground(new Color(0, 128, 128));
-		panelMenu.setBounds(0, 0, 420, 1048);
 		panelfondo.add(panelMenu);
 		panelMenu.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(Inicio.class.getResource("/Iconos/computer.png")));
+		lblNewLabel.setIcon(new ImageIcon(Inicio.class.getResource("/Iconos/InicioComputer.png")));
 		lblNewLabel.setBounds(138, 13, 144, 141);
 		panelMenu.add(lblNewLabel);
 		
 		JPanel panelINICIO = new JPanel();
 		panelINICIO.setBackground(new Color(0, 139, 139));
 		panelINICIO.setForeground(new Color(0, 128, 128));
-		panelINICIO.setBounds(0, 167, 420, 48);
+		panelINICIO.setBounds(0, 167, 389, 48);
 		panelMenu.add(panelINICIO);
 		panelINICIO.setLayout(null);
 		
@@ -106,7 +114,7 @@ public class Inicio extends JFrame {
 		});
 		panelADM.setBackground(new Color(0, 139, 139));
 		panelADM.setForeground(new Color(0, 128, 128));
-		panelADM.setBounds(0, 217, 420, 48);
+		panelADM.setBounds(0, 217, 389, 48);
 		panelMenu.add(panelADM);
 		panelADM.setLayout(null);
 		
@@ -124,25 +132,23 @@ public class Inicio extends JFrame {
 		
 		
 		
-		JLabel lblADM = new JLabel("");
+		lblADM = new JLabel("");
 		lblADM.addMouseListener(new MouseAdapter() {
-			
-			public void mouseReleased(MouseEvent e) {
-				Administracion adm = new Administracion();
-				adm.setVisible(true);
-				
-			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				panelADM1.setVisible(true);
+				panelListado.setVisible(false);
+
 			}
-			
-			
 		});
-		lblADM.setBounds(396, 0, 24, 48);
+		lblADM.setIcon(new ImageIcon(Inicio.class.getResource("/Iconos/right-arrow.png")));
+		lblADM.setBounds(364, 0, 24, 48);
 		panelADM.add(lblADM);
 		
 		panelList = new JPanel();
 		panelList.setBackground(new Color(0, 139, 139));
 		panelList.setForeground(new Color(0, 128, 128));
-		panelList.setBounds(0, 350, 420, 48);
+		panelList.setBounds(0, 360, 389, 48);
 		panelMenu.add(panelList);
 		panelList.setLayout(null);
 		
@@ -157,14 +163,23 @@ public class Inicio extends JFrame {
 		label_4.setBounds(50, 0, 37, 40);
 		panelList.add(label_4);
 		
-		JLabel lblNewLabel_6 = new JLabel("");
-		lblNewLabel_6.setBounds(396, 0, 24, 48);
-		panelList.add(lblNewLabel_6);
+		lblLIST = new JLabel("");
+		lblLIST.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				panelADM1.setVisible(false);
+				panelListado.setVisible(true);
+				
+			}
+		});
+		lblLIST.setIcon(new ImageIcon(Inicio.class.getResource("/Iconos/right-arrow.png")));
+		lblLIST.setBounds(363, 0, 24, 48);
+		panelList.add(lblLIST);
 		
 		panelFACT = new JPanel();
 		panelFACT.setBackground(new Color(0, 139, 139));
 		panelFACT.setForeground(new Color(0, 128, 128));
-		panelFACT.setBounds(0, 267, 420, 48);
+		panelFACT.setBounds(0, 267, 389, 48);
 		panelMenu.add(panelFACT);
 		panelFACT.setLayout(null);
 		
@@ -179,15 +194,10 @@ public class Inicio extends JFrame {
 		label_2.setBounds(50, 0, 37, 40);
 		panelFACT.add(label_2);
 		
-		JLabel lblNewLabel_3 = new JLabel("");
-
-		lblNewLabel_3.setBounds(396, 0, 24, 48);
-		panelFACT.add(lblNewLabel_3);
-		
 		paneGRAFICOS = new JPanel();
 		paneGRAFICOS.setBackground(new Color(0, 139, 139));
 		paneGRAFICOS.setForeground(new Color(0, 128, 128));
-		paneGRAFICOS.setBounds(0, 308, 420, 48);
+		paneGRAFICOS.setBounds(0, 314, 389, 48);
 		panelMenu.add(paneGRAFICOS);
 		paneGRAFICOS.setLayout(null);
 		
@@ -207,41 +217,18 @@ public class Inicio extends JFrame {
 		lblNewLabel_5.setBounds(396, 0, 24, 48);
 		paneGRAFICOS.add(lblNewLabel_5);
 		
-		JPanel panelOpciones = new JPanel();
-		panelOpciones.setBackground(new Color(0, 128, 128));
-		panelOpciones.setBounds(0, 399, 420, 321);
-		panelMenu.add(panelOpciones);
-		panelOpciones.setLayout(null);
-		
-		JLabel lblNewLabel_4 = new JLabel("RegCliente");
-		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblNewLabel_4.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				Registrar_Cliente reg = new Registrar_Cliente();
-				
-				reg.setVisible(true);
-				
-			}
-		});
-		lblNewLabel_4.setForeground(new Color(0, 0, 0));
-		lblNewLabel_4.setBounds(131, 67, 128, 27);
-		panelOpciones.add(lblNewLabel_4);
-		
-		JLabel lblNewLabel_8 = new JLabel("TablaCliente");
-		lblNewLabel_8.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				TablaCliente reg = new TablaCliente();
-				reg.setVisible(true);
-			}
-		});
-		lblNewLabel_8.setBounds(131, 96, 103, 16);
-		panelOpciones.add(lblNewLabel_8);
-		
 		
 		JPanel panelSALIR = new JPanel();
-		panelSALIR.setBounds(0, 987, 420, 48);
+		panelSALIR.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				dispose();
+				Login log = new Login();
+				log.setVisible(true);
+				
+			}
+		});
+		panelSALIR.setBounds(0, 987, 389, 48);
 		panelMenu.add(panelSALIR);
 		panelSALIR.setBackground(new Color(0, 139, 139));
 		panelSALIR.setForeground(new Color(0, 128, 128));
@@ -278,6 +265,7 @@ public class Inicio extends JFrame {
 		panelMenu.add(lblNewLabel_10);
 		
 		JLabel lblNewLabel_9 = new JLabel("");
+		lblNewLabel_9.setBounds(1897, 0, 23, 37);
 		lblNewLabel_9.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -285,8 +273,144 @@ public class Inicio extends JFrame {
 			}
 		});
 		lblNewLabel_9.setIcon(new ImageIcon(Inicio.class.getResource("/Iconos/Actions-edit-delete-icon.png")));
-		lblNewLabel_9.setBounds(1897, 0, 23, 37);
 		panelfondo.add(lblNewLabel_9);
+		
+		panelADM1 = new JPanel();
+		panelADM1.setBounds(391, 219, 289, 141);
+		panelfondo.add(panelADM1);
+		panelADM1.setVisible(false);
+		panelADM1.setLayout(null);
+		
+		JPanel PanelRegCliente = new JPanel();
+		PanelRegCliente.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				panelADM1.setVisible(false);
+				Registrar_Cliente reg = new Registrar_Cliente();
+				reg.setVisible(true);
+			}
+		});
+		PanelRegCliente.setBounds(0, 0, 289, 48);
+		panelADM1.add(PanelRegCliente);
+		PanelRegCliente.setBackground(new Color(0, 128, 128));
+		PanelRegCliente.setLayout(null);
+		
+		JLabel lblNewLabel_4 = new JLabel("REGISTRAR CLIENTE");
+		lblNewLabel_4.setForeground(Color.WHITE);
+		lblNewLabel_4.setFont(new Font("Dialog", Font.BOLD, 14));
+		lblNewLabel_4.setBounds(66, 13, 187, 22);
+		PanelRegCliente.add(lblNewLabel_4);
+		
+		JLabel lblNewLabel_11 = new JLabel("");
+		lblNewLabel_11.setIcon(new ImageIcon(Inicio.class.getResource("/Iconos/bussiness-man (1).png")));
+		lblNewLabel_11.setBounds(22, 0, 32, 48);
+		PanelRegCliente.add(lblNewLabel_11);
+		
+		JPanel PanelRegComponente = new JPanel();
+		PanelRegComponente.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Registrar_Componente reg = new Registrar_Componente();
+				reg.setVisible(true);
+			}
+		});
+		PanelRegComponente.setBounds(0, 46, 289, 48);
+		panelADM1.add(PanelRegComponente);
+		PanelRegComponente.setBackground(new Color(0, 128, 128));
+		PanelRegComponente.setLayout(null);
+		
+		JLabel lblNewLabel_8 = new JLabel("REGISTRAR COMPONENTE");
+		lblNewLabel_8.setForeground(Color.WHITE);
+		lblNewLabel_8.setFont(new Font("Dialog", Font.BOLD, 14));
+		lblNewLabel_8.setBounds(66, 13, 209, 22);
+		PanelRegComponente.add(lblNewLabel_8);
+		
+		JLabel lblNewLabel_12 = new JLabel("");
+		lblNewLabel_12.setIcon(new ImageIcon(Inicio.class.getResource("/Iconos/computer (1).png")));
+		lblNewLabel_12.setBounds(22, 0, 32, 48);
+		PanelRegComponente.add(lblNewLabel_12);
+		
+		JPanel panelRegEmpleado = new JPanel();
+		panelRegEmpleado.setBounds(0, 94, 289, 48);
+		panelADM1.add(panelRegEmpleado);
+		panelRegEmpleado.setBackground(new Color(0, 128, 128));
+		panelRegEmpleado.setLayout(null);
+		
+		JLabel lblNewLabel_13 = new JLabel("REGISTRAR EMPLEADO");
+		lblNewLabel_13.setForeground(Color.WHITE);
+		lblNewLabel_13.setFont(new Font("Dialog", Font.BOLD, 14));
+		lblNewLabel_13.setBounds(66, 13, 209, 22);
+		panelRegEmpleado.add(lblNewLabel_13);
+		
+		JLabel lblNewLabel_14 = new JLabel("");
+		lblNewLabel_14.setIcon(new ImageIcon(Inicio.class.getResource("/Iconos/officer.png")));
+		lblNewLabel_14.setBounds(22, 0, 32, 48);
+		panelRegEmpleado.add(lblNewLabel_14);
+		
+		panelListado = new JPanel();
+		panelListado.setBounds(391, 362, 289, 147);
+		panelfondo.add(panelListado);
+		panelListado.setVisible(false);
+		panelListado.setLayout(null);
+		
+		panelListCliente = new JPanel();
+		panelListCliente.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				panelListado.setVisible(false);
+				TablaCliente client = new TablaCliente();
+				client.setVisible(true);
+			}
+		});
+		panelListCliente.setBackground(new Color(0, 128, 128));
+		panelListCliente.setBounds(0, 0, 289, 48);
+		panelListado.add(panelListCliente);
+		panelListCliente.setLayout(null);
+		
+		lblNewLabel_3 = new JLabel("LISTA CLIENTES");
+		lblNewLabel_3.setFont(new Font("Dialog", Font.BOLD, 14));
+		lblNewLabel_3.setForeground(Color.WHITE);
+		lblNewLabel_3.setBounds(66, 13, 209, 22);
+		panelListCliente.add(lblNewLabel_3);
+		
+		JLabel lblNewLabel_6 = new JLabel("");
+		lblNewLabel_6.setIcon(new ImageIcon(Inicio.class.getResource("/Iconos/clientes1.png")));
+		lblNewLabel_6.setBounds(22, 0, 32, 48);
+		panelListCliente.add(lblNewLabel_6);
+		
+		panelListComponente = new JPanel();
+		panelListComponente.setBackground(new Color(0, 128, 128));
+		panelListComponente.setBounds(0, 49, 289, 48);
+		panelListado.add(panelListComponente);
+		panelListComponente.setLayout(null);
+		
+		JLabel lblNewLabel_15 = new JLabel("LISTA COMPONENTES");
+		lblNewLabel_15.setForeground(Color.WHITE);
+		lblNewLabel_15.setFont(new Font("Dialog", Font.BOLD, 14));
+		lblNewLabel_15.setBounds(66, 13, 209, 22);
+		panelListComponente.add(lblNewLabel_15);
+		
+		JLabel lblNewLabel_16 = new JLabel("");
+		lblNewLabel_16.setIcon(new ImageIcon(Inicio.class.getResource("/Iconos/computadoralista.png")));
+		lblNewLabel_16.setBounds(22, 0, 32, 48);
+		panelListComponente.add(lblNewLabel_16);
+		
+		panelListEmpleado = new JPanel();
+		panelListEmpleado.setBackground(new Color(0, 128, 128));
+		panelListEmpleado.setBounds(0, 99, 289, 48);
+		panelListado.add(panelListEmpleado);
+		panelListEmpleado.setLayout(null);
+		
+		JLabel lblNewLabel_17 = new JLabel("LISTA EMPLEADOS");
+		lblNewLabel_17.setFont(new Font("Dialog", Font.BOLD, 14));
+		lblNewLabel_17.setForeground(Color.WHITE);
+		lblNewLabel_17.setBounds(66, 13, 209, 22);
+		panelListEmpleado.add(lblNewLabel_17);
+		
+		JLabel lblNewLabel_18 = new JLabel("");
+		lblNewLabel_18.setIcon(new ImageIcon(Inicio.class.getResource("/Iconos/empleados1.png")));
+		lblNewLabel_18.setBounds(22, 0, 32, 48);
+		panelListEmpleado.add(lblNewLabel_18);
 		
 	}
 }

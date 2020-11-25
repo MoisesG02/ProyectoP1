@@ -14,4 +14,56 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>src/Iconos/InicioComputer.png</name>
+			<type>1</type>
+			<locationURI>PARENT-3-PROJECT_LOC/Desktop/IconosProyecto/InicioComputer.png</locationURI>
+		</link>
+		<link>
+			<name>src/Iconos/clientes1.png</name>
+			<type>1</type>
+			<locationURI>PARENT-3-PROJECT_LOC/Desktop/IconosProyecto/clientes1.png</locationURI>
+		</link>
+		<link>
+			<name>src/Iconos/clients.png</name>
+			<type>1</type>
+			<locationURI>PARENT-3-PROJECT_LOC/Desktop/IconosProyecto/clients.png</locationURI>
+		</link>
+		<link>
+			<name>src/Iconos/computadoralista.png</name>
+			<type>1</type>
+			<locationURI>PARENT-3-PROJECT_LOC/Desktop/IconosProyecto/computadoralista.png</locationURI>
+		</link>
+		<link>
+			<name>src/Iconos/computer (1).png</name>
+			<type>1</type>
+			<locationURI>PARENT-3-PROJECT_LOC/Desktop/computer%20(1).png</locationURI>
+		</link>
+		<link>
+			<name>src/Iconos/computer.png</name>
+			<type>1</type>
+			<locationURI>PARENT-3-PROJECT_LOC/Desktop/computer.png</locationURI>
+		</link>
+		<link>
+			<name>src/Iconos/customer-feedback (2).png</name>
+			<type>1</type>
+			<locationURI>PARENT-3-PROJECT_LOC/Desktop/IconosProyecto/customer-feedback%20(2).png</locationURI>
+		</link>
+		<link>
+			<name>src/Iconos/empleados1.png</name>
+			<type>1</type>
+			<locationURI>PARENT-3-PROJECT_LOC/Desktop/IconosProyecto/empleados1.png</locationURI>
+		</link>
+		<link>
+			<name>src/Iconos/officer.png</name>
+			<type>1</type>
+			<locationURI>PARENT-3-PROJECT_LOC/Desktop/officer.png</locationURI>
+		</link>
+		<link>
+			<name>src/Iconos/right-arrow.png</name>
+			<type>1</type>
+			<locationURI>PARENT-3-PROJECT_LOC/Desktop/IconosProyecto/right-arrow.png</locationURI>
+		</link>
+	</linkedResources>
 </projectDescription>
