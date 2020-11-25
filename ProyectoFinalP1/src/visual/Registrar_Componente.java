@@ -92,6 +92,8 @@ public class Registrar_Componente extends JDialog {
 	private JLabel lblTipoConexionTarjeta;
 	private JTextField txtConexionTarjeta;
 	private int index;
+	private JLabel lblTipoMemoriaRAM;
+	private JTextField txtTipoMemoriaRAM;
 
 
 
@@ -116,7 +118,7 @@ public class Registrar_Componente extends JDialog {
 			panel.add(lblPrecioDeVenta);
 		
 			textPrecioVenta = new JTextField();
-			textPrecioVenta.setEditable(false);
+			textPrecioVenta.setEditable(true);
 			textPrecioVenta.setBounds(388, 27, 115, 20);
 			panel.add(textPrecioVenta);
 			textPrecioVenta.setColumns(10);
@@ -190,118 +192,114 @@ public class Registrar_Componente extends JDialog {
 			spinnerCantidad.setFont(new Font("Tahoma", Font.PLAIN, 11));
 			spinnerCantidad.setModel(new SpinnerNumberModel(new Integer(1), new Integer(1), null, new Integer(1)));
 			spinnerCantidad.setBounds(116, 55, 71, 20);
-			panel.add(spinnerCantidad);
+			panel.add(spinnerCantidad);;;
 			
-			
-			panelGeneral = new JPanel();
-			panelGeneral.setBorder(new TitledBorder(null, "Datos del componente:", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-			panelGeneral.setBounds(9, 90, 519, 154);
-			panel.add(panelGeneral);
-			panelGeneral.setLayout(null);
-			
-		    lblNumSerie = new JLabel("Num. de serie:");
-			lblNumSerie.setBounds(12, 33, 91, 14);
-			panelGeneral.add(lblNumSerie);
-			lblNumSerie.setFont(new Font("Tahoma", Font.PLAIN, 11));
-			
-			txtNumSerie = new JTextField();
-			txtNumSerie.setEditable(false);
-			txtNumSerie.setBounds(87, 30, 172, 20);
-			panelGeneral.add(txtNumSerie);
-			txtNumSerie.setColumns(10);;
-			
+			   panelGeneral = new JPanel();
+			    panelGeneral.setBounds(9, 90, 519, 149);
+			    panel.add(panelGeneral);
+			    panelGeneral.setBorder(new TitledBorder(null, "Datos del componente:", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+			    panelGeneral.setLayout(null);
+			    
+			    lblNumSerie = new JLabel("Num. de serie:");
+			    lblNumSerie.setBounds(12, 33, 91, 14);
+			    panelGeneral.add(lblNumSerie);
+			    lblNumSerie.setFont(new Font("Tahoma", Font.PLAIN, 11));
+			    
+			    txtNumSerie = new JTextField();
+			    txtNumSerie.setEditable(false);
+			    txtNumSerie.setBounds(87, 30, 172, 20);
+			    panelGeneral.add(txtNumSerie);
+			    txtNumSerie.setColumns(10);
+			    
 
-		    lblMarca= new JLabel("Marca:");
-			lblMarca.setBounds(298, 33, 46, 14);
-			panelGeneral.add(lblMarca);
-			lblMarca.setFont(new Font("Tahoma", Font.PLAIN, 11));
-			
-			txtMarca = new JTextField();
-			txtMarca.setEditable(false);
-			txtMarca.setBounds(342, 30, 154, 20);
-			panelGeneral.add(txtMarca);
-			txtMarca.setColumns(10);
-			
-			lblModelo = new JLabel("Modelo:");
-			lblModelo.setFont(new Font("Tahoma", Font.PLAIN, 11));
-			lblModelo.setBounds(12, 71, 93, 16);
-			panelGeneral.add(lblModelo);
-			
-			txtModelo = new JTextField();
-			txtModelo.setEditable(false);
-			txtModelo.setBounds(86, 69, 142, 20);
-			panelGeneral.add(txtModelo);
-			txtModelo.setColumns(10);
-			
-			
-			
-			
-			panelDiscoDuro = new JPanel();
-			panelDiscoDuro.setLayout(null);
-			panelDiscoDuro.setBorder(new TitledBorder(null, "Datos del Disco Duro", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-			panelDiscoDuro.setBounds(9, 90, 519, 154);
-			panelDiscoDuro.setVisible(false);
-			panel.add(panelDiscoDuro);
-			
-		    lblNumSerieDisco = new JLabel("Num. de serie:");
-			lblNumSerieDisco.setBounds(12, 33, 91, 14);
-			panelDiscoDuro.add(lblNumSerieDisco);
-		    lblNumSerieDisco.setFont(new Font("Tahoma", Font.PLAIN, 11));
-			
-			txtNumSerieDisco = new JTextField();
-			txtNumSerieDisco.setEditable(false);
-			txtNumSerieDisco.setBounds(86, 30, 172, 20);
-			panelDiscoDuro.add(txtNumSerieDisco);
-			txtNumSerieDisco.setColumns(10);;
-			
-		    lblMarcaDisco= new JLabel("Marca:");
-			lblMarcaDisco.setBounds(298, 33, 46, 14);
-			panelDiscoDuro.add(lblMarcaDisco);
-			lblMarcaDisco.setFont(new Font("Tahoma", Font.PLAIN, 11));
-			
-			txtMarcaDisco = new JTextField();
-			txtMarcaDisco.setEditable(false);
-			txtMarcaDisco.setBounds(342, 30, 154, 20);
-			panelDiscoDuro.add(txtMarcaDisco);
-			txtMarcaDisco.setColumns(10);
-			
-		    lblModeloDisco = new JLabel("Modelo:");
-			lblModeloDisco.setFont(new Font("Tahoma", Font.PLAIN, 11));
-			lblModeloDisco.setBounds(12, 71, 93, 16);
-			panelDiscoDuro.add(lblModeloDisco);
-			
-			txtModeloDisco = new JTextField();
-			txtModeloDisco.setEditable(false);
-			txtModeloDisco.setBounds(86, 69, 142, 20);
-			panelDiscoDuro.add(txtModeloDisco);
-			txtModeloDisco.setColumns(10);
-			
-		    lblCapacidad = new JLabel("Capacidad:");
-			lblCapacidad .setFont(new Font("Tahoma", Font.PLAIN, 11));
-			lblCapacidad.setBounds(277, 72, 67, 14);
-			panelDiscoDuro.add(lblCapacidad);
-			
-			txtCapacidad = new JTextField();
-			txtCapacidad.setEditable(false);
-			txtCapacidad.setBounds(342, 69, 98, 20);
-			panelDiscoDuro.add(txtCapacidad);
-			txtCapacidad.setColumns(10);
-			
-		    lblTipoConexion= new JLabel("Conexi\u00F3n:");
-			lblCapacidad .setFont(new Font("Tahoma", Font.PLAIN, 11));
-			lblTipoConexion.setBounds(10, 108, 54, 14);
-			panelDiscoDuro.add(lblTipoConexion);
-			
-			txtConexion = new JTextField();
-			txtConexion.setEditable(false);
-			txtConexion.setBounds(87, 105, 86, 20);
-			panelDiscoDuro.add(txtConexion);
-			txtConexion.setColumns(10);
-			
-		
+			    lblMarca= new JLabel("Marca:");
+			    lblMarca.setBounds(298, 33, 46, 14);
+			    panelGeneral.add(lblMarca);
+			    lblMarca.setFont(new Font("Tahoma", Font.PLAIN, 11));
+			    
+			    txtMarca = new JTextField();
+			    txtMarca.setEditable(false);
+			    txtMarca.setBounds(342, 30, 154, 20);
+			    panelGeneral.add(txtMarca);
+			    ((JTextField) txtMarca).setColumns(10);
+			    
+			    lblModelo = new JLabel("Modelo:");
+			    lblModelo.setFont(new Font("Tahoma", Font.PLAIN, 11));
+			    lblModelo.setBounds(12, 71, 93, 16);
+			    panelGeneral.add(lblModelo);
+			    
+			    txtModelo = new JTextField();
+			    txtModelo.setEditable(false);
+			    txtModelo.setBounds(86, 69, 142, 20);
+			    panelGeneral.add(txtModelo);
+			    txtModelo.setColumns(10);
+			    
 			
 			
-			panelMemoriaRAM = new JPanel();
+			
+			    panelDiscoDuro = new JPanel();
+				panelDiscoDuro.setLayout(null);
+				panelDiscoDuro.setBorder(new TitledBorder(null, "Datos del Disco Duro", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+				panelDiscoDuro.setBounds(9, 90, 519, 154);
+				panelDiscoDuro.setVisible(false);
+				panel.add(panelDiscoDuro);
+			
+				lblNumSerieDisco = new JLabel("Num. de serie:");
+				lblNumSerieDisco.setBounds(12, 33, 91, 14);
+				panelDiscoDuro.add(lblNumSerieDisco);
+			    lblNumSerieDisco.setFont(new Font("Tahoma", Font.PLAIN, 11));
+				
+				txtNumSerieDisco = new JTextField();
+				txtNumSerieDisco.setEditable(true);
+				txtNumSerieDisco.setBounds(86, 30, 172, 20);
+				panelDiscoDuro.add(txtNumSerieDisco);
+				txtNumSerieDisco.setColumns(10);;
+				
+			    lblMarcaDisco= new JLabel("Marca:");
+				lblMarcaDisco.setBounds(298, 33, 46, 14);
+				panelDiscoDuro.add(lblMarcaDisco);
+				lblMarcaDisco.setFont(new Font("Tahoma", Font.PLAIN, 11));
+				
+				txtMarcaDisco = new JTextField();
+				txtMarcaDisco.setEditable(true);
+				txtMarcaDisco.setBounds(342, 30, 154, 20);
+				panelDiscoDuro.add(txtMarcaDisco);
+				txtMarcaDisco.setColumns(10);
+				
+			    lblModeloDisco = new JLabel("Modelo:");
+				lblModeloDisco.setFont(new Font("Tahoma", Font.PLAIN, 11));
+				lblModeloDisco.setBounds(12, 71, 93, 16);
+				panelDiscoDuro.add(lblModeloDisco);
+				
+				txtModeloDisco = new JTextField();
+				txtModeloDisco.setEditable(true);
+				txtModeloDisco.setBounds(86, 69, 142, 20);
+				panelDiscoDuro.add(txtModeloDisco);
+				txtModeloDisco.setColumns(10);
+				
+			    lblCapacidad = new JLabel("Capacidad:");
+				lblCapacidad .setFont(new Font("Tahoma", Font.PLAIN, 11));
+				lblCapacidad.setBounds(277, 72, 67, 14);
+				panelDiscoDuro.add(lblCapacidad);
+				
+				txtCapacidad = new JTextField();
+				txtCapacidad.setEditable(true);
+				txtCapacidad.setBounds(342, 69, 98, 20);
+				panelDiscoDuro.add(txtCapacidad);
+				txtCapacidad.setColumns(10);
+				
+			    lblTipoConexion= new JLabel("Conexi\u00F3n:");
+				lblCapacidad .setFont(new Font("Tahoma", Font.PLAIN, 11));
+				lblTipoConexion.setBounds(10, 108, 54, 14);
+				panelDiscoDuro.add(lblTipoConexion);
+				
+				txtConexion = new JTextField();
+				txtConexion.setEditable(true);
+				txtConexion.setBounds(87, 105, 86, 20);
+				panelDiscoDuro.add(txtConexion);
+				txtConexion.setColumns(10);
+		    
+		    panelMemoriaRAM = new JPanel();
 			panelMemoriaRAM.setLayout(null);
 			panelMemoriaRAM.setBorder(new TitledBorder(null, "Datos de la Memoria RAM", TitledBorder.LEADING, TitledBorder.TOP, null, null));
 			panelMemoriaRAM.setBounds(9, 90, 519, 154);
@@ -313,10 +311,11 @@ public class Registrar_Componente extends JDialog {
 			panelMemoriaRAM.add(lblNumSerieRAM);
 			lblNumSerieRAM.setFont(new Font("Tahoma", Font.PLAIN, 11));
 				
-			txtNumSerieRAM.setEditable(false);
+			txtNumSerieRAM = new JTextField();
+			txtNumSerieRAM.setEditable(true);
 			txtNumSerieRAM.setBounds(86, 30, 172, 20);
 			panelMemoriaRAM.add(txtNumSerieRAM);
-			txtNumSerieRAM.setColumns(10);;
+			txtNumSerieRAM.setColumns(10);
 		
 			lblMarcaRAM= new JLabel("Marca:");
 			lblMarcaRAM.setBounds(298, 33, 46, 14);
@@ -324,7 +323,7 @@ public class Registrar_Componente extends JDialog {
 			lblMarcaRAM.setFont(new Font("Tahoma", Font.PLAIN, 11));
 			
 			txtMarcaRAM = new JTextField();
-			txtMarcaRAM.setEditable(false);
+			txtMarcaRAM.setEditable(true);
 			txtMarcaRAM.setBounds(342, 30, 154, 20);
 			panelMemoriaRAM.add(txtMarcaRAM);
 			((JTextField) txtMarcaRAM).setColumns(10);
@@ -336,7 +335,7 @@ public class Registrar_Componente extends JDialog {
 			panelMemoriaRAM.add(lblModeloRAM);
 	
 			txtModeloRAM = new JTextField();
-			txtModeloRAM.setEditable(false);
+			txtModeloRAM.setEditable(true);
 			txtModeloRAM.setBounds(86, 69, 142, 20);
 			panelMemoriaRAM.add(txtModeloRAM);
 			txtModeloRAM.setColumns(10);
@@ -347,22 +346,26 @@ public class Registrar_Componente extends JDialog {
 			panelMemoriaRAM.add(lblCapacidadRAM);
 				
 			txtCapacidadRAM = new JTextField();
-			txtCapacidadRAM.setEditable(false);
+			txtCapacidadRAM.setEditable(true);
 			txtCapacidadRAM.setBounds(342, 69, 98, 20);
 			panelMemoriaRAM.add(txtCapacidadRAM);
 			txtCapacidadRAM.setColumns(10);
 		
 			
-		    lblTipoRAM= new JLabel("Tipo de memoria:");
-			lblTipoRAM.setFont(new Font("Tahoma", Font.PLAIN, 11));
-			lblTipoRAM.setBounds(10, 108, 54, 14);
-			panelMemoriaRAM.add(lblTipoRAM);
+		    lblTipoMemoriaRAM= new JLabel("Tipo:");
+			lblTipoMemoriaRAM.setFont(new Font("Tahoma", Font.PLAIN, 11));
+			lblTipoMemoriaRAM.setBounds(10, 108, 54, 14);
+			panelMemoriaRAM.add(lblTipoMemoriaRAM);
 			
-			txtTipoRAM = new JTextField();
-			txtTipoRAM.setEditable(false);
-			txtTipoRAM.setBounds(87, 105, 86, 20);
-			panelMemoriaRAM.add(txtTipoRAM);
-			txtTipoRAM.setColumns(10);
+			txtTipoMemoriaRAM = new JTextField();
+			txtTipoMemoriaRAM.setEditable(true);
+			txtTipoMemoriaRAM.setBounds(87, 105, 86, 20);
+			panelMemoriaRAM.add(txtTipoMemoriaRAM);
+			txtTipoMemoriaRAM.setColumns(10);
+		    
+		    
+		 
+	
 		
 		
 			panelMicro = new JPanel();
@@ -379,7 +382,7 @@ public class Registrar_Componente extends JDialog {
 				
 		   
 			txtNumSerieMicro = new JTextField();
-			txtNumSerieMicro.setEditable(false);
+			txtNumSerieMicro.setEditable(true);
 			txtNumSerieMicro.setBounds(86, 30, 172, 20);
 			panelMicro.add(txtNumSerieMicro);
 			txtNumSerieMicro.setColumns(10);;
@@ -390,7 +393,7 @@ public class Registrar_Componente extends JDialog {
 			lblMarcaMicro.setFont(new Font("Tahoma", Font.PLAIN, 11));
 				
 			txtMarcaMicro = new JTextField();
-			txtMarcaMicro.setEditable(false);
+			txtMarcaMicro.setEditable(true);
 			txtMarcaMicro.setBounds(342, 30, 154, 20);
 			panelMicro.add(txtMarcaMicro);
 			txtMarcaMicro.setColumns(10);;
@@ -401,7 +404,7 @@ public class Registrar_Componente extends JDialog {
 		    panelMicro.add(lblModeloMicro);
 				
 			txtModeloMicro = new JTextField();
-			txtModeloMicro.setEditable(false);
+			txtModeloMicro.setEditable(true);
 			txtModeloMicro.setBounds(86, 69, 142, 20);
 			panelMicro.add(txtModeloMicro);
 			txtModeloMicro.setColumns(10);
@@ -412,7 +415,7 @@ public class Registrar_Componente extends JDialog {
 		    panelMicro.add(lblVelocidadMicro);
 				
 		    txtVelocidadMicro = new JTextField();
-		    txtVelocidadMicro.setEditable(false);
+		    txtVelocidadMicro.setEditable(true);
 	        txtVelocidadMicro.setBounds(342, 69, 98, 20);
 		    panelMicro.add(txtVelocidadMicro);
 		    ((JTextField) txtVelocidadMicro).setColumns(10);
@@ -423,7 +426,7 @@ public class Registrar_Componente extends JDialog {
 		    panelMicro.add(lblTipoConexionMicro);
 					
 					txtConexionMicro = new JTextField();
-					txtConexionMicro.setEditable(false);
+					txtConexionMicro.setEditable(true);
 					txtConexionMicro.setBounds(87, 105, 86, 20);
 					panelMicro.add(txtConexionMicro);
 					txtConexionMicro.setColumns(10);
@@ -443,10 +446,9 @@ public class Registrar_Componente extends JDialog {
 				    lblNumSerieTarjeta.setFont(new Font("Tahoma", Font.PLAIN, 11));
 					
 					txtNumSerieTarjeta= new JTextField();
-					txtNumSerieTarjeta.setEditable(false);
+					txtNumSerieTarjeta.setEditable(true);
 					txtNumSerieTarjeta.setBounds(86, 30, 172, 20);
-					panelTarjeta.add(txtNumSerieTarjeta);
-					txtNumSerieDisco.setColumns(10);;
+					panelTarjeta.add(txtNumSerieTarjeta);;
 					
 				    lblMarcaTarjeta= new JLabel("Marca:");
 					lblMarcaTarjeta.setBounds(298, 33, 46, 14);
@@ -454,7 +456,7 @@ public class Registrar_Componente extends JDialog {
 					lblMarcaTarjeta.setFont(new Font("Tahoma", Font.PLAIN, 11));
 					
 					txtMarcaTarjeta = new JTextField();
-					txtMarcaTarjeta.setEditable(false);
+					txtMarcaTarjeta.setEditable(true);
 					txtMarcaTarjeta.setBounds(342, 30, 154, 20);
 					panelTarjeta.add(txtMarcaTarjeta);
 					txtMarcaTarjeta.setColumns(10);
@@ -465,7 +467,7 @@ public class Registrar_Componente extends JDialog {
 					panelTarjeta.add(lblModeloTarjeta);
 					
 					txtModeloTarjeta = new JTextField();
-					txtModeloTarjeta.setEditable(false);
+					txtModeloTarjeta.setEditable(true);
 					txtModeloTarjeta.setBounds(86, 69, 142, 20);
 					panelTarjeta.add(txtModeloTarjeta);
 					txtModeloTarjeta.setColumns(10);
@@ -476,7 +478,7 @@ public class Registrar_Componente extends JDialog {
 					panelTarjeta.add(lblTipoRAM);
 					
 					txtTipoRAM = new JTextField();
-					txtTipoRAM.setEditable(false);
+					txtTipoRAM.setEditable(true);
 					txtTipoRAM.setBounds(342, 69, 98, 20);
 					panelTarjeta.add(txtTipoRAM);
 					txtTipoRAM.setColumns(10);
@@ -487,7 +489,7 @@ public class Registrar_Componente extends JDialog {
 					panelTarjeta.add(lblTipoConexionTarjeta);
 					
 					txtConexionTarjeta = new JTextField();
-					txtConexionTarjeta.setEditable(false);
+					txtConexionTarjeta.setEditable(true);
 					txtConexionTarjeta.setBounds(87, 105, 86, 20);
 					panelTarjeta.add(txtConexionTarjeta);
 					txtConexionTarjeta.setColumns(10);
@@ -648,5 +650,6 @@ public class Registrar_Componente extends JDialog {
 					}
 				}
 	}
+
 
 
