@@ -111,14 +111,15 @@ public class Registrar_Cliente extends JDialog {
 			}
 			{
 				JLabel lblNewLabel = new JLabel("");
-				lblNewLabel.setIcon(new ImageIcon(Registrar_Cliente.class.getResource("/Iconos/customer-feedback (2).png")));
+				lblNewLabel.setIcon(new ImageIcon(Registrar_Cliente.class.getResource("/Iconos/customer-feedback2.png")));
 				lblNewLabel.setBounds(326, 33, 119, 108);
 				panel.add(lblNewLabel);
 			}
 			
 			MaskFormatter format = new MaskFormatter();
 			try {
-				format = new MaskFormatter("###-##-#");
+				format = new MaskFormatter("###-#######-#");
+
 			} catch (ParseException e) {
 				
 				e.printStackTrace();

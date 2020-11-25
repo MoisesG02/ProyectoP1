@@ -96,7 +96,7 @@ public class Inicio extends JFrame {
 		panelINICIO.add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("");
-		lblNewLabel_2.setIcon(new ImageIcon(Inicio.class.getResource("/Iconos/house (1).png")));
+		lblNewLabel_2.setIcon(new ImageIcon(Inicio.class.getResource("/Iconos/house1.png")));
 		lblNewLabel_2.setBounds(50, 0, 37, 40);
 		panelINICIO.add(lblNewLabel_2);
 		
@@ -208,7 +208,7 @@ public class Inicio extends JFrame {
 		paneGRAFICOS.add(lblGrficos_1);
 		
 		JLabel label_3 = new JLabel("");
-		label_3.setIcon(new ImageIcon(Inicio.class.getResource("/Iconos/graph-bar (1).png")));
+		label_3.setIcon(new ImageIcon(Inicio.class.getResource("/Iconos/graphic.png")));
 		label_3.setBounds(50, 0, 37, 40);
 		paneGRAFICOS.add(label_3);
 		
@@ -302,7 +302,7 @@ public class Inicio extends JFrame {
 		PanelRegCliente.add(lblNewLabel_4);
 		
 		JLabel lblNewLabel_11 = new JLabel("");
-		lblNewLabel_11.setIcon(new ImageIcon(Inicio.class.getResource("/Iconos/bussiness-man (1).png")));
+		lblNewLabel_11.setIcon(new ImageIcon(Inicio.class.getResource("/Iconos/bussiness-man.png")));
 		lblNewLabel_11.setBounds(22, 0, 32, 48);
 		PanelRegCliente.add(lblNewLabel_11);
 		
@@ -326,7 +326,7 @@ public class Inicio extends JFrame {
 		PanelRegComponente.add(lblNewLabel_8);
 		
 		JLabel lblNewLabel_12 = new JLabel("");
-		lblNewLabel_12.setIcon(new ImageIcon(Inicio.class.getResource("/Iconos/computer (1).png")));
+		lblNewLabel_12.setIcon(new ImageIcon(Inicio.class.getResource("/Iconos/computer.png")));
 		lblNewLabel_12.setBounds(22, 0, 32, 48);
 		PanelRegComponente.add(lblNewLabel_12);
 		

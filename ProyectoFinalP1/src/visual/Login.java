@@ -135,7 +135,7 @@ public class Login extends JFrame {
 		panel_1.add(txtPassword);
 		
 		JLabel lblNewLabel_3 = new JLabel("");
-		lblNewLabel_3.setIcon(new ImageIcon(Login.class.getResource("/Iconos/preferences-desktop-user-password-icon (2).png")));
+		lblNewLabel_3.setIcon(new ImageIcon(Login.class.getResource("/Iconos/preferences-desktop-user-password-icon2.png")));
 		lblNewLabel_3.setBounds(209, 0, 41, 40);
 		panel_1.add(lblNewLabel_3);
 		
@@ -170,7 +170,7 @@ public class Login extends JFrame {
 		panelbtnlogin.add(lblNewLabel);
 		
 		JLabel lblNewLabel_4 = new JLabel("");
-		lblNewLabel_4.setIcon(new ImageIcon(Login.class.getResource("/Iconos/key-icon (2).png")));
+		lblNewLabel_4.setIcon(new ImageIcon(Login.class.getResource("/Iconos/key2.png")));
 		lblNewLabel_4.setBounds(56, 0, 44, 40);
 		panelbtnlogin.add(lblNewLabel_4);
 		
