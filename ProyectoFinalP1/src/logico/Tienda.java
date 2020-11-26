@@ -187,6 +187,19 @@ public class Tienda {
 		
 		return encontrado;
 	}
+	public boolean buscarEmpleado(String cedula) {
+		boolean encontrado = false;
+		int c = 0;
+		
+		while(c<misEmpleados.size()) {
+			if(misEmpleados.get(c).getId().equalsIgnoreCase(cedula)) {
+				encontrado = true;
+			}
+			c++;
+		}
+		
+		return encontrado;
+	}
 
 	public static Tienda getTiendita() {
 		return tiendita;

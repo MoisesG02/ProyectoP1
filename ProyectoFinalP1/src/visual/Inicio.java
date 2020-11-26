@@ -338,6 +338,14 @@ public class Inicio extends JFrame {
 		PanelRegComponente.add(lblNewLabel_12);
 		
 		JPanel panelRegEmpleado = new JPanel();
+		panelRegEmpleado.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				RegistrarEmpleados regE = new RegistrarEmpleados();
+				regE.setVisible(true);
+				
+			}
+		});
 		panelRegEmpleado.setBounds(0, 94, 289, 48);
 		panelADM1.add(panelRegEmpleado);
 		panelRegEmpleado.setBackground(new Color(0, 128, 128));
