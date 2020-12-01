@@ -89,6 +89,9 @@ public class Tienda {
 		misClientes.add(client);
 		System.out.println(misClientes);
 	}
+	public void insertarEmpleado(Empleado employee) {
+		misEmpleados.add(employee);
+	}
 	
 	public int BuscarCliente(String ced) {
 		int index = -1;
@@ -199,6 +202,16 @@ public class Tienda {
 		}
 		
 		return encontrado;
+	}
+	public Cliente buscarCliente(String cedula) {
+		boolean encontrado = false;
+		Cliente client = null;
+		for (Cliente cliente : misClientes) {
+			if(cliente.getCedula().equalsIgnoreCase(cedula)) {
+			   cliente = client;	
+			}
+		}
+		return client;
 	}
 
 	public static Tienda getTiendita() {

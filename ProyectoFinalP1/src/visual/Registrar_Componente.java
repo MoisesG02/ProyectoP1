@@ -1,656 +1,264 @@
 package visual;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JSpinner;
-import javax.swing.SpinnerNumberModel;
-import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
+import java.awt.Color;
+import javax.swing.JLabel;
 import javax.swing.border.TitledBorder;
-import javax.swing.text.JTextComponent;
-
-
-import logico.Componente;
-import logico.DiscoDuro;
-import logico.MemoriaRam;
-import logico.Microprocesador;
-import logico.TarjetaMadre;
-import logico.Tienda;
-import javax.swing.JComboBox;
-import javax.swing.JComponent;
+import javax.swing.border.MatteBorder;
 import javax.swing.JTextField;
+import javax.swing.JSeparator;
+import javax.swing.JSpinner;
+import javax.swing.JRadioButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.SpinnerNumberModel;
+import java.awt.Rectangle;
 
 public class Registrar_Componente extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
-	private JTextField txtNumSerie;
-	private JTextField txtMarca;
 	private JTextField txtModelo;
-	private JTextField textPrecioVenta;
-	private JTextField txtNumSerie1;
-	private JTextField txtNumSerieDisco;
-	private JTextField txtMarcaDisco;
-	private JTextField txtModeloDisco;
-	private JTextField textField;
-	private JTextField txtCapacidad;
-	private JTextField textField_1;
-	private JTextField txtConexion;
-	private JTextField txtNumSerieRAM;
-	private JTextComponent txtMarcaRAM;
-	private JTextField txtModeloRAM;
-	private JTextField txtCapacidadRAM;
-	private JTextField txtTipoRAM;
-	private JPanel panelMemoriaRAM;
-	private JPanel panelDiscoDuro;
-	private JComboBox cbxTipoComponente;
-	private JComponent lblTipoDeComponente;
-	private JComponent lblCantidad;
-	private JSpinner spinnerCantidad;
-	private JPanel panelGeneral;
-	private JLabel lblNumSerie;
-	private JLabel lblMarca;
-	private JComponent lblModelo;
-	private JLabel lblNumSerieDisco;
-	private JLabel lblMarcaDisco;
-	private JComponent lblModeloDisco;
-	private JLabel lblCapacidad;
+	private JTextField txtMarca;
+	private JTextField txtNumSerie;
+	private JRadioButton rdbtnTarjetaMadre;
+	private JRadioButton rdbtnDiscoDuro;
+	private JRadioButton rdbtnMemoriaRam;
+	private JTextField txtTipoConector;
+	private JTextField txtVelocidadProcesador;
 	private JLabel lblTipoConexion;
-	private JLabel lblNumSerieRAM;
-	private JLabel lblMarcaRAM;
-	private JLabel lblModeloRAM;
-	private JLabel lblCapacidadRAM;
+	private JTextField txtTipoConexion;
 	private JLabel lblTipoRAM;
-	private JPanel panelMicro;
-	private JLabel lblNumSerieMicro;
-	private JTextField txtNumSerieMicro;
-	private JLabel lblMarcaMicro;
-	private JTextField txtMarcaMicro;
-	private JLabel lblModeloMicro;
-	private JTextField txtModeloMicro;
-	private JComponent lblVelocidadMicro;
-	private JTextComponent txtVelocidadMicro;
-	private JLabel lblTipoConexionMicro;
-	private JTextField txtConexionMicro;
-	private JPanel panelTarjeta;
-	private JLabel lblNumSerieTarjeta;
-	private JTextField txtNumSerieTarjeta;
-	private JLabel lblMarcaTarjeta;
-	private JTextField txtMarcaTarjeta;
-	private JLabel lblModeloTarjeta;
-	private JTextField txtModeloTarjeta;
-	private JLabel lblTipoConexionTarjeta;
-	private JTextField txtConexionTarjeta;
-	private int index;
-	private JLabel lblTipoMemoriaRAM;
-	private JTextField txtTipoMemoriaRAM;
+	private JTextField txtTipoRAM;
 
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		try {
+			Registrar_Componente dialog = new Registrar_Componente();
+			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+			dialog.setVisible(true);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
-
+	/**
+	 * Create the dialog.
+	 */
 	public Registrar_Componente() {
 		setTitle("Registrar Componente");
-		setBounds(100, 100, 566, 336);
-		setLocationRelativeTo(null);
+		setBounds(100, 100, 606, 475);
 		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setBackground(new Color(0, 128, 128));
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(new BorderLayout(0, 0));
 		{
-			JPanel panel = new JPanel();
-			panel.setBorder(new TitledBorder(null, "Registro de Componente:", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-			contentPanel.add(panel, BorderLayout.CENTER);
-			panel.setLayout(null);
+			JPanel panel_fondo = new JPanel();
+			panel_fondo.setBackground(new Color(176, 224, 230));
+			contentPanel.add(panel_fondo, BorderLayout.CENTER);
+			panel_fondo.setLayout(null);
+			{
+				JPanel panel_DatosGen = new JPanel();
+				panel_DatosGen.setBackground(new Color(176, 224, 230));
+				panel_DatosGen.setBorder(new TitledBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)), "Datos Generales", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
+				panel_DatosGen.setBounds(12, 13, 270, 178);
+				panel_fondo.add(panel_DatosGen);
+				panel_DatosGen.setLayout(null);
+				{
+					JLabel label = new JLabel("New label");
+					label.setBounds(108, 111, -366, -60);
+					panel_DatosGen.add(label);
+				}
+				{
+					JLabel lblNewLabel = new JLabel("N\u00B0 Serie:");
+					lblNewLabel.setBounds(12, 37, 70, 16);
+					panel_DatosGen.add(lblNewLabel);
+				}
+				{
+					JLabel lblNewLabel_1 = new JLabel("Marca:");
+					lblNewLabel_1.setBounds(12, 82, 70, 16);
+					panel_DatosGen.add(lblNewLabel_1);
+				}
+				{
+					JLabel lblNewLabel_2 = new JLabel("Modelo:");
+					lblNewLabel_2.setBounds(12, 129, 70, 16);
+					panel_DatosGen.add(lblNewLabel_2);
+				}
+				{
+					txtModelo = new JTextField();
+					txtModelo.setBounds(94, 126, 148, 22);
+					panel_DatosGen.add(txtModelo);
+					txtModelo.setColumns(10);
+				}
+				{
+					txtMarca = new JTextField();
+					txtMarca.setBounds(94, 79, 148, 22);
+					panel_DatosGen.add(txtMarca);
+					txtMarca.setColumns(10);
+				}
+				{
+					txtNumSerie = new JTextField();
+					txtNumSerie.setBounds(94, 34, 148, 22);
+					panel_DatosGen.add(txtNumSerie);
+					txtNumSerie.setColumns(10);
+				}
+			}
+			{
+				JPanel panel = new JPanel();
+				panel.setBackground(new Color(176, 224, 230));
+				panel.setBorder(new TitledBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)), "Precio y Cantidad", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
+				panel.setBounds(294, 13, 270, 178);
+				panel_fondo.add(panel);
+				panel.setLayout(null);
+				{
+					JLabel lblNewLabel_3 = new JLabel("Cantidad Disponible:");
+					lblNewLabel_3.setBounds(12, 54, 124, 16);
+					panel.add(lblNewLabel_3);
+				}
+				{
+					JLabel lblNewLabel_4 = new JLabel("Precio");
+					lblNewLabel_4.setBounds(12, 122, 124, 16);
+					panel.add(lblNewLabel_4);
+				}
+				
+				JSpinner spnCantDisponible = new JSpinner();
+				spnCantDisponible.setBounds(161, 51, 97, 22);
+				panel.add(spnCantDisponible);
+				
+				JSpinner spnPrecio = new JSpinner();
+				spnPrecio.setBounds(161, 119, 97, 22);
+				panel.add(spnPrecio);
+			}
 			
-			JLabel lblPrecioDeVenta = new JLabel("Precio de venta:");
-			lblPrecioDeVenta.setFont(new Font("Tahoma", Font.PLAIN, 11));
-			lblPrecioDeVenta.setBounds(305, 30, 86, 14);
-			panel.add(lblPrecioDeVenta);
-		
-			textPrecioVenta = new JTextField();
-			textPrecioVenta.setEditable(true);
-			textPrecioVenta.setBounds(388, 27, 115, 20);
-			panel.add(textPrecioVenta);
-			textPrecioVenta.setColumns(10);
+			JSeparator separator = new JSeparator();
+			separator.setBounds(0, 204, 578, 9);
+			panel_fondo.add(separator);
 			
-		
-		    lblTipoDeComponente = new JLabel("Tipo de componente:");
-			lblTipoDeComponente .setFont(new Font("Tahoma", Font.PLAIN, 11));
-			lblTipoDeComponente .setBounds(9, 30, 107, 14);
-			panel.add(lblTipoDeComponente );
+			JSeparator separator_1 = new JSeparator();
+			separator_1.setBounds(0, 292, 578, 9);
+			panel_fondo.add(separator_1);
 			
-			cbxTipoComponente = new JComboBox();
-			cbxTipoComponente.addActionListener(new ActionListener() {
-
+			JPanel panel_Componentes = new JPanel();
+			panel_Componentes.setBorder(new TitledBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)), "Componentes", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
+			panel_Componentes.setBackground(new Color(176, 224, 230));
+			panel_Componentes.setBounds(0, 204, 578, 91);
+			panel_fondo.add(panel_Componentes);
+			panel_Componentes.setLayout(null);
+			
+			JRadioButton rdbtnMicroprocesador = new JRadioButton("Microprocesador");
+			rdbtnMicroprocesador.setSelected(true);
+			rdbtnMicroprocesador.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					 index = cbxTipoComponente.getSelectedIndex();
-					
-					if(index == 1) {
-						panelDiscoDuro.setVisible(true);
-						panelGeneral.setVisible(false);
-						panelMemoriaRAM.setVisible(false);
-						panelMicro.setVisible(false);
-						panelTarjeta.setVisible(false);
-					}
-					else if(index == 2) {
-						panelDiscoDuro.setVisible(false);
-						panelGeneral.setVisible(false);
-						panelMemoriaRAM.setVisible(true);
-						panelMicro.setVisible(false);
-						panelTarjeta.setVisible(false);
-					}
-					else if(index == 3) {
-						panelDiscoDuro.setVisible(false);
-						panelGeneral.setVisible(false);
-						panelMemoriaRAM.setVisible(false);
-						panelMicro.setVisible(true);
-						panelTarjeta.setVisible(false);
-					}
-					
-					else if(index == 4) {
-						panelDiscoDuro.setVisible(false);
-						panelGeneral.setVisible(false);
-						panelMemoriaRAM.setVisible(false);
-						panelMicro.setVisible(false);
-						panelTarjeta.setVisible(true);
-						
-					}
-					
-					else {
-						panelDiscoDuro.setVisible(false);
-						panelMemoriaRAM.setVisible(false);
-						panelMicro.setVisible(false);
-						panelTarjeta.setVisible(false);
-						panelGeneral.setVisible(true);
-					}
+				rdbtnMicroprocesador.setSelected(true);
+				rdbtnTarjetaMadre.setSelected(false);
+				rdbtnDiscoDuro.setSelected(false);
+				rdbtnMemoriaRam.setSelected(false);
+			
+		
 				}
 			});
+			rdbtnMicroprocesador.setBackground(new Color(176, 224, 230));
+			rdbtnMicroprocesador.setBounds(14, 28, 127, 25);
+			panel_Componentes.add(rdbtnMicroprocesador);
 			
-			
-		    cbxTipoComponente.setFont(new Font("Tahoma", Font.PLAIN, 11));
-			cbxTipoComponente.setModel(new DefaultComboBoxModel(new String[] {"Seleccionar...", "Disco Duro", "Memoria RAM", "Microprocesador", "Tarjeta Madre"}));
-			cbxTipoComponente.setBounds(116, 27, 149, 20);
-			panel.add(cbxTipoComponente);
-			
-		    lblCantidad = new JLabel("Cantidad:");
-			lblCantidad.setFont(new Font("Dialog", Font.PLAIN, 11));
-			lblCantidad.setBounds(10, 55, 55, 16);
-			panel.add(lblCantidad);
-		
-			
-		    spinnerCantidad = new JSpinner();
-			spinnerCantidad.setFont(new Font("Tahoma", Font.PLAIN, 11));
-			spinnerCantidad.setModel(new SpinnerNumberModel(new Integer(1), new Integer(1), null, new Integer(1)));
-			spinnerCantidad.setBounds(116, 55, 71, 20);
-			panel.add(spinnerCantidad);;;
-			
-			   panelGeneral = new JPanel();
-			    panelGeneral.setBounds(9, 90, 519, 149);
-			    panel.add(panelGeneral);
-			    panelGeneral.setBorder(new TitledBorder(null, "Datos del componente:", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-			    panelGeneral.setLayout(null);
-			    
-			    lblNumSerie = new JLabel("Num. de serie:");
-			    lblNumSerie.setBounds(12, 33, 91, 14);
-			    panelGeneral.add(lblNumSerie);
-			    lblNumSerie.setFont(new Font("Tahoma", Font.PLAIN, 11));
-			    
-			    txtNumSerie = new JTextField();
-			    txtNumSerie.setEditable(false);
-			    txtNumSerie.setBounds(87, 30, 172, 20);
-			    panelGeneral.add(txtNumSerie);
-			    txtNumSerie.setColumns(10);
-			    
-
-			    lblMarca= new JLabel("Marca:");
-			    lblMarca.setBounds(298, 33, 46, 14);
-			    panelGeneral.add(lblMarca);
-			    lblMarca.setFont(new Font("Tahoma", Font.PLAIN, 11));
-			    
-			    txtMarca = new JTextField();
-			    txtMarca.setEditable(false);
-			    txtMarca.setBounds(342, 30, 154, 20);
-			    panelGeneral.add(txtMarca);
-			    ((JTextField) txtMarca).setColumns(10);
-			    
-			    lblModelo = new JLabel("Modelo:");
-			    lblModelo.setFont(new Font("Tahoma", Font.PLAIN, 11));
-			    lblModelo.setBounds(12, 71, 93, 16);
-			    panelGeneral.add(lblModelo);
-			    
-			    txtModelo = new JTextField();
-			    txtModelo.setEditable(false);
-			    txtModelo.setBounds(86, 69, 142, 20);
-			    panelGeneral.add(txtModelo);
-			    txtModelo.setColumns(10);
-			    
-			
-			
-			
-			    panelDiscoDuro = new JPanel();
-				panelDiscoDuro.setLayout(null);
-				panelDiscoDuro.setBorder(new TitledBorder(null, "Datos del Disco Duro", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-				panelDiscoDuro.setBounds(9, 90, 519, 154);
-				panelDiscoDuro.setVisible(false);
-				panel.add(panelDiscoDuro);
-			
-				lblNumSerieDisco = new JLabel("Num. de serie:");
-				lblNumSerieDisco.setBounds(12, 33, 91, 14);
-				panelDiscoDuro.add(lblNumSerieDisco);
-			    lblNumSerieDisco.setFont(new Font("Tahoma", Font.PLAIN, 11));
-				
-				txtNumSerieDisco = new JTextField();
-				txtNumSerieDisco.setEditable(true);
-				txtNumSerieDisco.setBounds(86, 30, 172, 20);
-				panelDiscoDuro.add(txtNumSerieDisco);
-				txtNumSerieDisco.setColumns(10);;
-				
-			    lblMarcaDisco= new JLabel("Marca:");
-				lblMarcaDisco.setBounds(298, 33, 46, 14);
-				panelDiscoDuro.add(lblMarcaDisco);
-				lblMarcaDisco.setFont(new Font("Tahoma", Font.PLAIN, 11));
-				
-				txtMarcaDisco = new JTextField();
-				txtMarcaDisco.setEditable(true);
-				txtMarcaDisco.setBounds(342, 30, 154, 20);
-				panelDiscoDuro.add(txtMarcaDisco);
-				txtMarcaDisco.setColumns(10);
-				
-			    lblModeloDisco = new JLabel("Modelo:");
-				lblModeloDisco.setFont(new Font("Tahoma", Font.PLAIN, 11));
-				lblModeloDisco.setBounds(12, 71, 93, 16);
-				panelDiscoDuro.add(lblModeloDisco);
-				
-				txtModeloDisco = new JTextField();
-				txtModeloDisco.setEditable(true);
-				txtModeloDisco.setBounds(86, 69, 142, 20);
-				panelDiscoDuro.add(txtModeloDisco);
-				txtModeloDisco.setColumns(10);
-				
-			    lblCapacidad = new JLabel("Capacidad:");
-				lblCapacidad .setFont(new Font("Tahoma", Font.PLAIN, 11));
-				lblCapacidad.setBounds(277, 72, 67, 14);
-				panelDiscoDuro.add(lblCapacidad);
-				
-				txtCapacidad = new JTextField();
-				txtCapacidad.setEditable(true);
-				txtCapacidad.setBounds(342, 69, 98, 20);
-				panelDiscoDuro.add(txtCapacidad);
-				txtCapacidad.setColumns(10);
-				
-			    lblTipoConexion= new JLabel("Conexi\u00F3n:");
-				lblCapacidad .setFont(new Font("Tahoma", Font.PLAIN, 11));
-				lblTipoConexion.setBounds(10, 108, 54, 14);
-				panelDiscoDuro.add(lblTipoConexion);
-				
-				txtConexion = new JTextField();
-				txtConexion.setEditable(true);
-				txtConexion.setBounds(87, 105, 86, 20);
-				panelDiscoDuro.add(txtConexion);
-				txtConexion.setColumns(10);
-		    
-		    panelMemoriaRAM = new JPanel();
-			panelMemoriaRAM.setLayout(null);
-			panelMemoriaRAM.setBorder(new TitledBorder(null, "Datos de la Memoria RAM", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-			panelMemoriaRAM.setBounds(9, 90, 519, 154);
-			panelMemoriaRAM.setVisible(false);
-			panel.add(panelMemoriaRAM);
-			
-			lblNumSerieRAM = new JLabel("Num. de serie:");
-			lblNumSerieRAM.setBounds(12, 33, 91, 14);
-			panelMemoriaRAM.add(lblNumSerieRAM);
-			lblNumSerieRAM.setFont(new Font("Tahoma", Font.PLAIN, 11));
-				
-			txtNumSerieRAM = new JTextField();
-			txtNumSerieRAM.setEditable(true);
-			txtNumSerieRAM.setBounds(86, 30, 172, 20);
-			panelMemoriaRAM.add(txtNumSerieRAM);
-			txtNumSerieRAM.setColumns(10);
-		
-			lblMarcaRAM= new JLabel("Marca:");
-			lblMarcaRAM.setBounds(298, 33, 46, 14);
-			panelMemoriaRAM.add(lblMarcaRAM);
-			lblMarcaRAM.setFont(new Font("Tahoma", Font.PLAIN, 11));
-			
-			txtMarcaRAM = new JTextField();
-			txtMarcaRAM.setEditable(true);
-			txtMarcaRAM.setBounds(342, 30, 154, 20);
-			panelMemoriaRAM.add(txtMarcaRAM);
-			((JTextField) txtMarcaRAM).setColumns(10);
-			
-			
-			lblModeloRAM = new JLabel("Modelo:");
-			lblModeloRAM.setFont(new Font("Tahoma", Font.PLAIN, 11));
-			lblModeloRAM.setBounds(12, 71, 93, 16);
-			panelMemoriaRAM.add(lblModeloRAM);
-	
-			txtModeloRAM = new JTextField();
-			txtModeloRAM.setEditable(true);
-			txtModeloRAM.setBounds(86, 69, 142, 20);
-			panelMemoriaRAM.add(txtModeloRAM);
-			txtModeloRAM.setColumns(10);
-			
-		    lblCapacidadRAM = new JLabel("Capacidad:");
-		    lblCapacidadRAM.setFont(new Font("Tahoma", Font.PLAIN, 11));
-			lblCapacidadRAM.setBounds(277, 72, 67, 14);
-			panelMemoriaRAM.add(lblCapacidadRAM);
-				
-			txtCapacidadRAM = new JTextField();
-			txtCapacidadRAM.setEditable(true);
-			txtCapacidadRAM.setBounds(342, 69, 98, 20);
-			panelMemoriaRAM.add(txtCapacidadRAM);
-			txtCapacidadRAM.setColumns(10);
-		
-			
-		    lblTipoMemoriaRAM= new JLabel("Tipo:");
-			lblTipoMemoriaRAM.setFont(new Font("Tahoma", Font.PLAIN, 11));
-			lblTipoMemoriaRAM.setBounds(10, 108, 54, 14);
-			panelMemoriaRAM.add(lblTipoMemoriaRAM);
-			
-			txtTipoMemoriaRAM = new JTextField();
-			txtTipoMemoriaRAM.setEditable(true);
-			txtTipoMemoriaRAM.setBounds(87, 105, 86, 20);
-			panelMemoriaRAM.add(txtTipoMemoriaRAM);
-			txtTipoMemoriaRAM.setColumns(10);
-		    
-		    
-		 
-	
-		
-		
-			panelMicro = new JPanel();
-			panelMicro.setLayout(null);
-			panelMicro.setBorder(new TitledBorder(null, "Datos del Microprocesador", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-			panelMicro.setBounds(9, 90, 519, 154);
-			panelMicro.setVisible(false);
-			panel.add(panelMicro);
-			
-			lblNumSerieMicro = new JLabel("Num. de serie:");
-			lblNumSerieMicro.setBounds(12, 33, 91, 14);
-			panelMicro.add(lblNumSerieMicro);
-			lblNumSerieMicro.setFont(new Font("Tahoma", Font.PLAIN, 11));
-				
-		   
-			txtNumSerieMicro = new JTextField();
-			txtNumSerieMicro.setEditable(true);
-			txtNumSerieMicro.setBounds(86, 30, 172, 20);
-			panelMicro.add(txtNumSerieMicro);
-			txtNumSerieMicro.setColumns(10);;
-				
-			lblMarcaMicro= new JLabel("Marca:");
-			lblMarcaMicro.setBounds(298, 33, 46, 14);
-			panelMicro.add(lblMarcaMicro);
-			lblMarcaMicro.setFont(new Font("Tahoma", Font.PLAIN, 11));
-				
-			txtMarcaMicro = new JTextField();
-			txtMarcaMicro.setEditable(true);
-			txtMarcaMicro.setBounds(342, 30, 154, 20);
-			panelMicro.add(txtMarcaMicro);
-			txtMarcaMicro.setColumns(10);;
-				
-			lblModeloMicro = new JLabel("Modelo:");
-			lblModeloMicro.setFont(new Font("Tahoma", Font.PLAIN, 11));
-			lblModeloMicro.setBounds(12, 71, 93, 16);
-		    panelMicro.add(lblModeloMicro);
-				
-			txtModeloMicro = new JTextField();
-			txtModeloMicro.setEditable(true);
-			txtModeloMicro.setBounds(86, 69, 142, 20);
-			panelMicro.add(txtModeloMicro);
-			txtModeloMicro.setColumns(10);
-				
-			lblVelocidadMicro = new JLabel("Velocidad:");
-			lblVelocidadMicro.setFont(new Font("Tahoma", Font.PLAIN, 11));
-			lblVelocidadMicro.setBounds(277, 72, 67, 14);
-		    panelMicro.add(lblVelocidadMicro);
-				
-		    txtVelocidadMicro = new JTextField();
-		    txtVelocidadMicro.setEditable(true);
-	        txtVelocidadMicro.setBounds(342, 69, 98, 20);
-		    panelMicro.add(txtVelocidadMicro);
-		    ((JTextField) txtVelocidadMicro).setColumns(10);
-				
-		    lblTipoConexionMicro = new JLabel("Conexi\u00F3n:");
-		    lblTipoConexionMicro.setFont(new Font("Tahoma", Font.PLAIN, 11));
-		    lblTipoConexionMicro.setBounds(10, 108, 54, 14);
-		    panelMicro.add(lblTipoConexionMicro);
-					
-					txtConexionMicro = new JTextField();
-					txtConexionMicro.setEditable(true);
-					txtConexionMicro.setBounds(87, 105, 86, 20);
-					panelMicro.add(txtConexionMicro);
-					txtConexionMicro.setColumns(10);
-				
-			
-			
-					panelTarjeta = new JPanel();
-					panelTarjeta.setLayout(null);
-					panelTarjeta.setBorder(new TitledBorder(null, "Datos de la Tarjeta Madre", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-					panelTarjeta.setBounds(9, 90, 519, 154);
-					panelTarjeta.setVisible(false);
-					panel.add(panelTarjeta);
-					
-				    lblNumSerieTarjeta = new JLabel("Num. de serie:");
-					lblNumSerieTarjeta.setBounds(12, 33, 91, 14);
-					panelTarjeta.add(lblNumSerieTarjeta);
-				    lblNumSerieTarjeta.setFont(new Font("Tahoma", Font.PLAIN, 11));
-					
-					txtNumSerieTarjeta= new JTextField();
-					txtNumSerieTarjeta.setEditable(true);
-					txtNumSerieTarjeta.setBounds(86, 30, 172, 20);
-					panelTarjeta.add(txtNumSerieTarjeta);;
-					
-				    lblMarcaTarjeta= new JLabel("Marca:");
-					lblMarcaTarjeta.setBounds(298, 33, 46, 14);
-					panelTarjeta.add(lblMarcaTarjeta);
-					lblMarcaTarjeta.setFont(new Font("Tahoma", Font.PLAIN, 11));
-					
-					txtMarcaTarjeta = new JTextField();
-					txtMarcaTarjeta.setEditable(true);
-					txtMarcaTarjeta.setBounds(342, 30, 154, 20);
-					panelTarjeta.add(txtMarcaTarjeta);
-					txtMarcaTarjeta.setColumns(10);
-					
-				    lblModeloTarjeta = new JLabel("Modelo:");
-					lblModeloTarjeta.setFont(new Font("Tahoma", Font.PLAIN, 11));
-					lblModeloTarjeta.setBounds(12, 71, 93, 16);
-					panelTarjeta.add(lblModeloTarjeta);
-					
-					txtModeloTarjeta = new JTextField();
-					txtModeloTarjeta.setEditable(true);
-					txtModeloTarjeta.setBounds(86, 69, 142, 20);
-					panelTarjeta.add(txtModeloTarjeta);
-					txtModeloTarjeta.setColumns(10);
-					
-				    lblTipoRAM = new JLabel("Tipo de RAM:");
-				    lblTipoRAM.setFont(new Font("Tahoma", Font.PLAIN, 11));
-				    lblTipoRAM.setBounds(277, 72, 67, 14);
-					panelTarjeta.add(lblTipoRAM);
-					
-					txtTipoRAM = new JTextField();
-					txtTipoRAM.setEditable(true);
-					txtTipoRAM.setBounds(342, 69, 98, 20);
-					panelTarjeta.add(txtTipoRAM);
-					txtTipoRAM.setColumns(10);
-					
-				    lblTipoConexionTarjeta= new JLabel("Conexi\u00F3n:");
-				    lblTipoConexionTarjeta.setFont(new Font("Tahoma", Font.PLAIN, 11));
-				    lblTipoConexionTarjeta.setBounds(10, 108, 54, 14);
-					panelTarjeta.add(lblTipoConexionTarjeta);
-					
-					txtConexionTarjeta = new JTextField();
-					txtConexionTarjeta.setEditable(true);
-					txtConexionTarjeta.setBounds(87, 105, 86, 20);
-					panelTarjeta.add(txtConexionTarjeta);
-					txtConexionTarjeta.setColumns(10);
-					
-		}
-					
-	
+			rdbtnTarjetaMadre = new JRadioButton("Tarjeta Madre");
+			rdbtnTarjetaMadre.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					rdbtnMicroprocesador.setSelected(false);
+					rdbtnTarjetaMadre.setSelected(true);
+					rdbtnDiscoDuro.setSelected(false);
+					rdbtnMemoriaRam.setSelected(false);
 					
 					
-					{
-						JPanel buttonPane = new JPanel();
-						buttonPane.setBounds(0, 255, 539, 32);
-						buttonPane.setBorder(new BevelBorder(BevelBorder.LOWERED, null, null, null, null));
-						getContentPane().add(buttonPane, BorderLayout.SOUTH);
-						buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-						
-				{
-							JButton btnRegistrar = new JButton("Registrar");
-							btnRegistrar.addActionListener(new ActionListener() {
-								public void actionPerformed(ActionEvent e) {
-						
-									Componente comp;
-									int cantidad, index2, cantMemoria=0;
-									float capacidad=0,velocidadProccess=0,preciov=0;
-									String tipo,tipoRAM,marca,modelo,NumSerie,str1,str2,str3,str4,str5;
-							
-									index = cbxTipoComponente.getSelectedIndex();
-									cantidad = Integer.parseInt(spinnerCantidad.getValue().toString());
-									
-									if(index == 1) {
-										str1 = txtNumSerieDisco.getText();
-										str2 = txtMarcaDisco.getText();
-										str3 = txtModeloDisco.getText();
-										str4 = txtConexion.getText();
-										index2 = cbxTipoComponente.getSelectedIndex();
-										preciov = Float.parseFloat(textPrecioVenta.getText()) * cantidad;
-										
-										if(str1.isEmpty() || str2.isEmpty() || str3.isEmpty() || str4.isEmpty())  {
-											JOptionPane.showMessageDialog(null,"Has dejado campos vacíos. Por favor, intente de nuevo.","Aviso",JOptionPane.WARNING_MESSAGE);
-										}
-										else if(index2 == 0) {
-											JOptionPane.showMessageDialog(null,"Por favor, introduzca un tipo de componente.","Aviso",JOptionPane.WARNING_MESSAGE);
-										}
-										else {
-											NumSerie = str1;
-											marca = str2;
-											modelo = str3;
-											tipo = str4;
-											comp = new DiscoDuro(preciov,NumSerie,cantidad,marca,modelo,capacidad,tipo);
-											Tienda.getInstance().insertarComponente(comp);
-											JOptionPane.showMessageDialog(null,"El componente ha sido registrado.","Aviso",JOptionPane.INFORMATION_MESSAGE);
-										}
-										
-					              }
-									
-									else if(index == 2) {
-										str1 = txtNumSerieRAM.getText();
-										str2 = txtMarcaRAM.getText();
-										str3 = txtModeloRAM.getText();
-										str4 = txtTipoRAM.getText();
-										index2 = cbxTipoComponente.getSelectedIndex();
-										
-										
-										if(str1.isEmpty() || str2.isEmpty() || str3.isEmpty() || str4.isEmpty()) {
-											JOptionPane.showMessageDialog(null,"Has dejado campos vacíos. Por favor, intente de nuevo.","Aviso",JOptionPane.WARNING_MESSAGE);
-										}
-										else if(index2 == 0) {
-											JOptionPane.showMessageDialog(null,"Por favor, introduzca un tipo de componente.","Aviso",JOptionPane.WARNING_MESSAGE);
-										}
-										else {
-											NumSerie = str1;
-											marca = str2;
-											modelo = str3;
-											tipo = str4;
-											comp = new MemoriaRam(500.50f,NumSerie,cantidad,marca,modelo,cantMemoria,tipo);
-											Tienda.getInstance().insertarComponente(comp);;
-											JOptionPane.showMessageDialog(null,"El componente ha sido registrado.","Aviso",JOptionPane.INFORMATION_MESSAGE);
-										}
-										
-									}
-									
-									
-									else if(index == 3) {
-										str1 = txtNumSerieMicro.getText();
-										str2 = txtMarcaMicro.getText();
-										str3 = txtModeloMicro.getText();
-										str4 = txtConexionMicro.getText();
-										index2 = cbxTipoComponente.getSelectedIndex();
-										
-										if(str1.isEmpty() || str2.isEmpty() || str3.isEmpty() || str4.isEmpty()) {
-											JOptionPane.showMessageDialog(null,"Has dejado campos vacíos. Por favor, intente de nuevo.","Aviso",JOptionPane.WARNING_MESSAGE);
-										}
-										else if(index2 == 0) {
-											JOptionPane.showMessageDialog(null,"Por favor, introduzca un tipo de componente.","Aviso",JOptionPane.WARNING_MESSAGE);
-										}
-										
-										else {
-											NumSerie = str1;
-											marca = str2;
-											modelo = str3;
-											tipo = str4;
-											comp = new Microprocesador(500.50f,NumSerie,cantidad,marca,modelo,tipo,velocidadProccess);
-											Tienda.getInstance().insertarComponente(comp);
-											JOptionPane.showMessageDialog(null,"El componente ha sido registrado.","Aviso",JOptionPane.INFORMATION_MESSAGE);
-										}
-									}
-									
-									else if(index == 4) {
-										str1 = txtNumSerieTarjeta.getText();
-										str2 = txtMarcaTarjeta.getText();
-										str3 = txtModeloTarjeta.getText();
-										str4 = txtConexionTarjeta.getText();
-										str5 = txtTipoRAM.getText();
-										index2 = cbxTipoComponente.getSelectedIndex();
-										
-										
-										if(str1.isEmpty() || str2.isEmpty() || str3.isEmpty() || str4.isEmpty() || str5.isEmpty()) {
-											JOptionPane.showMessageDialog(null,"Has dejado campos vacíos. Por favor, intente de nuevo.","Aviso",JOptionPane.WARNING_MESSAGE);
-										}
-										else if(index2 == 0) {
-											JOptionPane.showMessageDialog(null,"Por favor, introduzca un tipo de componente.","Aviso",JOptionPane.WARNING_MESSAGE);
-										}
-										
-										else {
-											NumSerie = str1;
-											marca = str2;
-											modelo = str3;
-											tipo = str4;
-											tipoRAM = str5;
-											comp = new TarjetaMadre (500.50f,NumSerie,cantidad,marca,modelo,tipo,tipoRAM);
-											Tienda.getInstance().insertarComponente(comp);
-											JOptionPane.showMessageDialog(null,"El componente ha sido registrado.","Aviso",JOptionPane.INFORMATION_MESSAGE);
-										}
-									}
-			
-			
-			
-			
-		}
-		
-							});
-							
-							btnRegistrar.setFont(new Font("Tahoma", Font.PLAIN, 11));
-							btnRegistrar.setActionCommand("OK");
-							buttonPane.add(btnRegistrar);
-							getRootPane().setDefaultButton(btnRegistrar);
-						}
-						{
-							JButton cancelButton = new JButton("Cancelar");
-							cancelButton.addActionListener(new ActionListener() {
-								public void actionPerformed(ActionEvent e) {
-									dispose();
-								}
-							});
-							cancelButton.setFont(new Font("Tahoma", Font.PLAIN, 11));
-							cancelButton.setActionCommand("Cancel");
-							buttonPane.add(cancelButton);
-						}
-					}
+				
 				}
+			});
+			rdbtnTarjetaMadre.setBackground(new Color(176, 224, 230));
+			rdbtnTarjetaMadre.setBounds(155, 28, 127, 25);
+			panel_Componentes.add(rdbtnTarjetaMadre);
+			
+			rdbtnDiscoDuro = new JRadioButton("Disco Duro");
+			rdbtnDiscoDuro.setBackground(new Color(176, 224, 230));
+			rdbtnDiscoDuro.setBounds(296, 28, 127, 25);
+			panel_Componentes.add(rdbtnDiscoDuro);
+			
+			rdbtnMemoriaRam = new JRadioButton("Memoria Ram");
+			rdbtnMemoriaRam.setBackground(new Color(176, 224, 230));
+			rdbtnMemoriaRam.setBounds(437, 28, 127, 25);
+			panel_Componentes.add(rdbtnMemoriaRam);
+			
+			JPanel panelMicroprocesador = new JPanel();
+			panelMicroprocesador.setBackground(new Color(176, 224, 230));
+			panelMicroprocesador.setBorder(new TitledBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)), "Microprocesador", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+			panelMicroprocesador.setBounds(0, 292, 578, 91);
+			panel_fondo.add(panelMicroprocesador);
+			panelMicroprocesador.setLayout(null);
+			
+			JLabel lblTipoConector = new JLabel("Tipo Conector");
+			lblTipoConector.setBounds(12, 37, 110, 16);
+			panelMicroprocesador.add(lblTipoConector);
+			
+			txtTipoConector = new JTextField();
+			txtTipoConector.setBounds(127, 33, 129, 22);
+			panelMicroprocesador.add(txtTipoConector);
+			txtTipoConector.setColumns(10);
+			
+			JLabel lblVelocidadProcesador = new JLabel("Velocidad Procesador");
+			lblVelocidadProcesador.setBounds(307, 37, 130, 16);
+			panelMicroprocesador.add(lblVelocidadProcesador);
+			
+			txtVelocidadProcesador = new JTextField();
+			txtVelocidadProcesador.setBounds(447, 34, 75, 22);
+			panelMicroprocesador.add(txtVelocidadProcesador);
+			txtVelocidadProcesador.setColumns(10);
+			
+			JLabel lblNewLabel_7 = new JLabel("GHz");
+			lblNewLabel_7.setBounds(534, 36, 44, 16);
+			panelMicroprocesador.add(lblNewLabel_7);
+			
+			JPanel panelTarjetaMadre = new JPanel();
+			panelTarjetaMadre.setBackground(new Color(176, 224, 230));
+			panelTarjetaMadre.setBounds(0, 0, 578, 91);
+			panelMicroprocesador.add(panelTarjetaMadre);
+			
+			lblTipoConexion = new JLabel("New label");
+			lblTipoConexion.setBounds(new Rectangle(12, 37, 110, 16));
+			panelTarjetaMadre.add(lblTipoConexion);
+			
+			txtTipoConexion = new JTextField();
+			panelTarjetaMadre.add(txtTipoConexion);
+			txtTipoConexion.setColumns(10);
+			
+			lblTipoRAM = new JLabel("New label");
+			panelTarjetaMadre.add(lblTipoRAM);
+			
+			txtTipoRAM = new JTextField();
+			panelTarjetaMadre.add(txtTipoRAM);
+			txtTipoRAM.setColumns(10);
+		}
+		{
+			JPanel buttonPane = new JPanel();
+			buttonPane.setBackground(new Color(192, 192, 192));
+			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+			getContentPane().add(buttonPane, BorderLayout.SOUTH);
+			{
+				JButton btnRegistrar = new JButton("Registrar");
+				btnRegistrar.setActionCommand("OK");
+				buttonPane.add(btnRegistrar);
+				getRootPane().setDefaultButton(btnRegistrar);
+			}
+			{
+				JButton cancelButton = new JButton("Cancel");
+				cancelButton.setActionCommand("Cancel");
+				buttonPane.add(cancelButton);
+			}
+		}
 	}
-
-
-
+}

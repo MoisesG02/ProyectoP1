@@ -183,6 +183,13 @@ public class Inicio extends JFrame {
 		panelList.add(lblLIST);
 		
 		panelFACT = new JPanel();
+		panelFACT.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Facturacion fact = new Facturacion();
+				fact.setVisible(true);
+			}
+		});
 		panelFACT.setBackground(new Color(0, 139, 139));
 		panelFACT.setForeground(new Color(0, 128, 128));
 		panelFACT.setBounds(0, 267, 389, 48);
@@ -291,7 +298,7 @@ public class Inicio extends JFrame {
 		PanelRegCliente.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				panelADM1.setVisible(false);
+				panelADM1.setVisible(false);// ARREGLAR 
 				Registrar_Cliente reg = new Registrar_Cliente();
 				reg.setVisible(true);
 			}
@@ -301,14 +308,14 @@ public class Inicio extends JFrame {
 		PanelRegCliente.setBackground(new Color(0, 128, 128));
 		PanelRegCliente.setLayout(null);
 		
-		JLabel lblNewLabel_4 = new JLabel("REGISTRAR CLIENTE");
+		JLabel lblNewLabel_4 = new JLabel("REGISTRAR COMBO");
 		lblNewLabel_4.setForeground(Color.WHITE);
 		lblNewLabel_4.setFont(new Font("Dialog", Font.BOLD, 14));
 		lblNewLabel_4.setBounds(66, 13, 187, 22);
 		PanelRegCliente.add(lblNewLabel_4);
 		
 		JLabel lblNewLabel_11 = new JLabel("");
-		lblNewLabel_11.setIcon(new ImageIcon(Inicio.class.getResource("/Iconos/bussiness-man.png")));
+		lblNewLabel_11.setIcon(new ImageIcon(Inicio.class.getResource("/Iconos/cpu.png")));
 		lblNewLabel_11.setBounds(22, 0, 32, 48);
 		PanelRegCliente.add(lblNewLabel_11);
 		
@@ -317,8 +324,8 @@ public class Inicio extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				panelADM1.setVisible(false);
-				Registrar_Componente reg = new Registrar_Componente();
-				reg.setVisible(true);
+			//	Registrar_Componente reg = new Registrar_Componente();
+				//reg.setVisible(true);
 			}
 		});
 		PanelRegComponente.setBounds(0, 46, 289, 48);
@@ -341,6 +348,7 @@ public class Inicio extends JFrame {
 		panelRegEmpleado.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				panelADM1.setVisible(false);
 				RegistrarEmpleados regE = new RegistrarEmpleados();
 				regE.setVisible(true);
 				
@@ -420,6 +428,14 @@ public class Inicio extends JFrame {
 		panelListComponente.add(lblNewLabel_16);
 		
 		panelListEmpleado = new JPanel();
+		panelListEmpleado.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				panelListado.setVisible(false);
+				TablaEmpleado employee = new TablaEmpleado();
+				employee.setVisible(true);
+			}
+		});
 		panelListEmpleado.setBackground(new Color(0, 128, 128));
 		panelListEmpleado.setBounds(0, 93, 289, 54);
 		panelListado.add(panelListEmpleado);

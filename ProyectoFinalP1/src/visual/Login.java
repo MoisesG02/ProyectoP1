@@ -10,6 +10,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 
+import logico.Administrador;
+import logico.Empleado;
 import logico.Tienda;
 
 import java.awt.Color;
@@ -26,8 +28,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 
-
-
 public class Login extends JFrame {
 
 	/**
@@ -37,7 +37,7 @@ public class Login extends JFrame {
 	private JPanel contentPane;
 	private JTextField txtUser;
 	private JPasswordField txtPassword;
-	//*
+	// *
 	private JLabel lblLogo;
 	private JLabel lblLoginMessage;
 
@@ -68,25 +68,26 @@ public class Login extends JFrame {
 		contentPane.setBorder(new LineBorder(new Color(0, 0, 128), 2));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		JPanel panel = new JPanel();
 		panel.setBounds(175, 169, 250, 40);
 		contentPane.add(panel);
 		panel.setLayout(null);
-		
+
 		txtUser = new JTextField();
 		txtUser.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent e) {
-				if(txtUser.getText().equals("Usuario")) {
+				if (txtUser.getText().equals("Usuario")) {
 					txtUser.setText("");
-				}else {
+				} else {
 					txtUser.selectAll();
 				}
 			}
+
 			@Override
 			public void focusLost(FocusEvent e) {
-				if(txtUser.getText().equals("")) {
+				if (txtUser.getText().equals("")) {
 					txtUser.setText("Username");
 				}
 			}
@@ -97,63 +98,74 @@ public class Login extends JFrame {
 		txtUser.setBounds(10, 11, 170, 20);
 		panel.add(txtUser);
 		txtUser.setColumns(10);
-		
+
 		JLabel lblNewLabel_2 = new JLabel("");
 		lblNewLabel_2.setIcon(new ImageIcon(Login.class.getResource("/Iconos/bussiness-man.png")));
 		lblNewLabel_2.setBounds(210, 1, 40, 40);
 		panel.add(lblNewLabel_2);
-		
+
 		JPanel panel_1 = new JPanel();
 		panel_1.setBounds(175, 237, 250, 40);
 		contentPane.add(panel_1);
 		panel_1.setLayout(null);
-		
+
 		txtPassword = new JPasswordField();
 		txtPassword.addFocusListener(new FocusAdapter() {
 			@Override
 			public void focusGained(FocusEvent e) {
-				if(txtPassword.getText().equals("Password")) {
-				txtPassword.setEchoChar('●');
-				txtPassword.setText("");
-			}else {
-				txtPassword.selectAll();
+				if (txtPassword.getText().equals("Password")) {
+					txtPassword.setEchoChar('●');
+					txtPassword.setText("");
+				} else {
+					txtPassword.selectAll();
+				}
 			}
-			}
+
 			@Override
 			public void focusLost(FocusEvent e) {
-			    if(txtPassword.getText().equals("")) {
-			    	txtPassword.setText("Password");
-			    	txtPassword.setEchoChar((char)0);
-			    }
+				if (txtPassword.getText().equals("")) {
+					txtPassword.setText("Password");
+					txtPassword.setEchoChar((char) 0);
+				}
 			}
 		});
 		txtPassword.setBorder(null);
-		txtPassword.setEchoChar((char)0);
+		txtPassword.setEchoChar((char) 0);
 		txtPassword.setFont(new Font("Arial", Font.PLAIN, 12));
 		txtPassword.setText("Password");
 		txtPassword.setBounds(10, 11, 170, 20);
 		panel_1.add(txtPassword);
-		
+
 		JLabel lblNewLabel_3 = new JLabel("");
-		lblNewLabel_3.setIcon(new ImageIcon(Login.class.getResource("/Iconos/preferences-desktop-user-password-icon2.png")));
+		lblNewLabel_3
+				.setIcon(new ImageIcon(Login.class.getResource("/Iconos/preferences-desktop-user-password-icon2.png")));
 		lblNewLabel_3.setBounds(209, 0, 41, 40);
 		panel_1.add(lblNewLabel_3);
-		
+
 		JPanel panelbtnlogin = new JPanel();
 		panelbtnlogin.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent e) {
-				if(txtPassword.getText().equalsIgnoreCase("123") && txtUser.getText().equalsIgnoreCase("admin123") ) {
-					lblLoginMessage.setText("");
-					JOptionPane.showMessageDialog(null, "Bienvenido a Master Tech.");
-					Inicio inicio = new Inicio();
-					inicio.setVisible(true);
-					dispose();
+				Empleado admin = new Administrador("Freddy", "402-1118709-7", "8298149010", "Calle H, #9, El Despertar",
+						"10/12/1999", "M", "123", "admin123", 50000f);
+				Tienda.getInstance().insertarEmpleado(admin);
+				for (Empleado misEmp : Tienda.getInstance().getMisEmpleados()) {
+					if (misEmp instanceof Administrador) {
+						if (((Administrador) misEmp).getUsuario().equalsIgnoreCase(txtUser.getText())
+								&& ((Administrador) misEmp).getPass().equalsIgnoreCase(txtPassword.getText())) {
 
-				}
-				else if(txtUser.getText().equals("") || txtUser.getText().equals("Username")|| txtPassword.getText().equals("") || txtPassword.getText().equals("Password")){
-					lblLoginMessage.setText("Por favor llenar todos los espacios.");
-				}else {
-					lblLoginMessage.setText("Usuario o contraseña incorrecta.");
+							lblLoginMessage.setText("");
+							JOptionPane.showMessageDialog(null, "Bienvenido a Master Tech.");
+							Inicio inicio = new Inicio();
+							inicio.setVisible(true);
+							dispose();
+						} else if (txtUser.getText().equals("") || txtUser.getText().equals("Username")
+								|| txtPassword.getText().equals("") || txtPassword.getText().equals("Password")) {
+							lblLoginMessage.setText("Por favor llenar todos los espacios.");
+						} else {
+							lblLoginMessage.setText("Usuario o contraseña incorrecta.");
+						}
+
+					}
 
 				}
 			}
@@ -162,18 +174,18 @@ public class Login extends JFrame {
 		panelbtnlogin.setBounds(175, 321, 250, 40);
 		contentPane.add(panelbtnlogin);
 		panelbtnlogin.setLayout(null);
-		
+
 		JLabel lblNewLabel = new JLabel("LOG IN");
 		lblNewLabel.setForeground(Color.WHITE);
 		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 14));
 		lblNewLabel.setBounds(102, 13, 105, 16);
 		panelbtnlogin.add(lblNewLabel);
-		
+
 		JLabel lblNewLabel_4 = new JLabel("");
 		lblNewLabel_4.setIcon(new ImageIcon(Login.class.getResource("/Iconos/key2.png")));
 		lblNewLabel_4.setBounds(56, 0, 44, 40);
 		panelbtnlogin.add(lblNewLabel_4);
-		
+
 		JLabel lblNewLabel_1 = new JLabel("");
 		lblNewLabel_1.addMouseListener(new MouseAdapter() {
 			@Override
@@ -184,20 +196,20 @@ public class Login extends JFrame {
 		lblNewLabel_1.setIcon(new ImageIcon(Login.class.getResource("/Iconos/Actions-edit-delete-icon.png")));
 		lblNewLabel_1.setBounds(580, 0, 20, 20);
 		contentPane.add(lblNewLabel_1);
-		
+
 		lblLogo = new JLabel("");
 		lblLogo.setIcon(new ImageIcon(Login.class.getResource("/Iconos/PC-a-icon.png")));
 		lblLogo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblLogo.setBounds(251, 49, 104, 96);
 		contentPane.add(lblLogo);
-		
+
 		lblLoginMessage = new JLabel("");
 		lblLoginMessage.setForeground(Color.WHITE);
 		lblLoginMessage.setBackground(Color.WHITE);
 		lblLoginMessage.setFont(new Font("Arial", Font.PLAIN, 11));
 		lblLoginMessage.setBounds(175, 290, 250, 16);
 		contentPane.add(lblLoginMessage);
-	
+
 		setUndecorated(true);
 		setLocationRelativeTo(null);
 	}
