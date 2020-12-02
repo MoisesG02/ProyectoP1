@@ -9,7 +9,16 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.border.TitledBorder;
+
+import logico.Componente;
+import logico.DiscoDuro;
+import logico.MemoriaRam;
+import logico.Microprocesador;
+import logico.TarjetaMadre;
+import logico.Tienda;
+
 import javax.swing.border.MatteBorder;
 import javax.swing.JTextField;
 import javax.swing.JSeparator;
@@ -19,6 +28,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.SpinnerNumberModel;
 import java.awt.Rectangle;
+import javax.swing.border.LineBorder;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JTextPane;
 
 public class Registrar_Componente extends JDialog {
 
@@ -29,12 +42,32 @@ public class Registrar_Componente extends JDialog {
 	private JRadioButton rdbtnTarjetaMadre;
 	private JRadioButton rdbtnDiscoDuro;
 	private JRadioButton rdbtnMemoriaRam;
-	private JTextField txtTipoConector;
-	private JTextField txtVelocidadProcesador;
-	private JLabel lblTipoConexion;
-	private JTextField txtTipoConexion;
-	private JLabel lblTipoRAM;
-	private JTextField txtTipoRAM;
+	private JPanel panelMicro;
+	private JPanel panel_fondo;
+	private JPanel panelTarjeta;
+	private JPanel panelRam;
+	private JPanel panelDisco;
+	private JTextField textFieldVelocidadMicro;
+	private JLabel lblTipoConector;
+	private JLabel lblTipoRam;
+	private JComboBox comboBoxTipoConector;
+	private JComboBox comboBoxTipoRam;
+	private JLabel lblTipoConexDisco;
+	private JLabel lblCapacidad;
+	private JTextField textFieldCantidadRam;
+	private JLabel lblCantidad;
+	private JComboBox comboBox;
+	private JLabel lblTipoMemoria;
+	private JLabel lblNewLabel_5;
+	private JLabel lblVelocidad;
+	private JComboBox comboBoxTConexD;
+	private JLabel lblTconex;
+	private JTextPane txtPrecio;
+	private JRadioButton rdbtnMicroprocesador;
+	private JSpinner spnCantDisponible;
+	private JComboBox comboBoxTipoConexionDisco;
+	private JTextField txtGb;
+	private JLabel lblMB;
 
 	/**
 	 * Launch the application.
@@ -54,13 +87,13 @@ public class Registrar_Componente extends JDialog {
 	 */
 	public Registrar_Componente() {
 		setTitle("Registrar Componente");
-		setBounds(100, 100, 606, 475);
+		setBounds(100, 100, 647, 513);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 		contentPanel.setLayout(new BorderLayout(0, 0));
 		{
-			JPanel panel_fondo = new JPanel();
+			panel_fondo = new JPanel();
 			panel_fondo.setBackground(new Color(176, 224, 230));
 			contentPanel.add(panel_fondo, BorderLayout.CENTER);
 			panel_fondo.setLayout(null);
@@ -114,27 +147,27 @@ public class Registrar_Componente extends JDialog {
 				JPanel panel = new JPanel();
 				panel.setBackground(new Color(176, 224, 230));
 				panel.setBorder(new TitledBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)), "Precio y Cantidad", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
-				panel.setBounds(294, 13, 270, 178);
+				panel.setBounds(331, 13, 270, 178);
 				panel_fondo.add(panel);
 				panel.setLayout(null);
 				{
 					JLabel lblNewLabel_3 = new JLabel("Cantidad Disponible:");
-					lblNewLabel_3.setBounds(12, 54, 124, 16);
+					lblNewLabel_3.setBounds(12, 54, 147, 16);
 					panel.add(lblNewLabel_3);
 				}
 				{
-					JLabel lblNewLabel_4 = new JLabel("Precio");
-					lblNewLabel_4.setBounds(12, 122, 124, 16);
+					JLabel lblNewLabel_4 = new JLabel("Precio:");
+					lblNewLabel_4.setBounds(101, 122, 58, 22);
 					panel.add(lblNewLabel_4);
 				}
 				
-				JSpinner spnCantDisponible = new JSpinner();
+				spnCantDisponible = new JSpinner();
 				spnCantDisponible.setBounds(161, 51, 97, 22);
 				panel.add(spnCantDisponible);
 				
-				JSpinner spnPrecio = new JSpinner();
-				spnPrecio.setBounds(161, 119, 97, 22);
-				panel.add(spnPrecio);
+				txtPrecio = new JTextPane();
+				txtPrecio.setBounds(161, 122, 94, 26);
+				panel.add(txtPrecio);
 			}
 			
 			JSeparator separator = new JSeparator();
@@ -148,11 +181,11 @@ public class Registrar_Componente extends JDialog {
 			JPanel panel_Componentes = new JPanel();
 			panel_Componentes.setBorder(new TitledBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)), "Componentes", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
 			panel_Componentes.setBackground(new Color(176, 224, 230));
-			panel_Componentes.setBounds(0, 204, 578, 91);
+			panel_Componentes.setBounds(0, 204, 601, 91);
 			panel_fondo.add(panel_Componentes);
 			panel_Componentes.setLayout(null);
 			
-			JRadioButton rdbtnMicroprocesador = new JRadioButton("Microprocesador");
+			rdbtnMicroprocesador = new JRadioButton("Microprocesador");
 			rdbtnMicroprocesador.setSelected(true);
 			rdbtnMicroprocesador.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -160,12 +193,16 @@ public class Registrar_Componente extends JDialog {
 				rdbtnTarjetaMadre.setSelected(false);
 				rdbtnDiscoDuro.setSelected(false);
 				rdbtnMemoriaRam.setSelected(false);
+				panelMicro.setVisible(true);
+				panelTarjeta.setVisible(false);
+				panelDisco.setVisible(false);
+				panelRam.setVisible(false);
 			
 		
 				}
 			});
 			rdbtnMicroprocesador.setBackground(new Color(176, 224, 230));
-			rdbtnMicroprocesador.setBounds(14, 28, 127, 25);
+			rdbtnMicroprocesador.setBounds(14, 28, 158, 25);
 			panel_Componentes.add(rdbtnMicroprocesador);
 			
 			rdbtnTarjetaMadre = new JRadioButton("Tarjeta Madre");
@@ -175,73 +212,165 @@ public class Registrar_Componente extends JDialog {
 					rdbtnTarjetaMadre.setSelected(true);
 					rdbtnDiscoDuro.setSelected(false);
 					rdbtnMemoriaRam.setSelected(false);
-					
+					panelMicro.setVisible(false);
+					panelTarjeta.setVisible(true);
+					panelDisco.setVisible(false);
+					panelRam.setVisible(false);
 					
 				
 				}
 			});
 			rdbtnTarjetaMadre.setBackground(new Color(176, 224, 230));
-			rdbtnTarjetaMadre.setBounds(155, 28, 127, 25);
+			rdbtnTarjetaMadre.setBounds(168, 28, 142, 25);
 			panel_Componentes.add(rdbtnTarjetaMadre);
 			
 			rdbtnDiscoDuro = new JRadioButton("Disco Duro");
+			rdbtnDiscoDuro.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					rdbtnMicroprocesador.setSelected(false);
+					rdbtnTarjetaMadre.setSelected(false);
+					rdbtnDiscoDuro.setSelected(true);
+					rdbtnMemoriaRam.setSelected(false);
+					panelMicro.setVisible(false);
+					panelTarjeta.setVisible(false);
+					panelDisco.setVisible(true);
+					panelRam.setVisible(false);
+					
+				}
+			});
 			rdbtnDiscoDuro.setBackground(new Color(176, 224, 230));
-			rdbtnDiscoDuro.setBounds(296, 28, 127, 25);
+			rdbtnDiscoDuro.setBounds(317, 28, 127, 25);
 			panel_Componentes.add(rdbtnDiscoDuro);
 			
 			rdbtnMemoriaRam = new JRadioButton("Memoria Ram");
+			rdbtnMemoriaRam.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					rdbtnMicroprocesador.setSelected(false);
+					rdbtnTarjetaMadre.setSelected(false);
+					rdbtnDiscoDuro.setSelected(false);
+					rdbtnMemoriaRam.setSelected(true);
+					panelMicro.setVisible(false);
+					panelTarjeta.setVisible(false);
+					panelDisco.setVisible(false);
+					panelRam.setVisible(true);
+					
+					
+				}
+			});
 			rdbtnMemoriaRam.setBackground(new Color(176, 224, 230));
-			rdbtnMemoriaRam.setBounds(437, 28, 127, 25);
+			rdbtnMemoriaRam.setBounds(451, 28, 142, 25);
 			panel_Componentes.add(rdbtnMemoriaRam);
 			
-			JPanel panelMicroprocesador = new JPanel();
-			panelMicroprocesador.setBackground(new Color(176, 224, 230));
-			panelMicroprocesador.setBorder(new TitledBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 0)), "Microprocesador", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-			panelMicroprocesador.setBounds(0, 292, 578, 91);
-			panel_fondo.add(panelMicroprocesador);
-			panelMicroprocesador.setLayout(null);
+			panelMicro = new JPanel();
+			panelMicro.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Microprocesador", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
+			panelMicro.setBackground(new Color(176, 224, 230));
+			panelMicro.setBounds(0, 292, 601, 104);
+			panel_fondo.add(panelMicro);
+			panelMicro.setLayout(null);
 			
-			JLabel lblTipoConector = new JLabel("Tipo Conector");
-			lblTipoConector.setBounds(12, 37, 110, 16);
-			panelMicroprocesador.add(lblTipoConector);
+			lblTconex = new JLabel("Tipo de conexion:");
+			lblTconex.setBounds(15, 36, 176, 40);
+			panelMicro.add(lblTconex);
 			
-			txtTipoConector = new JTextField();
-			txtTipoConector.setBounds(127, 33, 129, 22);
-			panelMicroprocesador.add(txtTipoConector);
-			txtTipoConector.setColumns(10);
+			comboBoxTConexD = new JComboBox();
+			comboBoxTConexD.setModel(new DefaultComboBoxModel(new String[] {"<Selecciona>", "PGA", "BGA", "LGA"}));
+			comboBoxTConexD.setBounds(143, 43, 134, 26);
+			panelMicro.add(comboBoxTConexD);
 			
-			JLabel lblVelocidadProcesador = new JLabel("Velocidad Procesador");
-			lblVelocidadProcesador.setBounds(307, 37, 130, 16);
-			panelMicroprocesador.add(lblVelocidadProcesador);
+			lblVelocidad = new JLabel("Velocidad:");
+			lblVelocidad.setBounds(346, 36, 84, 40);
+			panelMicro.add(lblVelocidad);
 			
-			txtVelocidadProcesador = new JTextField();
-			txtVelocidadProcesador.setBounds(447, 34, 75, 22);
-			panelMicroprocesador.add(txtVelocidadProcesador);
-			txtVelocidadProcesador.setColumns(10);
+			textFieldVelocidadMicro = new JTextField();
+			textFieldVelocidadMicro.setBounds(426, 43, 65, 26);
+			panelMicro.add(textFieldVelocidadMicro);
+			textFieldVelocidadMicro.setColumns(10);
 			
-			JLabel lblNewLabel_7 = new JLabel("GHz");
-			lblNewLabel_7.setBounds(534, 36, 44, 16);
-			panelMicroprocesador.add(lblNewLabel_7);
+			lblNewLabel_5 = new JLabel("GHZ");
+			lblNewLabel_5.setBounds(497, 43, 69, 26);
+			panelMicro.add(lblNewLabel_5);
 			
-			JPanel panelTarjetaMadre = new JPanel();
-			panelTarjetaMadre.setBackground(new Color(176, 224, 230));
-			panelTarjetaMadre.setBounds(0, 0, 578, 91);
-			panelMicroprocesador.add(panelTarjetaMadre);
+			panelTarjeta = new JPanel();
+			panelTarjeta.setBackground(new Color(176, 224, 230));
+			panelTarjeta.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Tarjeta Madre", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
+			panelTarjeta.setBounds(0, 292, 601, 104);
+			panel_fondo.add(panelTarjeta);
+			panelTarjeta.setLayout(null);
 			
-			lblTipoConexion = new JLabel("New label");
-			lblTipoConexion.setBounds(new Rectangle(12, 37, 110, 16));
-			panelTarjetaMadre.add(lblTipoConexion);
+			lblTipoConector = new JLabel("Tipo Conector:");
+			lblTipoConector.setBounds(15, 36, 139, 40);
+			panelTarjeta.add(lblTipoConector);
 			
-			txtTipoConexion = new JTextField();
-			panelTarjetaMadre.add(txtTipoConexion);
-			txtTipoConexion.setColumns(10);
+			comboBoxTipoConector = new JComboBox();
+			comboBoxTipoConector.setModel(new DefaultComboBoxModel(new String[] {"<Seleccionar>", "BGA", "PGA", "LGA"}));
+			comboBoxTipoConector.setBounds(143, 43, 134, 26);
+			panelTarjeta.add(comboBoxTipoConector);
 			
-			lblTipoRAM = new JLabel("New label");
-			panelTarjetaMadre.add(lblTipoRAM);
+			lblTipoRam = new JLabel("Tipo Ram:");
+			lblTipoRam.setBounds(346, 36, 84, 40);
+			panelTarjeta.add(lblTipoRam);
 			
-			txtTipoRAM = new JTextField();
-			panelTarjetaMadre.add(txtTipoRAM);
-			txtTipoRAM.setColumns(10);
+			comboBoxTipoRam = new JComboBox();
+			comboBoxTipoRam.setModel(new DefaultComboBoxModel(new String[] {"<Seleccionar>", "DDR", "DDR2", "DDR3", "DDR4"}));
+			comboBoxTipoRam.setBounds(426, 43, 134, 26);
+			panelTarjeta.add(comboBoxTipoRam);
+			
+			panelDisco = new JPanel();
+			panelDisco.setBackground(new Color(176, 224, 230));
+			panelDisco.setBorder(new TitledBorder(new LineBorder(new Color(0, 0, 0)), "Disco Duro", TitledBorder.CENTER, TitledBorder.TOP, null, new Color(0, 0, 0)));
+			panelDisco.setBounds(0, 292, 601, 104);
+			panel_fondo.add(panelDisco);
+			panelDisco.setLayout(null);
+			
+			lblTipoConexDisco = new JLabel("Tipo Conexion:");
+			lblTipoConexDisco.setBounds(15, 36, 139, 40);
+			panelDisco.add(lblTipoConexDisco);
+			
+			lblCapacidad = new JLabel("Capacidad:");
+			lblCapacidad.setBounds(346, 36, 84, 40);
+			panelDisco.add(lblCapacidad);
+			
+			comboBoxTipoConexionDisco = new JComboBox();
+			comboBoxTipoConexionDisco.setModel(new DefaultComboBoxModel(new String[] {"<Seleccionar>", "IDE", "SATA", "SATAII", "SATAIII"}));
+			comboBoxTipoConexionDisco.setBounds(143, 43, 134, 26);
+			panelDisco.add(comboBoxTipoConexionDisco);
+			
+			txtGb = new JTextField();
+			txtGb.setBounds(426, 43, 65, 26);
+			panelDisco.add(txtGb);
+			txtGb.setColumns(10);
+			
+			JLabel lblramc = new JLabel("GB");
+			lblramc.setBounds(497, 46, 69, 20);
+			panelDisco.add(lblramc);
+			
+			panelRam = new JPanel();
+			panelRam.setBackground(new Color(176, 224, 230));
+			panelRam.setBounds(0, 292, 601, 104);
+			panel_fondo.add(panelRam);
+			panelRam.setLayout(null);
+			
+			lblTipoMemoria = new JLabel("Tipo memoria:");
+			lblTipoMemoria.setBounds(15, 36, 139, 40);
+			panelRam.add(lblTipoMemoria);
+			
+			comboBox = new JComboBox();
+			comboBox.setModel(new DefaultComboBoxModel(new String[] {"<Seleccionar>", "DDR2", "DDR3", "DDR4"}));
+			comboBox.setBounds(143, 43, 134, 26);
+			panelRam.add(comboBox);
+			
+			lblCantidad = new JLabel("Cantidad:");
+			lblCantidad.setBounds(346, 36, 84, 40);
+			panelRam.add(lblCantidad);
+			
+			textFieldCantidadRam = new JTextField();
+			textFieldCantidadRam.setBounds(426, 43, 65, 26);
+			panelRam.add(textFieldCantidadRam);
+			textFieldCantidadRam.setColumns(10);
+			
+			lblMB = new JLabel("Mb");
+			lblMB.setBounds(497, 43, 69, 26);
+			panelRam.add(lblMB);
 		}
 		{
 			JPanel buttonPane = new JPanel();
@@ -250,6 +379,83 @@ public class Registrar_Componente extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton btnRegistrar = new JButton("Registrar");
+				btnRegistrar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						String marca = txtMarca.getText();
+						String modelo = txtModelo.getText();
+						String numS = txtNumSerie.getText();
+						String precio = txtPrecio.getText();
+						String cantidad = spnCantDisponible.getValue() + "";
+						if(marca.isEmpty()|| modelo.isEmpty() || numS.isEmpty() || precio.isEmpty() ||cantidad.isEmpty() ) {
+							 JOptionPane.showMessageDialog(null,"Llene los campos correspondientes!!.","Aviso",JOptionPane.WARNING_MESSAGE);	
+						}
+						else if(rdbtnDiscoDuro.isSelected()) {
+							String combox1 = comboBoxTipoConexionDisco.getSelectedItem().toString();
+							String combox2 = txtGb.getText();
+							if(combox1.isEmpty()|| combox2.isEmpty()) {
+								 JOptionPane.showMessageDialog(null,"Seleccione una de las opciones.","Aviso",JOptionPane.WARNING_MESSAGE);
+							}
+							else {
+								Componente comp = new DiscoDuro(Float.parseFloat(precio),numS,Integer.valueOf(cantidad),marca,modelo,combox2,combox1);
+								JOptionPane.showMessageDialog(null,"Registro exitoso!.","Aviso",JOptionPane.WARNING_MESSAGE);
+								Tienda.getInstance().insertarComponente(comp);
+								System.out.println(comp.getClass());
+								System.out.println(comp.getPrecioV()+comp.getCantidad());
+								
+							}
+								
+						}
+						else if(rdbtnMicroprocesador.isSelected()) {
+							String combox1 = comboBoxTConexD.getSelectedItem().toString();
+							String text1 = textFieldVelocidadMicro.getText();
+							
+							if(text1.isEmpty()||combox1.isEmpty()) {
+								JOptionPane.showMessageDialog(null,"Llene los campos correspondites !!.","Aviso",JOptionPane.WARNING_MESSAGE);
+							}
+							else {
+								Componente comp = new Microprocesador(Float.parseFloat(precio),numS,Integer.valueOf(cantidad),marca,modelo,combox1,text1);
+								JOptionPane.showMessageDialog(null,"Registro exitoso!.","Aviso",JOptionPane.WARNING_MESSAGE);
+								Tienda.getInstance().insertarComponente(comp);
+								System.out.println(comp.getClass());
+								System.out.println(comp.getPrecioV()+comp.getCantidad());
+							}
+						}
+						else if(rdbtnMemoriaRam.isSelected()) {
+							String combox1 = comboBox.getSelectedItem().toString();
+							String text = textFieldCantidadRam.getText();
+							if(combox1.isEmpty()) {
+								
+								JOptionPane.showMessageDialog(null,"Seleccione una de las ocpiones.","Aviso",JOptionPane.WARNING_MESSAGE);
+							}
+							else if(text.isEmpty()) {
+								JOptionPane.showMessageDialog(null,"Llenar los campos correspondientes.","Aviso",JOptionPane.WARNING_MESSAGE);
+							}
+							else {
+								Componente comp = new MemoriaRam(Float.parseFloat(precio),numS,Integer.valueOf(cantidad),marca,modelo,Integer.valueOf(text),combox1);
+								JOptionPane.showMessageDialog(null,"Registro exitoso!.","Aviso",JOptionPane.WARNING_MESSAGE);
+								Tienda.getInstance().insertarComponente(comp);
+								System.out.println(comp.getClass());
+								System.out.println(comp.getPrecioV()+comp.getCantidad());
+							}
+						}
+						else if(rdbtnTarjetaMadre.isSelected()) {
+							String combox1 = comboBoxTipoConector.getSelectedItem().toString();
+							String combox2 = comboBoxTipoRam.getSelectedItem().toString();
+							if(combox1.isEmpty()||combox2.isEmpty()) {
+								
+								JOptionPane.showMessageDialog(null,"Seleccione una de las opciones.","Aviso",JOptionPane.WARNING_MESSAGE);
+							}
+							else {
+								Componente comp = new TarjetaMadre(Float.parseFloat(precio),numS,Integer.valueOf(cantidad),marca,modelo,combox1,combox2);
+								JOptionPane.showMessageDialog(null,"Registro exitoso!.","Aviso",JOptionPane.WARNING_MESSAGE);
+								Tienda.getInstance().insertarComponente(comp);
+								System.out.println(comp.getClass());
+								System.out.println(comp.getPrecioV()+comp.getCantidad());
+							}
+							
+						}
+					}
+				});
 				btnRegistrar.setActionCommand("OK");
 				buttonPane.add(btnRegistrar);
 				getRootPane().setDefaultButton(btnRegistrar);
