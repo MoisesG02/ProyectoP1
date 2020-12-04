@@ -1,8 +1,9 @@
 package logico;
 
+import java.io.Serializable;
 import java.sql.Date;
 
-public class main {
+public class main implements Serializable {
 	public static void main(String[] args) {
 	
 	Tienda tiendita = new Tienda();

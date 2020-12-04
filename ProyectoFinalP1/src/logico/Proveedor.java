@@ -1,6 +1,8 @@
 package logico;
 
-public class Proveedor {
+import java.io.Serializable;
+
+public class Proveedor implements Serializable {
 
 	private String nombre, direccion, numTel, rnc;
 	private int cod;

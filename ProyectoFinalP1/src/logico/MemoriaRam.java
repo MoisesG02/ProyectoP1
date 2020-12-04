@@ -1,6 +1,8 @@
 package logico;
 
-public class MemoriaRam extends Componente {
+import java.io.Serializable;
+
+public class MemoriaRam extends Componente implements Serializable {
 
 	
 	private int cantMemoria;

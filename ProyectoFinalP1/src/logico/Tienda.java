@@ -1,8 +1,9 @@
 package logico;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Tienda {
+public class Tienda implements Serializable {
 
 	private ArrayList<Componente> misComps;
 	private ArrayList<Factura> misFacturas;
@@ -13,6 +14,7 @@ public class Tienda {
 	private static int codFactura;
 	private static int codComponente;
 	private static int codCombo;
+	public static Tienda tienda = null;
 	//*
 
 	public Tienda() {
@@ -245,5 +247,9 @@ public class Tienda {
 	public static void setCodCombo(int codCombo) {
 		Tienda.codCombo = codCombo;
 	}
+	public static void setTienda(Tienda tienda1) {
+		Tienda.tienda = tienda1;
+	}
+
 
 }

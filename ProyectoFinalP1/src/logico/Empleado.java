@@ -1,6 +1,8 @@
 package logico;
 
-public class Empleado {
+import java.io.Serializable;
+
+public class Empleado implements Serializable {
 
 	protected String nombre;
 	protected String id;

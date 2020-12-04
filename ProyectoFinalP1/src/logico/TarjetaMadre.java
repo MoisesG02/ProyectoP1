@@ -1,8 +1,9 @@
 package logico;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class TarjetaMadre extends Componente {
+public class TarjetaMadre extends Componente implements Serializable {
 	private String tipoConector;
 	private String tipoRAM;
 	private ArrayList<DiscoDuro> discos;

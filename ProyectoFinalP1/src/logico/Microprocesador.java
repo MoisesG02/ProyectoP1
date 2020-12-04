@@ -1,6 +1,8 @@
 package logico;
 
-public class Microprocesador extends Componente {
+import java.io.Serializable;
+
+public class Microprocesador extends Componente implements Serializable {
 
 	private String tipoConexion;
 	private String velocidadProccess;

@@ -1,6 +1,8 @@
 package logico;
 
-public class Componente {
+import java.io.Serializable;
+
+public class Componente implements Serializable {
 	
 	protected float PrecioV;
 	protected String numSerie;

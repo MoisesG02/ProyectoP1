@@ -1,6 +1,8 @@
 package logico;
 
-public class Administrador extends Empleado {
+import java.io.Serializable;
+
+public class Administrador extends Empleado implements Serializable {
 		private String pass;
 		private String usuario;
 		private float salario;

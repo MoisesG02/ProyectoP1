@@ -1,6 +1,8 @@
 package logico;
 
-public class Vendedores extends Empleado {
+import java.io.Serializable;
+
+public class Vendedores extends Empleado implements Serializable {
 
 			
 			private String password;

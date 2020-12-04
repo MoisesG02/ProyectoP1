@@ -1,11 +1,15 @@
 package visual;
 
 import java.awt.BorderLayout;
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import logico.Tienda;
+
 import java.awt.Color;
 import java.awt.Dimension;
 
@@ -18,6 +22,16 @@ import javax.swing.JMenuBar;
 import javax.swing.JRadioButtonMenuItem;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.awt.event.ActionEvent;
 
 public class Inicio extends JFrame {
 
@@ -41,6 +55,34 @@ public class Inicio extends JFrame {
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
+				FileInputStream empresa;
+				FileOutputStream empresa2;
+				ObjectInputStream empresaRead;
+				ObjectOutputStream empresaWrite;
+				try {
+					empresa = new FileInputStream ("Tienda.dat");
+					empresaRead = new ObjectInputStream(empresa);
+					Tienda temp = (Tienda)empresaRead.readObject();
+					Tienda.setTienda(temp);
+					empresa.close();
+					empresaRead.close();
+				}catch(FileNotFoundException e) {
+					try {
+						empresa2 = new FileOutputStream("Tienda.dat");
+						empresaWrite = new ObjectOutputStream(empresa2);
+						empresaWrite.writeObject(Tienda.getInstance());
+						empresa2.close();
+						empresaWrite.close();
+					}catch(FileNotFoundException e1) {
+						
+					}catch(IOException e1) {
+						
+					}
+				}catch(IOException e) {
+					
+				}catch(ClassNotFoundException e) {
+					e.printStackTrace();
+				}
 				try {
 					Inicio frame = new Inicio();
 					frame.setVisible(true);
@@ -55,6 +97,25 @@ public class Inicio extends JFrame {
 	 * Create the frame.
 	 */
 	public Inicio() {
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowClosing(WindowEvent e) {
+				FileOutputStream empresa2;
+				ObjectOutputStream empresaWrite;
+				try {
+					empresa2 = new  FileOutputStream("Tienda.dat");
+					empresaWrite = new ObjectOutputStream(empresa2);
+					empresaWrite.writeObject(Tienda.getInstance());
+				} catch (FileNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+			}
+		});
 		
 	
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -324,8 +385,8 @@ public class Inicio extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				panelADM1.setVisible(false);
-			//	Registrar_Componente reg = new Registrar_Componente();
-				//reg.setVisible(true);
+				Registrar_Componente reg = new Registrar_Componente();
+				reg.setVisible(true);
 			}
 		});
 		PanelRegComponente.setBounds(0, 46, 289, 48);
