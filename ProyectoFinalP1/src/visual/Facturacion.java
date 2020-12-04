@@ -135,12 +135,13 @@ public class Facturacion extends JDialog {
 					public void actionPerformed(ActionEvent e) {
 						
 						Componente aux = Tienda.getInstance().obtenerComponente(numSerie);
-						
-						misComp.add(aux);
 						precio += aux.getPrecioV();
+						misComp.add(aux);
 						txtPrecioTotal.setText(String.format("%.2f",precio)+"$");
 						
 						Tienda.getInstance().getMisComps().remove(aux);
+						
+						
 						llenarT();
 						llenarT2();
 					}
@@ -157,8 +158,9 @@ public class Facturacion extends JDialog {
 					public void actionPerformed(ActionEvent e) {
 						
 						Componente aux = buscarQBC(codigox);
-						precio -= aux.getPrecioV();
+						 precio -= aux.getPrecioV();
 						 Tienda.getInstance().getMisComps().add(aux);
+						 
 						 misComp.remove(aux);
 						 
 						 
@@ -349,6 +351,11 @@ public class Facturacion extends JDialog {
 			}
 			{
 				JButton cancelButton = new JButton("Cancel");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						dispose();
+					}
+				});
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
@@ -385,7 +392,7 @@ public class Facturacion extends JDialog {
 		}
 	}
 */
-	private void Filtro(int seleccionado) {
+	/*private void Filtro(int seleccionado) {
 		model.setRowCount(0);
 		String tipo = null;
 		filas = new Object[model.getColumnCount()];
@@ -455,7 +462,7 @@ public class Facturacion extends JDialog {
 			}
 		}
 	}
-	
+	*/
 	public  void llenarT() {
 		((DefaultTableModel) tableComponente.getModel()).setRowCount(0);
 		int numCols = tableComponente.getModel().getColumnCount();

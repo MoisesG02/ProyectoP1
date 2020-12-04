@@ -439,10 +439,12 @@ public class Registrar_Componente extends JDialog {
 
 								JOptionPane.showMessageDialog(null, "Seleccione una de las ocpiones.", "Aviso",
 										JOptionPane.WARNING_MESSAGE);
-							} else if (text.isEmpty()) {
+							} 
+							else if (text.isEmpty()) {
 								JOptionPane.showMessageDialog(null, "Llenar los campos correspondientes.", "Aviso",
 										JOptionPane.WARNING_MESSAGE);
-							} else {
+							} 
+							else {
 								Componente comp = new MemoriaRam(Float.parseFloat(precio), numS,
 										Integer.valueOf(cantidad), marca, modelo, Integer.valueOf(text), combox1);
 								JOptionPane.showMessageDialog(null, "Registro exitoso!.", "Aviso",
