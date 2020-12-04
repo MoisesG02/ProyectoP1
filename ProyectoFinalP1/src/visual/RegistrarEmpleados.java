@@ -125,7 +125,7 @@ public class RegistrarEmpleados extends JDialog {
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		MaskFormatter formatt = new MaskFormatter();
 		try {
-			formatt = new MaskFormatter("(###)-###-#####");
+			formatt = new MaskFormatter("(###)-###-####");
 
 		} catch (ParseException e) {
 			

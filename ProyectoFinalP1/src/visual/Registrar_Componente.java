@@ -54,7 +54,6 @@ public class Registrar_Componente extends JDialog {
 	private JComboBox comboBoxTipoRam;
 	private JLabel lblTipoConexDisco;
 	private JLabel lblCapacidad;
-	private JTextField textFieldCantidadRam;
 	private JLabel lblCantidad;
 	private JComboBox comboBox;
 	private JLabel lblTipoMemoria;
@@ -67,7 +66,8 @@ public class Registrar_Componente extends JDialog {
 	private JSpinner spnCantDisponible;
 	private JComboBox comboBoxTipoConexionDisco;
 	private JTextField txtGb;
-	private JLabel lblMB;
+	private JComboBox comboBoxGRAM;
+	private JLabel lblGb;
 
 	/**
 	 * Launch the application.
@@ -365,21 +365,21 @@ public class Registrar_Componente extends JDialog {
 
 			comboBox = new JComboBox();
 			comboBox.setModel(new DefaultComboBoxModel(new String[] { "<Seleccionar>", "DDR2", "DDR3", "DDR4" }));
-			comboBox.setBounds(143, 43, 134, 26);
+			comboBox.setBounds(100, 43, 134, 26);
 			panelRam.add(comboBox);
 
 			lblCantidad = new JLabel("Cantidad:");
 			lblCantidad.setBounds(346, 36, 84, 40);
 			panelRam.add(lblCantidad);
-
-			textFieldCantidadRam = new JTextField();
-			textFieldCantidadRam.setBounds(426, 43, 65, 26);
-			panelRam.add(textFieldCantidadRam);
-			textFieldCantidadRam.setColumns(10);
-
-			lblMB = new JLabel("Mb");
-			lblMB.setBounds(497, 43, 69, 26);
-			panelRam.add(lblMB);
+			
+			comboBoxGRAM = new JComboBox();
+			comboBoxGRAM.setModel(new DefaultComboBoxModel(new String[] {"<Opc>", "1", "2", "4", "8", "16 "}));
+			comboBoxGRAM.setBounds(426, 43, 64, 26);
+			panelRam.add(comboBoxGRAM);
+			
+			lblGb = new JLabel("Gb");
+			lblGb.setBounds(500, 43, 69, 26);
+			panelRam.add(lblGb);
 		}
 		{
 			JPanel buttonPane = new JPanel();
@@ -434,7 +434,7 @@ public class Registrar_Componente extends JDialog {
 							}
 						} else if (rdbtnMemoriaRam.isSelected()) {
 							String combox1 = comboBox.getSelectedItem().toString();
-							String text = textFieldCantidadRam.getText();
+							String text = comboBoxGRAM.getSelectedItem().toString();
 							if (combox1.isEmpty()) {
 
 								JOptionPane.showMessageDialog(null, "Seleccione una de las ocpiones.", "Aviso",
@@ -496,7 +496,7 @@ public class Registrar_Componente extends JDialog {
 		txtModelo.setText("");
 		txtMarca.setText("");
 		txtGb.setText("");
-		textFieldCantidadRam.setText("");
+		comboBoxGRAM.getSelectedItem().toString();
 		spnCantDisponible.setValue(0);
 		rdbtnTarjetaMadre.setSelected(false);
 		;

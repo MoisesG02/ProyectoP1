@@ -58,9 +58,13 @@ public class Facturacion extends JDialog {
 	private Object[] filasx;
 	private JComboBox cbxFiltro;
 	private String numSerie;
+	private float precio = 0;
 	private ArrayList<Componente>misComp = new ArrayList<Componente>();
 	private JTable tableFactura;
 	private String codigox;
+	private JButton btnNewButton_1;
+	private JButton btnNewButton;
+	private JScrollPane scrollPane_1;
 
 
 	/**
@@ -126,14 +130,16 @@ public class Facturacion extends JDialog {
 				}
 			}
 			{
-				JButton btnNewButton = new JButton("");
+				btnNewButton = new JButton("");
 				btnNewButton.addActionListener(new ActionListener() { //IZQUIERDA A DERECHA
 					public void actionPerformed(ActionEvent e) {
-						float precioT=0f;
+						
 						Componente aux = Tienda.getInstance().obtenerComponente(numSerie);
+						
 						misComp.add(aux);
-						//precioT += aux.getPrecioV();
-						txtPrecioTotal.setText(""+calcuprecio());
+						precio += aux.getPrecioV();
+						txtPrecioTotal.setText(String.format("%.2f",precio)+"$");
+						
 						Tienda.getInstance().getMisComps().remove(aux);
 						llenarT();
 						llenarT2();
@@ -146,17 +152,20 @@ public class Facturacion extends JDialog {
 				panel_Tablas.add(btnNewButton);
 			}
 			{
-				JButton btnNewButton_1 = new JButton("");
+				btnNewButton_1 = new JButton("");
 				btnNewButton_1.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						float precio = 0f;
+						
 						Componente aux = buscarQBC(codigox);
+						precio -= aux.getPrecioV();
 						 Tienda.getInstance().getMisComps().add(aux);
-						 precio -= aux.getPrecioV();
 						 misComp.remove(aux);
+						 
+						 
 						 txtPrecioTotal.setText(""+precio);
 						 llenarT();
 						 llenarT2();
+						 
 					}
 				});
 
@@ -169,7 +178,7 @@ public class Facturacion extends JDialog {
 			cbxFiltro = new JComboBox();
 			cbxFiltro.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					Filtro(cbxFiltro.getSelectedIndex());
+				//	Filtro(cbxFiltro.getSelectedIndex());
 				}
 			});
 			cbxFiltro.setModel(new DefaultComboBoxModel(new String[] { "Seleccione", "Disco Duro", "Memoria Ram",
@@ -177,21 +186,25 @@ public class Facturacion extends JDialog {
 			cbxFiltro.setBounds(17, 28, 448, 22);
 			panel_Tablas.add(cbxFiltro);
 			
-			JScrollPane scrollPane = new JScrollPane();
-			scrollPane.addMouseListener(new MouseAdapter() {
+			scrollPane_1 = new JScrollPane();
+			scrollPane_1.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					int index = tableFactura.getSelectedRow();
 					codigox = String.valueOf(tableFactura.getValueAt(index, 0));
 				}
 			});
-			scrollPane.setBounds(597, 55, 477, 302);
-			panel_Tablas.add(scrollPane);
+			scrollPane_1.setBounds(597, 55, 477, 302);
+			panel_Tablas.add(scrollPane_1);
 			
 			tableFactura = new JTable();
 			tableFactura.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
+					int index = tableFactura.getSelectedRow();
+					
+					codigox = String.valueOf(tableFactura.getValueAt(index, 0));
+					
 				}
 			});
 			model1 = new DefaultTableModel();
@@ -199,7 +212,7 @@ public class Facturacion extends JDialog {
 			filasx = new Object[5];
 			model1.setColumnIdentifiers(column1);
 			tableFactura.setModel(model1);
-			scrollPane.setViewportView(tableFactura);
+			scrollPane_1.setViewportView(tableFactura);
 
 			JPanel panel = new JPanel();
 			panel.setBackground(new Color(224, 255, 255));
@@ -340,10 +353,10 @@ public class Facturacion extends JDialog {
 				buttonPane.add(cancelButton);
 			}
 		}
-		rellenartabla();
+		//rellenartabla();
 	}
 
-	private void rellenartabla() {
+	/*private void rellenartabla() {
 		model.setRowCount(0);
 		filas = new Object[model.getColumnCount()];
 		for (Componente comp : Tienda.getInstance().getMisComps()) {
@@ -357,7 +370,7 @@ public class Facturacion extends JDialog {
 			model.addRow(filas);
 		}
 	}
-	private void rellenartabla2() {
+	/*private void rellenartabla2() {
 		model1.setRowCount(0);
 		filas = new Object[model1.getColumnCount()];
 		for (Componente comp : Tienda.getInstance().getMisComps()) {
@@ -371,7 +384,7 @@ public class Facturacion extends JDialog {
 			model1.addRow(filas);
 		}
 	}
-
+*/
 	private void Filtro(int seleccionado) {
 		model.setRowCount(0);
 		String tipo = null;
@@ -442,6 +455,7 @@ public class Facturacion extends JDialog {
 			}
 		}
 	}
+	
 	public  void llenarT() {
 		((DefaultTableModel) tableComponente.getModel()).setRowCount(0);
 		int numCols = tableComponente.getModel().getColumnCount();
@@ -460,8 +474,8 @@ public class Facturacion extends JDialog {
 	}
 	public  void llenarT2() {
 		((DefaultTableModel) tableFactura.getModel()).setRowCount(0);
-		int numCols = tableFactura.getModel().getColumnCount();
-		 filasx = new Object[numCols];
+		int numColus = tableFactura.getModel().getColumnCount();
+		 Object[] filasx = new Object[numColus];
 		for (Componente auxQ : misComp) {
 
 			filasx[0] = auxQ.getNumSerie();
@@ -483,16 +497,13 @@ public class Facturacion extends JDialog {
 			if(misComp.get(c).getNumSerie().equalsIgnoreCase(code)) {
 				encontrado = true;
 				aux = misComp.get(c);
+				
 			}
 			c++;
 	}
 		return aux;
 }
-	public float calcuprecio() {
-		float precioT = 0f;
-		for(Componente comps : misComp) {
-			precioT = comps.getPrecioV();
-		}
-		return precioT;
-	}
+	
+	
+
 }
