@@ -165,6 +165,7 @@ public class Registrar_Componente extends JDialog {
 				}
 
 				spnCantDisponible = new JSpinner();
+				spnCantDisponible.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 				spnCantDisponible.setBounds(139, 51, 97, 22);
 				panel.add(spnCantDisponible);
 

@@ -214,12 +214,11 @@ public class Facturacion extends JDialog {
 			cbxFiltro = new JComboBox();
 			cbxFiltro.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-				//	Filtro(cbxFiltro.getSelectedIndex());
+				Filtro(cbxFiltro.getSelectedIndex());
 				}
 			});
-			cbxFiltro.setModel(new DefaultComboBoxModel(new String[] { "Seleccione", "Disco Duro", "Memoria Ram",
-					"Tarjeta Madre", "Microprocesador", "Combos" }));
-			cbxFiltro.setBounds(17, 28, 448, 22);
+			cbxFiltro.setModel(new DefaultComboBoxModel(new String[] {"Seleccione", "Disco Duro", "Memoria Ram", "Tarjeta Madre", "Microprocesador", "Combos"}));
+			cbxFiltro.setBounds(17, 28, 476, 22);
 			panel_Tablas.add(cbxFiltro);
 			
 			scrollPane_1 = new JScrollPane();
@@ -516,6 +515,27 @@ public class Facturacion extends JDialog {
 					model.addRow(filas);
 				}
 			}
+		}else if(seleccionado == 5) {
+			for(Combo combos: Tienda.getInstance().getMisCombos() ) {
+			     for(Componente comps: combos.getComponentes()) {
+			    	 filas[0] = combos.getCodigo();
+			    	 if(comps instanceof DiscoDuro) {
+			    		 filas[1] = ((DiscoDuro) comps).getCapacidad();
+			    	 }
+			    	 if(comps instanceof MemoriaRam) {
+			    		 filas[2] = ((MemoriaRam) comps).getCantMemoria();
+			    	 }
+			    	 if(comps instanceof TarjetaMadre) {
+			    		 filas[3] = ((TarjetaMadre) comps).getTipoConector();
+			    	 }
+			    	 if(comps instanceof Microprocesador) {
+			    		 filas[4] = ((Microprocesador) comps).getVelocidadProccess();
+			    	 }
+					model.addRow(filas);
+
+			     }
+			}
+			
 		}
 	}
 	

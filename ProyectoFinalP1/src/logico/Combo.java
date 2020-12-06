@@ -58,5 +58,8 @@ public class Combo implements Serializable {
 	public void setDesc(int desc) {
 		this.desc = desc;
 	}
+	public void insertarComponentesCombo(Componente compps) {
+		componentes.add(compps);
+	}
 	
 }

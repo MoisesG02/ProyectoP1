@@ -25,6 +25,7 @@ import javax.swing.DefaultComboBoxModel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
@@ -40,7 +41,7 @@ public class Registrar_Combo extends JDialog {
 	public static DefaultTableModel model1;
 	private Object[] filas;
 	private Object[] filasx;
-	private ArrayList<Componente> misCombos = new ArrayList<Componente>();
+	private ArrayList<Combo> misCombos = new ArrayList<Combo>();
 	private ArrayList<Componente> misCompCant = new ArrayList<Componente>();
 
 	private JTextField txtPrecioTotal;
@@ -65,7 +66,7 @@ public class Registrar_Combo extends JDialog {
 	 * Create the dialog.
 	 */
 	public Registrar_Combo() {
-		setBounds(100, 100, 947, 467);
+		setBounds(100, 100, 958, 478);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -78,7 +79,7 @@ public class Registrar_Combo extends JDialog {
 			panelfondo.setLayout(null);
 
 			JScrollPane scrollPane = new JScrollPane();
-			scrollPane.setBounds(21, 70, 394, 292);
+			scrollPane.setBounds(21, 70, 405, 292);
 			panelfondo.add(scrollPane);
 
 			tableComponente = new JTable();
@@ -97,7 +98,7 @@ public class Registrar_Combo extends JDialog {
 			scrollPane.setViewportView(tableComponente);
 
 			JScrollPane scrollPane_1 = new JScrollPane();
-			scrollPane_1.setBounds(513, 70, 394, 292);
+			scrollPane_1.setBounds(513, 70, 405, 292);
 			panelfondo.add(scrollPane_1);
 
 			tableCombo = new JTable();
@@ -152,7 +153,7 @@ public class Registrar_Combo extends JDialog {
 			});
 			llenarT();
 			btnNewButton.setIcon(new ImageIcon(Registrar_Combo.class.getResource("/Iconos/Actions-go-next-icon.png")));
-			btnNewButton.setBounds(427, 163, 63, 25);
+			btnNewButton.setBounds(438, 163, 63, 25);
 			panelfondo.add(btnNewButton);
 
 			JButton btnNewButton_1 = new JButton(""); //DE DERECHA A IZQUIERDA
@@ -171,13 +172,13 @@ public class Registrar_Combo extends JDialog {
 			});
 			btnNewButton_1
 					.setIcon(new ImageIcon(Registrar_Combo.class.getResource("/Iconos/Actions-go-previous-icon.png")));
-			btnNewButton_1.setBounds(427, 201, 63, 25);
+			btnNewButton_1.setBounds(438, 201, 63, 25);
 			panelfondo.add(btnNewButton_1);
 
 			JComboBox comboBox = new JComboBox();
 			comboBox.setModel(new DefaultComboBoxModel(
 					new String[] { "<Todos>", "Disco Duro", "Memoria Ram", "Tarjeta Madre", "Microprocesador" }));
-			comboBox.setBounds(20, 42, 392, 22);
+			comboBox.setBounds(20, 42, 406, 22);
 			panelfondo.add(comboBox);
 
 			JLabel lblNewLabel = new JLabel("Seleccione componente");
@@ -202,10 +203,14 @@ public class Registrar_Combo extends JDialog {
 				JButton btnCrearCombo = new JButton("Crear Combo");
 				btnCrearCombo.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						Combo combito = new Combo(misCompCant,"COD"+Tienda.getInstance().getCodCombo(),precio,10);
+						Combo combito = new Combo(misCompCant,"COD-"+Tienda.getInstance().getCodCombo(),precio,10);
 						
-							
-						
+						Tienda.getInstance().insertarCombo(combito);
+						Tienda.getInstance().insertarComponentesCombo(misCompCant);
+						JOptionPane.showMessageDialog(null, "Su registro fue exitoso!");
+                        model1.setRowCount(0);
+                        txtPrecioTotal.setText("0.0$");
+                        
 					}
 				});
 				btnCrearCombo.setActionCommand("OK");

@@ -10,6 +10,7 @@ public class Tienda implements Serializable {
 	private ArrayList<Cliente> misClientes;
 	private ArrayList<Combo> misCombos;
 	private ArrayList<Empleado> misEmpleados;
+	private ArrayList<Componente> misCompCombo;
 	private static Tienda tiendita = null;
 	private static int codFactura;
 	private static int codComponente;
@@ -19,6 +20,7 @@ public class Tienda implements Serializable {
 
 	public Tienda() {
 		super();
+		misCompCombo = new ArrayList<Componente>();
 		misComps = new ArrayList<Componente>();
 		misFacturas = new ArrayList<Factura>();
 		misClientes = new ArrayList<Cliente>();
@@ -115,10 +117,16 @@ public class Tienda implements Serializable {
 	public void insertEmpleado(Empleado employee) {
 		misEmpleados.add(employee);
 	}
+	public void insertarComponentesCombo(ArrayList<Componente> misCompCant) {
+		misCompCombo.addAll(misCompCant);
+		System.out.println(""+misCompCombo);
+
+	}
 
 	public void insertarCombo(Combo combito) {
 		misCombos.add(combito);
 		codCombo++;
+		System.out.println(""+misCombos+""+codCombo);
 	}
 	
 
@@ -258,5 +266,20 @@ public class Tienda implements Serializable {
 		Tienda.tienda = tienda1;
 	}
 
+	public ArrayList<Componente> getMisCompCombo() {
+		return misCompCombo;
+	}
+
+	public void setMisCompCombo(ArrayList<Componente> misCompCombo) {
+		this.misCompCombo = misCompCombo;
+	}
+	public boolean encontrarcombo() {
+		boolean encontrado = false;
+		for(int i = 0; i<misCompCombo.size();i++) {
+			
+		}
+		
+		return encontrado;
+	}
 
 }
