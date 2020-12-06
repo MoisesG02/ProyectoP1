@@ -19,11 +19,11 @@ public class Tienda implements Serializable {
 
 	public Tienda() {
 		super();
-		this.misComps = new ArrayList<Componente>();
-		this.misFacturas = new ArrayList<Factura>();
-		misClientes = new ArrayList<>();
-		this.misCombos = new ArrayList<Combo>();
-		this.misEmpleados = new ArrayList<Empleado>();
+		misComps = new ArrayList<Componente>();
+		misFacturas = new ArrayList<Factura>();
+		misClientes = new ArrayList<Cliente>();
+		misCombos = new ArrayList<Combo>();
+		misEmpleados = new ArrayList<Empleado>();
 		codFactura = 1;
 		codComponente = 1;
 		codCombo = 1;

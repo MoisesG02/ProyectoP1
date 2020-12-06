@@ -37,10 +37,12 @@ import javax.swing.JTextField;
 import javax.swing.border.MatteBorder;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Date;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import javax.swing.JFormattedTextField;
 
@@ -65,6 +67,7 @@ public class Facturacion extends JDialog {
 	private JTable tableFactura;
 	private String codigox;
 	private int cantx;
+	private Date fecha;
 	private JButton btnNewButton_1;
 	private JButton btnNewButton;
 	private JScrollPane scrollPane_1;
@@ -142,29 +145,32 @@ public class Facturacion extends JDialog {
 					public void actionPerformed(ActionEvent e) {
 						
 						Componente aux = Tienda.getInstance().obtenerComponente(numSerie);
-							
+						showDate();
 						String cant = JOptionPane.showInputDialog("Introduce un numero");
 						if(Integer.valueOf(cant)>aux.getCantidad()) {
 							JOptionPane.showMessageDialog(null,"Cantidad no disponible","Aviso",JOptionPane.WARNING_MESSAGE);
 						}
-						else{
+						else if(Integer.valueOf(cant)<=aux.getCantidad()){
 							Componente auxi = new Componente(aux.getPrecioV(),aux.getNumSerie(),Integer.valueOf(cant),aux.getMarca(),aux.getModelo());
 						
-						precio += aux.getPrecioV();
-						misCompCant.add(auxi);
-						cantx = aux.getCantidad()-auxi.getCantidad();
-						int c = 0;
-						aux.setCantidad(cantx);
-						if(aux.getCantidad()<=0) {
-							Tienda.getInstance().getMisComps().remove(aux);
-							JOptionPane.showMessageDialog(null,"Ultimo en el inventario "+aux.getMarca()+""+"Disponibles","Aviso",JOptionPane.WARNING_MESSAGE);
-								
-						}
+							precio += aux.getPrecioV();
+							misCompCant.add(auxi);
+							cantx = aux.getCantidad()-auxi.getCantidad();
+							int c = 0;
+							aux.setCantidad(cantx);
+							txtTotalComp.setText(""+misCompCant.size());
+							
+							if(aux.getCantidad()<1) {
+								Tienda.getInstance().getMisComps().remove(aux);
+								JOptionPane.showMessageDialog(null,"Ultimo en el inventario "+aux.getMarca()+""+"Disponibles","Aviso",JOptionPane.WARNING_MESSAGE);
+									
+							}
 								
 							
 						}
 					txtPrecioTotal.setText(""+precio);
-						
+					
+					
 								llenarT();
 								llenarT2();
 						
@@ -362,6 +368,7 @@ public class Facturacion extends JDialog {
 			panel_1.add(lblNewLabel_5);
 
 			txtFechaCompra = new JTextField();
+			txtFechaCompra.setEditable(false);
 			txtFechaCompra.setBounds(124, 93, 81, 22);
 			panel_1.add(txtFechaCompra);
 			txtFechaCompra.setColumns(10);
@@ -385,13 +392,14 @@ public class Facturacion extends JDialog {
 			txtTotalComp.setColumns(10);
 			MaskFormatter formatter = new MaskFormatter();
 			try {
-				formatter = new MaskFormatter("FT-000"+Tienda.getInstance().getCodFactura());
+				formatter = new MaskFormatter("FT-000"+Tienda.getCodFactura());
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			   formatter.setPlaceholderCharacter('_');
 			JFormattedTextField formattedTextField = new JFormattedTextField(formatter);
+			formattedTextField.setEditable(false);
 			formattedTextField.setBounds(106, 20, 99, 22);
 			panel_1.add(formattedTextField);
 		}
@@ -403,18 +411,18 @@ public class Facturacion extends JDialog {
 			{
 				JButton okButton = new JButton("Factura");
 				okButton.addActionListener(new ActionListener() {
-					@SuppressWarnings({ "unlikely-arg-type", "unused" })
+					@SuppressWarnings({ "unlikely-arg-type" })
 					public void actionPerformed(ActionEvent e) {
 						
-					
+						
 					 boolean clientx = Tienda.getInstance().BuscarCliente(textIDC.getText());
 					 Cliente client = Tienda.getInstance().buscarCliente(textIDC.getText());
-					if(clientx == true && !misComp.isEmpty()) {
+					if(clientx == true && !misCompCant.isEmpty()) {
 						Factura facts = new Factura(client,null);
 							Tienda.getInstance().getMisFacturas().add(facts);
-							Tienda.getInstance().getMisComps().remove(misComp);
-							for(Componente comps : misComp) {
-								facts.insetarCompenFactura(comps);
+							Tienda.getInstance().getMisComps().remove(misCompCant);
+							for(Componente comps : misCompCant) {
+								Tienda.getInstance().insertarFactura(facts);
 							}
 							model1.setRowCount(0);
 							JOptionPane.showMessageDialog(null, "Se ha efectuado la compra", "Notificacion", JOptionPane.INFORMATION_MESSAGE);
@@ -439,7 +447,7 @@ public class Facturacion extends JDialog {
 		}
 	}
 
-
+	
 	private void Filtro(int seleccionado) {
 		model.setRowCount(0);
 		String tipo = null;
@@ -566,6 +574,11 @@ public class Facturacion extends JDialog {
 		
 		
 		return 0;
+	}
+	public void showDate() {
+		Date d = new Date();
+		SimpleDateFormat sf = new SimpleDateFormat("dd/MM/yyyy");
+		txtFechaCompra.setText(sf.format(d));
 	}
 	public ArrayList<Componente> getMisCompCant() {
 		return misCompCant;
