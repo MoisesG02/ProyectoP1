@@ -204,6 +204,8 @@ public class Registrar_Combo extends JDialog {
 					public void actionPerformed(ActionEvent e) {
 						Combo combito = new Combo(misCompCant,"COD"+Tienda.getInstance().getCodCombo(),precio,10);
 						
+							
+						
 					}
 				});
 				btnCrearCombo.setActionCommand("OK");
