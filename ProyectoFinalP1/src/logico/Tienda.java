@@ -13,7 +13,7 @@ public class Tienda implements Serializable {
 	private static Tienda tiendita = null;
 	private static int codFactura;
 	private static int codComponente;
-	private static int codCombo;
+	public static int codCombo;
 	public static Tienda tienda = null;
 	//*
 
@@ -94,6 +94,7 @@ public class Tienda implements Serializable {
 	public void insertarEmpleado(Empleado employee) {
 		misEmpleados.add(employee);
 	}
+
 	
 	public boolean BuscarCliente(String ced) {
 		boolean encontrado  = false;

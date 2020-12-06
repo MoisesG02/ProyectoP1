@@ -11,7 +11,7 @@ public class Combo implements Serializable {
 	 private int desc;
 	 //.
 	 
-	public Combo(String codigo, float precio,int desc) {
+	public Combo(ArrayList<Componente>componentes,String codigo, float precio,int desc) {
 		super();
 		this.componentes = new ArrayList<Componente>();
 		this.codigo = codigo;

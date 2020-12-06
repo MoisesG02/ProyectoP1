@@ -17,8 +17,8 @@ public class main implements Serializable {
 	tiendita.insertarComponente(comp0);
 	//tiendita.insertarComponente(comp1);
 	
-	Combo com = new Combo("222",32,500);
-	tiendita.insertarCombo(com);
+	//Combo com = new Combo("222",32,500);
+	//tiendita.insertarCombo(com);
 	
 	tiendita.insertarFactura(facturita0);
 	facturita0.insetarCompenFactura(comp0);

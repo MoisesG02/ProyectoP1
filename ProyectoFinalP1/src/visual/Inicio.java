@@ -356,6 +356,13 @@ public class Inicio extends JFrame {
 		panelADM1.setLayout(null);
 		
 		JPanel PanelRegCliente = new JPanel();
+		PanelRegCliente.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Registrar_Combo reg = new Registrar_Combo();
+				reg.setVisible(true);
+			}
+		});
 		
 		PanelRegCliente.setBounds(0, 0, 289, 48);
 		panelADM1.add(PanelRegCliente);
