@@ -21,7 +21,7 @@ public class Tienda implements Serializable {
 		super();
 		this.misComps = new ArrayList<Componente>();
 		this.misFacturas = new ArrayList<Factura>();
-		this.misClientes = new ArrayList<Cliente>();
+		misClientes = new ArrayList<>();
 		this.misCombos = new ArrayList<Combo>();
 		this.misEmpleados = new ArrayList<Empleado>();
 		codFactura = 1;
@@ -95,18 +95,19 @@ public class Tienda implements Serializable {
 		misEmpleados.add(employee);
 	}
 	
-	public int BuscarCliente(String ced) {
-		int index = -1;
-		int j = 0;
-		
-		for (Cliente i : misClientes) {
-			if(i.getCedula().equalsIgnoreCase(ced)) {
-				index = j;
-				break;
+	public boolean BuscarCliente(String ced) {
+		boolean encontrado  = false;
+		Cliente client = null;
+		int c = 0;
+		while(c <misClientes.size()) {
+			if(misClientes.get(c).getCedula().equalsIgnoreCase(ced)) {
+				client = misClientes.get(c);
+				encontrado = true;
+				System.out.println(client);
 			}
-			j++;
+			c++;
 		}
-		return index;
+		return encontrado;
 	}
 	
 
@@ -208,10 +209,15 @@ public class Tienda implements Serializable {
 	public Cliente buscarCliente(String cedula) {
 		boolean encontrado = false;
 		Cliente client = null;
-		for (Cliente cliente : misClientes) {
-			if(cliente.getCedula().equalsIgnoreCase(cedula)) {
-			   cliente = client;	
+		int c = 0;
+		while(c<misClientes.size()) {
+			if(misClientes.get(c).getCedula().equalsIgnoreCase(cedula)) {
+				encontrado = true;
+				client = misClientes.get(c);
+				
+				
 			}
+			c++;
 		}
 		return client;
 	}

@@ -2,6 +2,8 @@ package visual;
 
 import java.awt.BorderLayout;
 
+
+
 import java.awt.FlowLayout;
 
 import javax.swing.JButton;
@@ -10,11 +12,13 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.text.MaskFormatter;
 
 import logico.Cliente;
 import logico.Combo;
 import logico.Componente;
 import logico.DiscoDuro;
+import logico.Factura;
 import logico.MemoriaRam;
 import logico.Microprocesador;
 import logico.TarjetaMadre;
@@ -36,16 +40,16 @@ import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.ParseException;
+
+import javax.swing.JFormattedTextField;
 
 public class Facturacion extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	private JTable tableComponente;
-	private JTextField txtCedula;
-	private JTextField txtTelefono;
 	private JTextField txtNombre;
 	private JTextField txtDireccion;
-	private JTextField txtCodigoFactura;
 	private JTextField txtFechaCompra;
 	private JTextField txtPrecioTotal;
 	private JTextField txtTotalComp;
@@ -56,12 +60,19 @@ public class Facturacion extends JDialog {
 	private JComboBox cbxFiltro;
 	private String numSerie;
 	private float precio = 0;
-	private ArrayList<Componente> misComp = new ArrayList<Componente>();
+	private ArrayList<Componente>misComp = new ArrayList<>();
+	private ArrayList<Componente>misCompCant = new ArrayList<>();
 	private JTable tableFactura;
 	private String codigox;
+	private int cantx;
 	private JButton btnNewButton_1;
 	private JButton btnNewButton;
 	private JScrollPane scrollPane_1;
+	private JButton btnNewButton_2;
+	private JFormattedTextField textIDC;
+	private JFormattedTextField txtTelefono;
+	private JScrollPane scrollPane;
+
 
 	/**
 	 * Launch the application.
@@ -101,7 +112,7 @@ public class Facturacion extends JDialog {
 			panel_Fondo.add(panel_Tablas);
 			panel_Tablas.setLayout(null);
 			{
-				JScrollPane scrollPane = new JScrollPane();
+				scrollPane = new JScrollPane();
 				scrollPane.setBounds(16, 54, 477, 302);
 				panel_Tablas.add(scrollPane);
 
@@ -114,7 +125,7 @@ public class Facturacion extends JDialog {
 					}
 				});
 				model = new DefaultTableModel();
-				String[] column = { "#Serie", "Marca", "Modelo", "Cantiad", "Precio", "Especificaciones" };
+				String[] column = { "#Serie", "Marca", "Modelo", "Cantiad", "Precio" };
 				filas = new Object[5];
 				model.setColumnIdentifiers(column);
 				tableComponente.setModel(model);
@@ -122,28 +133,47 @@ public class Facturacion extends JDialog {
 			}
 			{
 				{
-
+					
 				}
 			}
 			{
 				btnNewButton = new JButton("");
-				btnNewButton.addActionListener(new ActionListener() { // IZQUIERDA A DERECHA
-
-	public void actionPerformed(ActionEvent e) {
-						int index1 = cbxFiltro.getSelectedIndex();
-						index1 = 0;
-						cbxFiltro.setSelectedIndex(index1);
+				btnNewButton.addActionListener(new ActionListener() { //IZQUIERDA A DERECHA
+					public void actionPerformed(ActionEvent e) {
+						
 						Componente aux = Tienda.getInstance().obtenerComponente(numSerie);
+							
+						String cant = JOptionPane.showInputDialog("Introduce un numero");
+						if(Integer.valueOf(cant)>aux.getCantidad()) {
+							JOptionPane.showMessageDialog(null,"Cantidad no disponible","Aviso",JOptionPane.WARNING_MESSAGE);
+						}
+						else{
+							Componente auxi = new Componente(aux.getPrecioV(),aux.getNumSerie(),Integer.valueOf(cant),aux.getMarca(),aux.getModelo());
+						
 						precio += aux.getPrecioV();
-						misComp.add(aux);
-						txtPrecioTotal.setText(String.format("%.2f", precio) + "$");
-
-						Tienda.getInstance().getMisComps().remove(aux);
-
-						llenarT();
-						llenarT2();
+						misCompCant.add(auxi);
+						cantx = aux.getCantidad()-auxi.getCantidad();
+						int c = 0;
+						aux.setCantidad(cantx);
+						if(aux.getCantidad()<=0) {
+							Tienda.getInstance().getMisComps().remove(aux);
+							JOptionPane.showMessageDialog(null,"Ultimo en el inventario "+aux.getMarca()+""+"Disponibles","Aviso",JOptionPane.WARNING_MESSAGE);
+								
+						}
+								
+							
+						}
+					txtPrecioTotal.setText(""+precio);
+						
+								llenarT();
+								llenarT2();
+						
+						
+						
+					
 					}
 				});
+				llenarT();
 
 				btnNewButton.setIcon(new ImageIcon(Facturacion.class.getResource("/Iconos/Actions-go-next-icon.png")));
 				btnNewButton.setBounds(517, 161, 68, 25);
@@ -153,17 +183,19 @@ public class Facturacion extends JDialog {
 				btnNewButton_1 = new JButton("");
 				btnNewButton_1.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-
+						
 						Componente aux = buscarQBC(codigox);
+						
+						
 						precio -= aux.getPrecioV();
-						Tienda.getInstance().getMisComps().add(aux);
-
-						misComp.remove(aux);
-
-						txtPrecioTotal.setText("" + precio);
-						llenarT();
-						llenarT2();
-
+						 Tienda.getInstance().getMisComps().add(aux);
+						 misCompCant.remove(aux);
+						 
+						 
+						 txtPrecioTotal.setText(""+precio);
+						 llenarT();
+						 llenarT2();
+						 
 					}
 				});
 
@@ -175,38 +207,35 @@ public class Facturacion extends JDialog {
 
 			cbxFiltro = new JComboBox();
 			cbxFiltro.addActionListener(new ActionListener() {
-
-	public void actionPerformed(ActionEvent e) {
-					Filtro(cbxFiltro.getSelectedIndex());
+				public void actionPerformed(ActionEvent e) {
+				//	Filtro(cbxFiltro.getSelectedIndex());
 				}
 			});
-			cbxFiltro.setModel(new DefaultComboBoxModel(new String[] { "<Todos>", "Disco Duro", "Memoria Ram",
+			cbxFiltro.setModel(new DefaultComboBoxModel(new String[] { "Seleccione", "Disco Duro", "Memoria Ram",
 					"Tarjeta Madre", "Microprocesador", "Combos" }));
-			cbxFiltro.setBounds(17, 28, 476, 22);
+			cbxFiltro.setBounds(17, 28, 448, 22);
 			panel_Tablas.add(cbxFiltro);
-
+			
 			scrollPane_1 = new JScrollPane();
 			scrollPane_1.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					int index = tableFactura.getSelectedRow();
-					codigox = String.valueOf(tableFactura.getValueAt(index, 0));
-				}
+				
 			});
+				
 			scrollPane_1.setBounds(597, 55, 477, 302);
 			panel_Tablas.add(scrollPane_1);
-
+			
 			tableFactura = new JTable();
 			tableFactura.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					int index = tableFactura.getSelectedRow();
+					
 					codigox = String.valueOf(tableFactura.getValueAt(index, 0));
-
+					
 				}
 			});
 			model1 = new DefaultTableModel();
-			String[] column1 = { "#Serie", "Marca", "Modelo", "Cantidad", "Precio", "Especificaciones" };
+			String[] column1 = { "#Serie", "Marca", "Modelo", "Cantidad", "Precio" };
 			filasx = new Object[5];
 			model1.setColumnIdentifiers(column1);
 			tableFactura.setModel(model1);
@@ -228,16 +257,6 @@ public class Facturacion extends JDialog {
 			lblNewLabel_1.setBounds(12, 68, 62, 16);
 			panel.add(lblNewLabel_1);
 
-			txtCedula = new JTextField();
-			txtCedula.setBounds(80, 20, 133, 22);
-			panel.add(txtCedula);
-			txtCedula.setColumns(10);
-
-			txtTelefono = new JTextField();
-			txtTelefono.setBounds(80, 65, 133, 22);
-			panel.add(txtTelefono);
-			txtTelefono.setColumns(10);
-
 			JLabel lblNewLabel_2 = new JLabel("Nombre:");
 			lblNewLabel_2.setBounds(225, 23, 56, 16);
 			panel.add(lblNewLabel_2);
@@ -256,18 +275,30 @@ public class Facturacion extends JDialog {
 			panel.add(txtDireccion);
 			txtDireccion.setColumns(10);
 
-			JButton btnNewButton_2 = new JButton("Buscar Cliente");
+			btnNewButton_2 = new JButton("Buscar Cliente");
 			btnNewButton_2.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					Cliente client = Tienda.getInstance().buscarCliente(txtCedula.getText());
-					if (client != null) {
-						txtCedula.setText(client.getCedula());
+					Cliente client = null;
+					boolean encontrado = Tienda.getInstance().BuscarCliente(textIDC.getText());
+					System.out.println(encontrado);
+					 client = Tienda.getInstance().buscarCliente(textIDC.getText());
+				
+					if(encontrado == true) {
+						JOptionPane.showMessageDialog(null,"Cliente encontrado!.","Aviso",JOptionPane.WARNING_MESSAGE);
 						txtNombre.setText(client.getNombre());
-						txtTelefono.setText(client.getTelefono());
+						textIDC.setText(client.getCedula());
 						txtDireccion.setText(client.getDireccion());
-					} else {
-						JOptionPane.showMessageDialog(null, "Cliente no existente.");
+						txtTelefono.setText(client.getTelefono());
 					}
+					
+					
+					
+					
+					
+					
+					
+					
+					
 				}
 			});
 			btnNewButton_2.setBounds(90, 108, 133, 25);
@@ -276,19 +307,43 @@ public class Facturacion extends JDialog {
 			JButton btnNewButton_3 = new JButton("Crear Cliente");
 			btnNewButton_3.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					if (txtNombre.getText().equals("") || txtCedula.getText().equals("")
+					if (txtNombre.getText().equals("") || textIDC.getText().equals("")
 							|| txtTelefono.getText().equals("") || txtDireccion.getText().equals("")) {
 						JOptionPane.showMessageDialog(null, "Llene todos los campos, por favor.");
 					} else {
-						Cliente client = new Cliente(txtNombre.getText(), txtCedula.getText(), txtTelefono.getText(),
+						Cliente client = new Cliente(textIDC.getText(),txtNombre.getText(),  txtTelefono.getText(),
 								txtDireccion.getText());
+						Tienda.getInstance().insertarCliente(client);
 						JOptionPane.showMessageDialog(null, "Cliente creado exitosamente.");
+						System.out.println(client.getNombre()+""+client.getCedula());
 
 					}
 				}
 			});
 			btnNewButton_3.setBounds(253, 108, 133, 25);
 			panel.add(btnNewButton_3);
+			MaskFormatter format = new MaskFormatter();
+			try {
+				format = new MaskFormatter("###-########-#");
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			   format.setPlaceholderCharacter('_');
+			textIDC = new JFormattedTextField(format);
+			textIDC.setBounds(80, 20, 133, 22);
+			panel.add(textIDC);
+			MaskFormatter formatterr = new MaskFormatter();
+			try {
+				formatterr = new MaskFormatter("(###)-###-####");
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			   formatterr.setPlaceholderCharacter('_');
+			txtTelefono = new JFormattedTextField(formatterr);
+			txtTelefono.setBounds(80, 65, 133, 22);
+			panel.add(txtTelefono);
 
 			JPanel panel_1 = new JPanel();
 			panel_1.setBackground(new Color(224, 255, 255));
@@ -301,11 +356,6 @@ public class Facturacion extends JDialog {
 			JLabel lblNewLabel_4 = new JLabel("C\u00F3digo Factura:");
 			lblNewLabel_4.setBounds(12, 23, 100, 16);
 			panel_1.add(lblNewLabel_4);
-
-			txtCodigoFactura = new JTextField();
-			txtCodigoFactura.setBounds(124, 20, 81, 22);
-			panel_1.add(txtCodigoFactura);
-			txtCodigoFactura.setColumns(10);
 
 			JLabel lblNewLabel_5 = new JLabel("Fecha Compra:");
 			lblNewLabel_5.setBounds(12, 96, 100, 16);
@@ -333,54 +383,63 @@ public class Facturacion extends JDialog {
 			txtTotalComp.setBounds(365, 93, 81, 22);
 			panel_1.add(txtTotalComp);
 			txtTotalComp.setColumns(10);
+			MaskFormatter formatter = new MaskFormatter();
+			try {
+				formatter = new MaskFormatter("FT-000"+Tienda.getInstance().getCodFactura());
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			   formatter.setPlaceholderCharacter('_');
+			JFormattedTextField formattedTextField = new JFormattedTextField(formatter);
+			formattedTextField.setBounds(106, 20, 99, 22);
+			panel_1.add(formattedTextField);
 		}
-
-	{
-		JPanel buttonPane = new JPanel();
-		buttonPane.setBackground(new Color(192, 192, 192));
-		buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-		getContentPane().add(buttonPane, BorderLayout.SOUTH);
 		{
-			JButton okButton = new JButton("Factura");
-			okButton.setActionCommand("OK");
-			buttonPane.add(okButton);
-			getRootPane().setDefaultButton(okButton);
-		}
-		{
-			JButton cancelButton = new JButton("Cancel");
-			cancelButton.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					dispose();
-				}
-			});
-			cancelButton.setActionCommand("Cancel");
-			buttonPane.add(cancelButton);
+			JPanel buttonPane = new JPanel();
+			buttonPane.setBackground(new Color(192, 192, 192));
+			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+			getContentPane().add(buttonPane, BorderLayout.SOUTH);
+			{
+				JButton okButton = new JButton("Factura");
+				okButton.addActionListener(new ActionListener() {
+					@SuppressWarnings({ "unlikely-arg-type", "unused" })
+					public void actionPerformed(ActionEvent e) {
+						
+					
+					 boolean clientx = Tienda.getInstance().BuscarCliente(textIDC.getText());
+					 Cliente client = Tienda.getInstance().buscarCliente(textIDC.getText());
+					if(clientx == true && !misComp.isEmpty()) {
+						Factura facts = new Factura(client,null);
+							Tienda.getInstance().getMisFacturas().add(facts);
+							Tienda.getInstance().getMisComps().remove(misComp);
+							for(Componente comps : misComp) {
+								facts.insetarCompenFactura(comps);
+							}
+							model1.setRowCount(0);
+							JOptionPane.showMessageDialog(null, "Se ha efectuado la compra", "Notificacion", JOptionPane.INFORMATION_MESSAGE);
+						}
+					else if(client == null) {
+						JOptionPane.showMessageDialog(null, "No se ha encontrado un cliente", "Notificacion", JOptionPane.INFORMATION_MESSAGE);
+					}
+					else if(misComp.isEmpty()) {
+						JOptionPane.showMessageDialog(null, "No hay objetos para facturar", "Notificacion", JOptionPane.INFORMATION_MESSAGE);
+					}
+					}
+				});
+				okButton.setActionCommand("OK");
+				buttonPane.add(okButton);
+				getRootPane().setDefaultButton(okButton);
+			}
+			{
+				JButton cancelButton = new JButton("Cancel");
+				cancelButton.setActionCommand("Cancel");
+				buttonPane.add(cancelButton);
+			}
 		}
 	}
 
-	llenarT();
 
-	}
-
-	/*
-	 * private void rellenartabla() { model.setRowCount(0); filas = new
-	 * Object[model.getColumnCount()]; for (Componente comp :
-	 * Tienda.getInstance().getMisComps()) {
-	 * 
-	 * filas[0] = comp.getNumSerie(); filas[1] = comp.getMarca(); filas[2] =
-	 * comp.getModelo(); filas[3] = comp.getCantidad(); filas[4] =
-	 * comp.getPrecioV();
-	 * 
-	 * model.addRow(filas); } } /*private void rellenartabla2() {
-	 * model1.setRowCount(0); filas = new Object[model1.getColumnCount()]; for
-	 * (Componente comp : Tienda.getInstance().getMisComps()) {
-	 * 
-	 * filas[0] = comp.getNumSerie(); filas[1] = comp.getMarca(); filas[2] =
-	 * comp.getModelo(); filas[3] = comp.getCantidad(); filas[4] =
-	 * comp.getPrecioV();
-	 * 
-	 * model1.addRow(filas); } }
-	 */
 	private void Filtro(int seleccionado) {
 		model.setRowCount(0);
 		String tipo = null;
@@ -388,56 +447,13 @@ public class Facturacion extends JDialog {
 		if (seleccionado == 0) {
 			for (Componente comp : Tienda.getInstance().getMisComps()) {
 
-				if (comp instanceof DiscoDuro) {
-					filas[0] = comp.getNumSerie();
-					filas[1] = comp.getMarca();
-					filas[2] = comp.getModelo();
-					filas[3] = comp.getCantidad();
-					filas[4] = comp.getPrecioV();
-					filas[5] = ((DiscoDuro) comp).getCapacidad()+"GB";
+				filas[0] = comp.getNumSerie();
+				filas[1] = comp.getMarca();
+				filas[2] = comp.getModelo();
+				filas[3] = comp.getCantidad();
+				filas[4] = comp.getPrecioV();
 
-					model.addRow(filas);
-				}
-			}
-			for (Componente comp : Tienda.getInstance().getMisComps()) {
-
-				if (comp instanceof MemoriaRam) {
-					filas[0] = comp.getNumSerie();
-					filas[1] = comp.getMarca();
-					filas[2] = comp.getModelo();
-					filas[3] = comp.getCantidad();
-					filas[4] = comp.getPrecioV();
-					filas[5] = ((MemoriaRam) comp).getCantMemoria();
-
-					model.addRow(filas);
-
-				}
-			}
-			for (Componente comp : Tienda.getInstance().getMisComps()) {
-
-				if (comp instanceof TarjetaMadre) {
-					filas[0] = comp.getNumSerie();
-					filas[1] = comp.getMarca();
-					filas[2] = comp.getModelo();
-					filas[3] = comp.getCantidad();
-					filas[4] = comp.getPrecioV();
-					filas[5] = ((TarjetaMadre) comp).getTipoConector();
-
-					model.addRow(filas);
-				}
-			}
-			for (Componente comp : Tienda.getInstance().getMisComps()) {
-
-				if (comp instanceof Microprocesador) {
-					filas[0] = comp.getNumSerie();
-					filas[1] = comp.getMarca();
-					filas[2] = comp.getModelo();
-					filas[3] = comp.getCantidad();
-					filas[4] = comp.getPrecioV();
-					filas[5] = ((Microprocesador) comp).getVelocidadProccess();
-
-					model.addRow(filas);
-				}
+				model.addRow(filas);
 			}
 		} else if (seleccionado == 1) {
 			for (Componente comp : Tienda.getInstance().getMisComps()) {
@@ -448,7 +464,6 @@ public class Facturacion extends JDialog {
 					filas[2] = comp.getModelo();
 					filas[3] = comp.getCantidad();
 					filas[4] = comp.getPrecioV();
-					filas[5] = ((DiscoDuro) comp).getCapacidad()+"GB";
 
 					model.addRow(filas);
 				}
@@ -462,7 +477,6 @@ public class Facturacion extends JDialog {
 					filas[2] = comp.getModelo();
 					filas[3] = comp.getCantidad();
 					filas[4] = comp.getPrecioV();
-					filas[5] = ((MemoriaRam) comp).getCantMemoria();
 
 					model.addRow(filas);
 
@@ -477,7 +491,6 @@ public class Facturacion extends JDialog {
 					filas[2] = comp.getModelo();
 					filas[3] = comp.getCantidad();
 					filas[4] = comp.getPrecioV();
-					filas[5] = ((TarjetaMadre) comp).getTipoConector();
 
 					model.addRow(filas);
 				}
@@ -491,139 +504,82 @@ public class Facturacion extends JDialog {
 					filas[2] = comp.getModelo();
 					filas[3] = comp.getCantidad();
 					filas[4] = comp.getPrecioV();
-					filas[5] = ((Microprocesador) comp).getVelocidadProccess();
 
 					model.addRow(filas);
 				}
 			}
 		}
 	}
-
-	public void llenarT() {
+	
+	public  void llenarT() {
 		((DefaultTableModel) tableComponente.getModel()).setRowCount(0);
 		int numCols = tableComponente.getModel().getColumnCount();
 		Object[] filas = new Object[numCols];
-
 		for (Componente auxQ : Tienda.getInstance().getMisComps()) {
-			if (auxQ instanceof Microprocesador) {
-				filas[0] = auxQ.getNumSerie();
-				filas[1] = auxQ.getMarca();
-				filas[2] = auxQ.getModelo();
-				filas[3] = auxQ.getCantidad();
-				filas[4] = auxQ.getPrecioV();
-				filas[5] = ((Microprocesador) auxQ).getVelocidadProccess();
-				((DefaultTableModel) tableComponente.getModel()).addRow(filas);
 
-			}
-		}
-		for (Componente auxQ : Tienda.getInstance().getMisComps()) {
-			if (auxQ instanceof TarjetaMadre) {
-				filas[0] = auxQ.getNumSerie();
-				filas[1] = auxQ.getMarca();
-				filas[2] = auxQ.getModelo();
-				filas[3] = auxQ.getCantidad();
-				filas[4] = auxQ.getPrecioV();
-				filas[5] = ((TarjetaMadre) auxQ).getTipoConector();
-				((DefaultTableModel) tableComponente.getModel()).addRow(filas);
+			filas[0] = auxQ.getNumSerie();
+			filas[1] = auxQ.getMarca();
+			filas[2] = auxQ.getModelo();
+			
+			filas[3] = auxQ.getCantidad();	
+			
+			
+			filas[4] = auxQ.getPrecioV();
+//tabla bien
+			((DefaultTableModel) tableComponente.getModel()).addRow(filas);
 
-			}
-		}
-		for (Componente auxQ : Tienda.getInstance().getMisComps()) {
-			if (auxQ instanceof MemoriaRam) {
-				filas[0] = auxQ.getNumSerie();
-				filas[1] = auxQ.getMarca();
-				filas[2] = auxQ.getModelo();
-				filas[3] = auxQ.getCantidad();
-				filas[4] = auxQ.getPrecioV();
-				filas[5] = ((MemoriaRam) auxQ).getCantMemoria();
-				((DefaultTableModel) tableComponente.getModel()).addRow(filas);
-
-			}
-		}
-		for (Componente auxQ : Tienda.getInstance().getMisComps()) {
-			if (auxQ instanceof DiscoDuro) {
-				filas[0] = auxQ.getNumSerie();
-				filas[1] = auxQ.getMarca();
-				filas[2] = auxQ.getModelo();
-				filas[3] = auxQ.getCantidad();
-				filas[4] = auxQ.getPrecioV();
-				filas[5] = ((DiscoDuro) auxQ).getCapacidad();
-				((DefaultTableModel) tableComponente.getModel()).addRow(filas);
-
-			}
 		}
 	}
-
-	
-
-	public void llenarT2() {
+	public  void llenarT2() {
 		((DefaultTableModel) tableFactura.getModel()).setRowCount(0);
 		int numColus = tableFactura.getModel().getColumnCount();
-		Object[] filasx = new Object[numColus];
-		for (Componente auxQ : Tienda.getInstance().getMisComps()) {
-			if (auxQ instanceof Microprocesador) {
-				filasx[0] = auxQ.getNumSerie();
-				filasx[1] = auxQ.getMarca();
-				filasx[2] = auxQ.getModelo();
-				filasx[3] = auxQ.getCantidad();
-				filasx[4] = auxQ.getPrecioV();
-				filasx[5] = ((Microprocesador) auxQ).getVelocidadProccess();
-				((DefaultTableModel) tableFactura.getModel()).addRow(filasx);
+		 Object[] filasx = new Object[numColus];
+		for(Componente auxQ : misCompCant) {
 
-			}
-		}
-		for (Componente auxQ : Tienda.getInstance().getMisComps()) {
-			if (auxQ instanceof TarjetaMadre) {
-				filasx[0] = auxQ.getNumSerie();
-				filasx[1] = auxQ.getMarca();
-				filasx[2] = auxQ.getModelo();
-				filasx[3] = auxQ.getCantidad();
-				filasx[4] = auxQ.getPrecioV();
-				filasx[5] = ((TarjetaMadre) auxQ).getTipoConector();
-				((DefaultTableModel) tableFactura.getModel()).addRow(filasx);
+			filasx[0] = auxQ.getNumSerie();
+			filasx[1] = auxQ.getMarca();
+			filasx[2] = auxQ.getModelo();
+			filasx[3] = auxQ.getCantidad();
+			filasx[4] = auxQ.getPrecioV();
+ //tabla bien
+			((DefaultTableModel) tableFactura.getModel()).addRow(filasx);
 
-			}
-		}
-		for (Componente auxQ : Tienda.getInstance().getMisComps()) {
-			if (auxQ instanceof MemoriaRam) {
-				filasx[0] = auxQ.getNumSerie();
-				filasx[1] = auxQ.getMarca();
-				filasx[2] = auxQ.getModelo();
-				filasx[3] = auxQ.getCantidad();
-				filasx[4] = auxQ.getPrecioV();
-				filasx[5] = ((MemoriaRam) auxQ).getCantMemoria();
-				((DefaultTableModel) tableFactura.getModel()).addRow(filasx);
-
-			}
-		}
-		for (Componente auxQ : Tienda.getInstance().getMisComps()) {
-			if (auxQ instanceof DiscoDuro) {
-				filasx[0] = auxQ.getNumSerie();
-				filasx[1] = auxQ.getMarca();
-				filasx[2] = auxQ.getModelo();
-				filasx[3] = auxQ.getCantidad();
-				filasx[4] = auxQ.getPrecioV();
-				filasx[5] = ((DiscoDuro) auxQ).getCapacidad();
-				((DefaultTableModel) tableFactura.getModel()).addRow(filasx);
-
-			}
 		}
 	}
-
 	public Componente buscarQBC(String code) {
 		Componente aux = null;
-		boolean encontrado = false;
-		int c = 0;
-
-		while (c < misComp.size()) {
-			if (misComp.get(c).getNumSerie().equalsIgnoreCase(code)) {
+		boolean encontrado =false;
+		int c= 0;
+		
+		while(c<misCompCant.size()) {
+			if(misCompCant.get(c).getNumSerie().equalsIgnoreCase(code)) {
 				encontrado = true;
-				aux = misComp.get(c);
-
+				aux = misCompCant.get(c);
+				
 			}
 			c++;
-		}
+	}
 		return aux;
+}
+	public float calcularP() {
+		
+		
+		
+		return 0;
+	}
+	public ArrayList<Componente> getMisCompCant() {
+		return misCompCant;
 	}
 
+	public void setMisCompCant(ArrayList<Componente> misCompCant) {
+		this.misCompCant = misCompCant;
+	}
+
+	public int getCantx() {
+		return cantx;
+	}
+
+	public void setCantx(int cantx) {
+		this.cantx = cantx;
+	}
 }
