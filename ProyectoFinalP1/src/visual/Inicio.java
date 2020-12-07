@@ -359,7 +359,7 @@ public class Inicio extends JFrame {
 		PanelRegCliente.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				Registrar_Combo reg = new Registrar_Combo();
+				Registrar_Combo reg = new Registrar_Combo(null,false);
 				reg.setVisible(true);
 			}
 		});

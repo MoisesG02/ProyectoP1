@@ -1,7 +1,11 @@
 package logico;
 
 import java.io.Serializable;
+
 import java.util.ArrayList;
+
+import logico.Combo;
+import logico.Componente;
 
 public class Tienda implements Serializable {
 
@@ -78,6 +82,10 @@ public class Tienda implements Serializable {
 	public void setMisEmpleados(ArrayList<Empleado> misEmpleados) {
 		this.misEmpleados = misEmpleados;
 	}
+	public void eliminarCombo(Combo aux) {
+		misCombos.remove(aux);
+		codCombo--;
+	}
 
 	public void insertarFactura(Factura factura) {
 		misFacturas.add(factura);
@@ -127,6 +135,7 @@ public class Tienda implements Serializable {
 		misCombos.add(combito);
 		codCombo++;
 		System.out.println(""+misCombos+""+codCombo);
+		System.out.println(misCombos);
 	}
 	
 
@@ -273,6 +282,30 @@ public class Tienda implements Serializable {
 	public void setMisCompCombo(ArrayList<Componente> misCompCombo) {
 		this.misCompCombo = misCompCombo;
 	}
-	
+	public float precioTotalComponentes(ArrayList<Componente> aux,ArrayList<Integer> cantidades) {
+		float precioTotal = 0;
+		int i = 0;
+		if(!aux.isEmpty()&&!cantidades.isEmpty()) {
+			for (Componente componente : aux) {
+				precioTotal += componente.getPrecioV()*cantidades.get(i);
+				i++;
+			}
+		}
+		return precioTotal;
+	}
+	public Combo findCombobyCodigo(String codigo) {
+		Combo comboFound = null;
+		boolean find = false;
+		int i=0;
+		while (i<misCombos.size()&&!find) {
+			if(misCombos.get(i).getNombre().equalsIgnoreCase(codigo)){
+				comboFound = misCombos.get(i);
+				find = true;
+			}
+			i++;
+		}
+		return comboFound;
+	}
+
 
 }

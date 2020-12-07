@@ -9,14 +9,16 @@ public class Combo implements Serializable {
 	 private String codigo; 
 	 private float precio;
 	 private int desc;
+	 private String nombre;
 	 //.
 	 
-	public Combo(ArrayList<Componente>componentes,String codigo, float precio,int desc) {
+	public Combo(ArrayList<Componente>componentes,String nombre, float precio, int desc) {
 		super();
-		this.componentes = new ArrayList<Componente>();
+		this.componentes = componentes;
 		this.codigo = codigo;
 		this.precio = precio;
 		this.desc = desc;
+		this.nombre = nombre;
 	}
 	
 	
@@ -60,6 +62,19 @@ public class Combo implements Serializable {
 	}
 	public void insertarComponentesCombo(Componente compps) {
 		componentes.add(compps);
+	}
+
+
+	public String getNombre() {
+		return nombre;
+	}
+
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	public void insertCompCombo(Componente comp) {
+		
 	}
 	
 }
