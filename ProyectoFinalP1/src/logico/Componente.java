@@ -50,6 +50,13 @@ public class Componente implements Serializable {
 	public void setModelo(String modelo) {
 		this.modelo = modelo;
 	}
+	public float calcularP() {
+		
+		return PrecioV*cantidad;
+		
+		
+		
+	}
 	
 
 }

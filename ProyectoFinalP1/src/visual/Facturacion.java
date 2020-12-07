@@ -153,10 +153,11 @@ public class Facturacion extends JDialog {
 						else if(Integer.valueOf(cant)<=aux.getCantidad()){
 							Componente auxi = new Componente(aux.getPrecioV(),aux.getNumSerie(),Integer.valueOf(cant),aux.getMarca(),aux.getModelo());
 						
-							precio += aux.getPrecioV();
+							precio += aux.getPrecioV()*Integer.valueOf(cant);
 							misCompCant.add(auxi);
+							txtPrecioTotal.setText(String.format("%.2f",precio)+"$");
 							cantx = aux.getCantidad()-auxi.getCantidad();
-							int c = 0;
+							
 							aux.setCantidad(cantx);
 							txtTotalComp.setText(""+misCompCant.size());
 							
@@ -168,7 +169,8 @@ public class Facturacion extends JDialog {
 								
 							
 						}
-					txtPrecioTotal.setText(""+precio);
+						
+					
 					
 					
 								llenarT();
@@ -193,12 +195,13 @@ public class Facturacion extends JDialog {
 						Componente aux = buscarQBC(codigox);
 						
 						
-						precio -= aux.getPrecioV();
+						 precio -= aux.getPrecioV()*aux.getCantidad();
 						 Tienda.getInstance().getMisComps().add(aux);
 						 misCompCant.remove(aux);
 						 
 						 
-						 txtPrecioTotal.setText(""+precio);
+						 txtPrecioTotal.setText(String.format("%.2f",precio)+"$");
+						 
 						 llenarT();
 						 llenarT2();
 						 
@@ -312,10 +315,14 @@ public class Facturacion extends JDialog {
 			JButton btnNewButton_3 = new JButton("Crear Cliente");
 			btnNewButton_3.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					if (txtNombre.getText().equals("") || textIDC.getText().equals("")
-							|| txtTelefono.getText().equals("") || txtDireccion.getText().equals("")) {
+					
+					if(Tienda.getInstance().BuscarCliente(textIDC.getText())) {
+						JOptionPane.showMessageDialog(null, "Ya existe un cliente con esa Cedula, ingrese otro.");
+					
+					}
+						else if (txtNombre.getText().equals("") || textIDC.getText().equals("") || txtTelefono.getText().equals("") || txtDireccion.getText().equals("")) {
 						JOptionPane.showMessageDialog(null, "Llene todos los campos, por favor.");
-					} else {
+					} 		else  {
 						Cliente client = new Cliente(textIDC.getText(),txtNombre.getText(),  txtTelefono.getText(),
 								txtDireccion.getText());
 						Tienda.getInstance().insertarCliente(client);
@@ -323,7 +330,9 @@ public class Facturacion extends JDialog {
 						System.out.println(client.getNombre()+""+client.getCedula());
 
 					}
-				}
+					}
+					
+				
 			});
 			btnNewButton_3.setBounds(253, 108, 133, 25);
 			panel.add(btnNewButton_3);
@@ -417,14 +426,26 @@ public class Facturacion extends JDialog {
 					 boolean clientx = Tienda.getInstance().BuscarCliente(textIDC.getText());
 					 Cliente client = Tienda.getInstance().buscarCliente(textIDC.getText());
 					if(clientx == true && !misCompCant.isEmpty()) {
-						Factura facts = new Factura(client,null);
+						
+						
+						Factura facts = new Factura(client,null,precio);
+							
 							Tienda.getInstance().getMisFacturas().add(facts);
-							Tienda.getInstance().getMisComps().remove(misCompCant);
-							for(Componente comps : misCompCant) {
-								Tienda.getInstance().insertarFactura(facts);
-							}
+							
+							Tienda.getInstance().getMisComps().removeAll(misCompCant);
+							
+							System.out.println(facts.getPrecioTotal());
+							misCompCant.removeAll(misCompCant);
 							model1.setRowCount(0);
+							
+							
+							precio=0;
+							txtPrecioTotal.setText(0+"$");
+							llenarT2();
+							
 							JOptionPane.showMessageDialog(null, "Se ha efectuado la compra", "Notificacion", JOptionPane.INFORMATION_MESSAGE);
+								
+							
 						}
 					else if(client == null) {
 						JOptionPane.showMessageDialog(null, "No se ha encontrado un cliente", "Notificacion", JOptionPane.INFORMATION_MESSAGE);
@@ -432,7 +453,16 @@ public class Facturacion extends JDialog {
 					else if(misComp.isEmpty()) {
 						JOptionPane.showMessageDialog(null, "No hay objetos para facturar", "Notificacion", JOptionPane.INFORMATION_MESSAGE);
 					}
+					
+				
+					
+					
+					
+					
+					
 					}
+					
+					
 				});
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);

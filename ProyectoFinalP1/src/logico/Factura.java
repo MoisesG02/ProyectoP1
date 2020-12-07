@@ -14,10 +14,11 @@ public class Factura implements Serializable {
 	private Cliente client;
 	//*
 	
-	public Factura( Cliente clients, String codFactura) {
+	public Factura( Cliente clients, String codFactura, float PrecioTotal) {
 		super();
 		FechaActual = new Date();
 		this.clients = clients;
+		this.PrecioTotal = PrecioTotal;
 		this.comps = new ArrayList<Componente>();
 		this.codFactura = codFactura;
 	}

@@ -11,7 +11,7 @@ public class main implements Serializable {
 	Componente comp0 = new MemoriaRam(500,"402",1,"MSI","HG-014",6,"DDR4");
 	//Componente comp1 = new Microprocesador(1000,"523",1,"INTEL", "I7", "SOCKET",3.6f);
 
-	Factura facturita0 = new Factura(client0, "402");
+	//Factura facturita0 = new Factura(client0, "402");
     
 	tiendita.insertarCliente(client0);
 	tiendita.insertarComponente(comp0);
@@ -20,8 +20,8 @@ public class main implements Serializable {
 	//Combo com = new Combo("222",32,500);
 	//tiendita.insertarCombo(com);
 	
-	tiendita.insertarFactura(facturita0);
-	facturita0.insetarCompenFactura(comp0);
+	//tiendita.insertarFactura(facturita0);
+	//facturita0.insetarCompenFactura(comp0);
 	//facturita0.insetarCompenFactura(comp1);
 	System.out.println(""+tiendita.obtenerpreciodadoFactura("402"));
 	System.out.println(""+tiendita.obtenerComponente("402"));

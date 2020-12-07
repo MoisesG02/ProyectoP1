@@ -25,7 +25,6 @@ import javax.swing.DefaultComboBoxModel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
@@ -41,12 +40,13 @@ public class Registrar_Combo extends JDialog {
 	public static DefaultTableModel model1;
 	private Object[] filas;
 	private Object[] filasx;
-	private ArrayList<Combo> misCombos = new ArrayList<Combo>();
+	private ArrayList<Componente> misCombos = new ArrayList<Componente>();
 	private ArrayList<Componente> misCompCant = new ArrayList<Componente>();
 
 	private JTextField txtPrecioTotal;
 	private float precio = 0;
 	private int cantx;
+
 
 	/**
 	 * Launch the application.
@@ -65,7 +65,7 @@ public class Registrar_Combo extends JDialog {
 	 * Create the dialog.
 	 */
 	public Registrar_Combo() {
-		setBounds(100, 100, 958, 478);
+		setBounds(100, 100, 947, 467);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -78,7 +78,7 @@ public class Registrar_Combo extends JDialog {
 			panelfondo.setLayout(null);
 
 			JScrollPane scrollPane = new JScrollPane();
-			scrollPane.setBounds(21, 70, 405, 292);
+			scrollPane.setBounds(21, 70, 394, 292);
 			panelfondo.add(scrollPane);
 
 			tableComponente = new JTable();
@@ -97,7 +97,7 @@ public class Registrar_Combo extends JDialog {
 			scrollPane.setViewportView(tableComponente);
 
 			JScrollPane scrollPane_1 = new JScrollPane();
-			scrollPane_1.setBounds(513, 70, 405, 292);
+			scrollPane_1.setBounds(513, 70, 394, 292);
 			panelfondo.add(scrollPane_1);
 
 			tableCombo = new JTable();
@@ -119,61 +119,65 @@ public class Registrar_Combo extends JDialog {
 			btnNewButton.addActionListener(new ActionListener() { // IZQ A DERECHA
 				public void actionPerformed(ActionEvent e) {
 					Componente aux = Tienda.getInstance().obtenerComponente(numSerie);
-
-					String cant = JOptionPane.showInputDialog("Introduce la cantidad deseada:");
-					if (Integer.valueOf(cant) > aux.getCantidad()) {
-						JOptionPane.showMessageDialog(null, "Cantidad no disponible", "Aviso",
-								JOptionPane.WARNING_MESSAGE);
-					} else {
-						Componente auxi = new Componente(aux.getPrecioV(), aux.getNumSerie(), Integer.valueOf(cant),
-								aux.getMarca(), aux.getModelo());
-
-						precio += aux.getPrecioV() - aux.getPrecioV() * 0.10f;
-						misCompCant.add(auxi);
-						cantx = aux.getCantidad() - auxi.getCantidad();
-						int c = 0;
-						aux.setCantidad(cantx);
-						if(aux.getCantidad()<1) {
-							Tienda.getInstance().getMisComps().remove(aux);
-							JOptionPane.showMessageDialog(null,"Ultimo en el inventario "+aux.getMarca()+""+"Disponibles","Aviso",JOptionPane.WARNING_MESSAGE);
-								
-						}
+					
+					String cant = JOptionPane.showInputDialog("Introduce un numero");
+					if(Integer.valueOf(cant)>aux.getCantidad()) {
+						JOptionPane.showMessageDialog(null,"Cantidad no disponible","Aviso",JOptionPane.WARNING_MESSAGE);
 					}
-					txtPrecioTotal.setText("" + precio);
-
-					llenarT();
-					llenarT2();
-
+					else{
+						Componente auxi = new Componente(aux.getPrecioV(),aux.getNumSerie(),Integer.valueOf(cant),aux.getMarca(),aux.getModelo());
+					
+					precio += aux.getPrecioV()-aux.getPrecioV()*0.10f;
+					misCompCant.add(auxi);
+					cantx = aux.getCantidad()-auxi.getCantidad();
+					int c = 0;
+					aux.setCantidad(cantx);
+					if(aux.getCantidad()<=0) {
+						Tienda.getInstance().getMisComps().remove(aux);
+						JOptionPane.showMessageDialog(null,"Ultimo en el inventario "+aux.getMarca()+""+"Disponibles","Aviso",JOptionPane.WARNING_MESSAGE);
+							
+					}
+							
+						
+					}
+				txtPrecioTotal.setText(""+precio);
+					
+							llenarT();
+							llenarT2();
+					
+					
+					
+				
 				}
 			});
 			llenarT();
 			btnNewButton.setIcon(new ImageIcon(Registrar_Combo.class.getResource("/Iconos/Actions-go-next-icon.png")));
-			btnNewButton.setBounds(438, 163, 63, 25);
+			btnNewButton.setBounds(427, 163, 63, 25);
 			panelfondo.add(btnNewButton);
 
-			JButton btnNewButton_1 = new JButton(""); // DE DERECHA A IZQUIERDA
+			JButton btnNewButton_1 = new JButton(""); //DE DERECHA A IZQUIERDA
 			btnNewButton_1.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					//tableCombo.getSelectedRow();
+					tableCombo.getSelectedRow();
 					Componente aux = buscarQBC(codigox);
-					precio -= aux.getPrecioV()-aux.getPrecioV() * 0.10;
+					precio -= aux.getPrecioV() - aux.getPrecioV() * 0.10;
 					Tienda.getInstance().getMisComps().add(aux);
-					misCompCant.remove(aux);
 					misCombos.remove(aux);
-					txtPrecioTotal.setText (""+precio);
+					misCompCant.remove(aux);
+					txtPrecioTotal.setText("" + precio);
 					llenarT();
 					llenarT2();
 				}
 			});
 			btnNewButton_1
 					.setIcon(new ImageIcon(Registrar_Combo.class.getResource("/Iconos/Actions-go-previous-icon.png")));
-			btnNewButton_1.setBounds(438, 201, 63, 25);
+			btnNewButton_1.setBounds(427, 201, 63, 25);
 			panelfondo.add(btnNewButton_1);
 
 			JComboBox comboBox = new JComboBox();
 			comboBox.setModel(new DefaultComboBoxModel(
 					new String[] { "<Todos>", "Disco Duro", "Memoria Ram", "Tarjeta Madre", "Microprocesador" }));
-			comboBox.setBounds(20, 42, 406, 22);
+			comboBox.setBounds(20, 42, 392, 22);
 			panelfondo.add(comboBox);
 
 			JLabel lblNewLabel = new JLabel("Seleccione componente");
@@ -198,17 +202,19 @@ public class Registrar_Combo extends JDialog {
 				JButton btnCrearCombo = new JButton("Crear Combo");
 				btnCrearCombo.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						Componente aux = buscarQBC(codigox);
-						Combo combito = new Combo(misCompCant, "COD-" + Tienda.getInstance().getCodCombo(), 0, 10);
+			         	Combo combito = new Combo(misCompCant,"COD-"+Tienda.getInstance().getCodCombo(),precio,10);
+						
 						Tienda.getInstance().insertarCombo(combito);
-						System.out.println(precio);
-						//misCompCant.remove(aux);
-						Tienda.getInstance().getMisComps().remove(misCompCant);
-						// Tienda.getInstance().insertarComponentesCombo(misCompCant);
 						JOptionPane.showMessageDialog(null, "Su registro fue exitoso!");
-						model1.setRowCount(0);
-						txtPrecioTotal.setText("0.0$");
-
+						Tienda.getInstance().getMisComps().removeAll(misCompCant);
+						misCompCant.removeAll(misCompCant);
+                        model1.setRowCount(0);
+                        precio = 0;
+                        txtPrecioTotal.setText(""+0.0f+"$");
+                        System.out.println(combito.getPrecio());
+                        
+                        llenarT2();
+						
 					}
 				});
 				btnCrearCombo.setActionCommand("OK");
@@ -217,6 +223,11 @@ public class Registrar_Combo extends JDialog {
 			}
 			{
 				JButton btnCancelar = new JButton("Cancelar");
+				btnCancelar.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						dispose();
+					}
+				});
 				btnCancelar.setActionCommand("Cancel");
 				buttonPane.add(btnCancelar);
 			}
@@ -228,13 +239,13 @@ public class Registrar_Combo extends JDialog {
 		int numCols = tableComponente.getModel().getColumnCount();
 		Object[] filas = new Object[numCols];
 		for (Componente auxQ : Tienda.getInstance().getMisComps()) {
-			if (auxQ.getCantidad() > 0) {
-				filas[0] = auxQ.getNumSerie();
-				filas[1] = auxQ.getMarca();
-				filas[2] = auxQ.getModelo();
-				filas[3] = auxQ.getCantidad();
-				filas[4] = auxQ.getPrecioV();
-			}
+            if(auxQ.getCantidad()>0) {
+			filas[0] = auxQ.getNumSerie();
+			filas[1] = auxQ.getMarca();
+			filas[2] = auxQ.getModelo();
+			filas[3] = auxQ.getCantidad();
+			filas[4] = auxQ.getPrecioV();
+            }
 //tabla bien
 			((DefaultTableModel) tableComponente.getModel()).addRow(filas);
 

@@ -273,13 +273,6 @@ public class Tienda implements Serializable {
 	public void setMisCompCombo(ArrayList<Componente> misCompCombo) {
 		this.misCompCombo = misCompCombo;
 	}
-	public boolean encontrarcombo() {
-		boolean encontrado = false;
-		for(int i = 0; i<misCompCombo.size();i++) {
-			
-		}
-		
-		return encontrado;
-	}
+	
 
 }
