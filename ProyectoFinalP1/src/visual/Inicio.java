@@ -6,6 +6,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.border.BevelBorder;
 import javax.swing.border.EmptyBorder;
 
 import logico.Tienda;
@@ -16,6 +17,9 @@ import java.awt.Dimension;
 import javax.swing.JLabel;
 import javax.swing.ImageIcon;
 import java.awt.Font;
+import java.awt.SystemColor;
+import java.awt.Toolkit;
+
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JMenuBar;
@@ -33,6 +37,17 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.awt.event.ActionEvent;
 
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartFrame;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PiePlot;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.general.DefaultPieDataset;
+import javax.swing.JTextField;
+
 public class Inicio extends JFrame {
 
 	private JPanel panelfondo;
@@ -48,11 +63,25 @@ public class Inicio extends JFrame {
 	private JLabel lblNewLabel_3;
 	private JPanel panelListComponente;
 	private JPanel panelListEmpleado;
+	private JTextField textField;
+	private JTextField textField_1;
+	private JTextField textField_2;
+	private JTextField textField_3;
+	private JTextField textField_4;
+	private JTextField textField_5;
+	private JTextField textField_6;
+	private JTextField textField_7;
+	private JTextField textField_8;
+	//private JPanel panel1 = new JPanel();
+	//private JPanel panel2 = new JPanel();
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
+		
+	
+		
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				FileInputStream empresa;
@@ -97,6 +126,7 @@ public class Inicio extends JFrame {
 	 * Create the frame.
 	 */
 	public Inicio() {
+		
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -137,6 +167,103 @@ public class Inicio extends JFrame {
 		setUndecorated(true);
 		panelfondo.setLayout(null);
 		
+		
+      //  panel1.setBounds(620, 156, 371, 331);
+		//panelfondo.add(panel1);
+		
+		//panel2.setBounds(836, 162, 329, 389);
+		//panelfondo.add(panel2);
+
+
+		String disco = "Disco Duro";
+		String memoria = "Menoria RAM";
+		String micro = "Microprocesador";
+		String tarjeta = "Tarjeta Madre";
+		
+		String tipo = "Tipos de componentes";
+		
+		DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+		
+		dataset.addValue(2,disco,tipo);
+		dataset.addValue(3,memoria,tipo);
+		dataset.addValue(4,micro,tipo);
+		dataset.addValue(6,tarjeta,tipo);
+		
+		JFreeChart barChart = ChartFactory.createBarChart3D (
+			
+				"Venta por tipo de componente",
+				"Leyenda",
+				"Cantidad vendida",
+				dataset,
+				PlotOrientation.VERTICAL, true, true, false);
+		
+		barChart.setBackgroundPaint(SystemColor.inactiveCaption);
+		barChart.getTitle().setPaint(Color.black); 
+		CategoryPlot p = barChart.getCategoryPlot(); 
+		p.setRangeGridlinePaint(Color.red); 
+		
+		//panel1.setLayout(null);
+		
+		ChartPanel chart = new ChartPanel (barChart);
+		chart.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
+		barChart.setBackgroundPaint( SystemColor.inactiveCaption);
+		
+		//chart.setPreferredSize(new java.awt.Dimension(panel1.getWidth(), panel1.getHeight()));
+     
+		
+	   JFrame ventana = new JFrame("Analisis y Estadisticas");
+		ventana.setVisible(true);
+		ventana.setBounds(700, 293, 86, 20);
+		ventana.setSize (400, 300);
+		//ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		ventana.getContentPane().add(chart);
+		
+		
+	    //ventana.setUndecorated(true);
+		//chart.setVisible(true);
+		//panelfondo.remove(chart);
+		//panelfondo.add(chart);
+		
+		DefaultPieDataset dataset1 = new DefaultPieDataset();
+		
+		dataset1.setValue("Disco Duro", new Double (500));
+		dataset1.setValue("Memoria RAM", new Double (400));
+		dataset1.setValue("Microprocesador", new Double (650));
+		dataset1.setValue("Tarjeta Madre", new Double (460));
+		
+		
+		JFreeChart pieChart = ChartFactory.createPieChart( "Ganancia de la tienda por tipo de componente",  dataset1,  true, true, false);
+		//panel2.setLayout(null);
+		
+		//PiePlot p1 = (PiePlot) panel.getPlot();
+		//p1.setForegroundAlpha(TOP_ALIGNMENT);
+
+		
+		ChartPanel panel = new ChartPanel(pieChart);
+		panel.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
+		pieChart.setBackgroundPaint( SystemColor.inactiveCaption);
+		
+		//frame.setVisible(true);
+		//frame.setSize(400,300);
+		
+		//chartPanel.setBorder(new BevelBorder(BevelBorder.RAISED, null, null, null, null));
+		//chart.setBackgroundPaint( SystemColor.inactiveCaption);
+
+		//chartPanel.setBounds(0, 0, 652, 631);
+		//chartPanel.setPreferredSize(new java.awt.Dimension(panel2.getWidth(), panel2.getHeight()));
+	   // panel2.add(frame);
+		
+		 JFrame ventana1 = new JFrame("Analisis y Estadisticas");
+			ventana1.setVisible(true);
+			ventana1.setBounds(951, 497, 86, 20);
+			ventana1.setSize (400, 300);
+			//ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			
+			ventana1.getContentPane().add(panel);
+			
+		//panelfondo.remove(frame);
+		//panelfondo.add( frame);
 		
 		JPanel panelMenu = new JPanel();
 		panelMenu.setBounds(0, 0, 389, 600);
@@ -269,6 +396,13 @@ public class Inicio extends JFrame {
 		panelFACT.add(label_2);
 		
 		paneGRAFICOS = new JPanel();
+		paneGRAFICOS.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				ventana.setVisible(true);
+				
+			}
+		});
 		paneGRAFICOS.setBackground(new Color(0, 139, 139));
 		paneGRAFICOS.setForeground(new Color(0, 128, 128));
 		paneGRAFICOS.setBounds(0, 314, 389, 48);
@@ -276,6 +410,13 @@ public class Inicio extends JFrame {
 		paneGRAFICOS.setLayout(null);
 		
 		JLabel lblGrficos_1 = new JLabel("AN\u00C1LISIS Y ESTAD\u00CDSTICAS");
+		lblGrficos_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				ventana.setVisible(true);
+				ventana1.setVisible(true);
+			}
+		});
 		lblGrficos_1.setForeground(Color.WHITE);
 		lblGrficos_1.setFont(new Font("Dialog", Font.BOLD, 14));
 		lblGrficos_1.setBounds(85, 13, 191, 16);
@@ -405,6 +546,7 @@ public class Inicio extends JFrame {
 		lblNewLabel_12.setBounds(22, 0, 32, 48);
 		PanelRegComponente.add(lblNewLabel_12);
 		
+	
 		JPanel panelRegEmpleado = new JPanel();
 		panelRegEmpleado.addMouseListener(new MouseAdapter() {
 			@Override
@@ -461,6 +603,7 @@ public class Inicio extends JFrame {
 		lblNewLabel_6.setIcon(new ImageIcon(Inicio.class.getResource("/Iconos/clientes1.png")));
 		lblNewLabel_6.setBounds(22, 0, 32, 48);
 		panelListCliente.add(lblNewLabel_6);
+	
 		
 		panelListComponente = new JPanel();
 		panelListComponente.addMouseListener(new MouseAdapter() {
@@ -488,6 +631,7 @@ public class Inicio extends JFrame {
 		lblNewLabel_16.setBounds(22, 0, 32, 48);
 		panelListComponente.add(lblNewLabel_16);
 		
+		
 		panelListEmpleado = new JPanel();
 		panelListEmpleado.addMouseListener(new MouseAdapter() {
 			@Override
@@ -512,6 +656,33 @@ public class Inicio extends JFrame {
 		lblNewLabel_18.setIcon(new ImageIcon(Inicio.class.getResource("/Iconos/empleados1.png")));
 		lblNewLabel_18.setBounds(22, 0, 32, 48);
 		panelListEmpleado.add(lblNewLabel_18);
+	
+	
+		
 		
 	}
+	
+	
+	
+		public void showGrafic1() {
+			
+			
+			
+		}	
+			
+		
+	/*	public void showGrafic2() {
+			
+	
+			
+			
+			
+		}
+			
+			*/
+		
+		public void run() {
+			// TODO Auto-generated method stub		
+		}
+	
 }
