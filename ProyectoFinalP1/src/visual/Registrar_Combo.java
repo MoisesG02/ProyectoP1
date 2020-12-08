@@ -221,7 +221,7 @@ public class Registrar_Combo extends JDialog {
 								JOptionPane.showMessageDialog(null, "Ya existe un combo con ese nombre");
 							}
 							else if (aux==null) {
-								Combo aux= new Combo(componenteDevolver(),txtNombre.getText(), Float.valueOf(txtPrecio.getText()), Integer.valueOf(spnDescuento.getValue().toString()));
+								Combo aux= new Combo(txtNombre.getText(),componenteDevolver(),Float.valueOf(txtPrecio.getText()), Integer.valueOf(spnDescuento.getValue().toString()));
 								Tienda.getInstance().insertarCombo(aux);
 								Tienda.getInstance().insertarComponentesCombo(componenteDevolver());
 								cbxDiscoDuro.setSelectedIndex(0);cbxMicro.setSelectedIndex(0);cbxMotherBoard.setSelectedIndex(0);cbxRAM.setSelectedIndex(0);
@@ -234,7 +234,7 @@ public class Registrar_Combo extends JDialog {
 							}
 							else{
 								Tienda.getInstance().eliminarCombo(aux);
-								Combo aux= new Combo(componenteDevolver(),txtNombre.getText(), Float.valueOf(txtPrecio.getText()), Integer.valueOf(spnDescuento.getValue().toString()));
+								Combo aux= new Combo(txtNombre.getText(),componenteDevolver(), Float.valueOf(txtPrecio.getText()), Integer.valueOf(spnDescuento.getValue().toString()));
 								Tienda.getInstance().insertarCombo(aux);;
 								cbxDiscoDuro.setSelectedIndex(0);cbxMicro.setSelectedIndex(0);cbxMotherBoard.setSelectedIndex(0);cbxRAM.setSelectedIndex(0);
 								/*aux.setNombre(txtNombre.getText());

@@ -12,7 +12,7 @@ public class Combo implements Serializable {
 	 private String nombre;
 	 //.
 	 
-	public Combo(ArrayList<Componente>componentes,String nombre, float precio, int desc) {
+	public Combo(String nombre,ArrayList<Componente>componentes, float precio, int desc) {
 		super();
 		this.componentes = componentes;
 		this.codigo = codigo;

@@ -295,17 +295,29 @@ public class Tienda implements Serializable {
 	}
 	public Combo findCombobyCodigo(String codigo) {
 		Combo comboFound = null;
-		boolean find = false;
-		int i=0;
-		while (i<misCombos.size()&&!find) {
-			if(misCombos.get(i).getNombre().equalsIgnoreCase(codigo)){
-				comboFound = misCombos.get(i);
-				find = true;
+		boolean encontrado = false;
+		int c=0;
+		while (c<misCombos.size()&&!encontrado) {
+			if(misCombos.get(c).getCodigo().equalsIgnoreCase(codigo)){
+				comboFound = misCombos.get(c);
+				encontrado = true;
 			}
-			i++;
+			c++;
 		}
 		return comboFound;
 	}
+	public Combo findCombobyCodigot(String codigo) {
+		Combo comboE = null;
+		boolean encontrado = false;
+		int i=0;
+		while (i<misCombos.size()&&!encontrado) {
+			if(misCombos.get(i).getNombre().equalsIgnoreCase(codigo)){
+				comboE = misCombos.get(i);
+				encontrado = true;
+			}
+			i++;
+		}
+		return comboE;
 
-
+	}
 }
