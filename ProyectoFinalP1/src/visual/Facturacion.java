@@ -2,7 +2,6 @@ package visual;
 
 import java.awt.BorderLayout;
 
-
 import java.awt.FlowLayout;
 
 import javax.swing.JButton;
@@ -77,13 +76,13 @@ public class Facturacion extends JDialog {
 	private JFormattedTextField textIDC;
 	private JFormattedTextField txtTelefono;
 	private JScrollPane scrollPane;
-	private String[] encabezadoCompo = {"No. Serie","Marca","Modelo","Precio"};
-	private String[] encabezadoCompra = {"No. Serie/Codigo","Tipo","Informacion"};
-	private String[] encabezadoDD = {"No. Serie","Marca","Modelo","Precio","Almacenamiento","Tipo Conexion" };
-	private String[] encabezadoMicro = {"No. Serie","Marca","Modelo","Precio ","Velocidad","Tipo Conexion" };
-	private String[] encabezadoMother = {"No. Serie","Marca","Modelo","Precio","Tipo Conector","Tipo RAM" };
-	private String[] encabezadoRAM = {"No. Serie","Marca","Modelo","Precio","Cant Memoria","Tipo Memoria" };
-	private String[] encabezadoCombo = {"Codigo","Disco Duro","Microprocesador","Motherboard","RAM","Descuento"};
+	private String[] encabezadoCompo = { "No. Serie", "Marca", "Modelo","Cantidad", "Precio" };
+	private String[] encabezadoCompra = { "No. Serie/Codigo", "Tipo", "Informacion" };
+	private String[] encabezadoDD = { "No. Serie", "Marca", "Modelo", "Precio", "Almacenamiento", "Tipo Conexion" };
+	private String[] encabezadoMicro = { "No. Serie", "Marca", "Modelo", "Precio ", "Velocidad", "Tipo Conexion" };
+	private String[] encabezadoMother = { "No. Serie", "Marca", "Modelo", "Precio", "Tipo Conector", "Tipo RAM" };
+	private String[] encabezadoRAM = { "No. Serie", "Marca", "Modelo", "Precio", "Cant Memoria", "Tipo Memoria" };
+	private String[] encabezadoCombo = { "Codigo", "Disco Duro", "Microprocesador", "Motherboard", "RAM", "Descuento" };
 
 	/**
 	 * Launch the application.
@@ -222,7 +221,8 @@ public class Facturacion extends JDialog {
 					Filtro(cbxFiltro.getSelectedIndex());
 				}
 			});
-			cbxFiltro.setModel(new DefaultComboBoxModel(new String[] {"<Todos>", "Disco Duro", "Combos", "Tarjeta Madre", "Microprocesador", "Memoria Ram"}));
+			cbxFiltro.setModel(new DefaultComboBoxModel(new String[] { "<Todos>", "Disco Duro", "Combos",
+					"Tarjeta Madre", "Microprocesador", "Memoria Ram" }));
 			cbxFiltro.setBounds(17, 28, 476, 22);
 			panel_Tablas.add(cbxFiltro);
 
@@ -465,69 +465,34 @@ public class Facturacion extends JDialog {
 		String tipo = null;
 		filas = new Object[model.getColumnCount()];
 		if (seleccionado == 0) {
-			for (Componente comp : Tienda.getInstance().getMisComps()) {
-
-				filas[0] = comp.getNumSerie();
-				filas[1] = comp.getMarca();
-				filas[2] = comp.getModelo();
-				filas[3] = comp.getCantidad();
-				filas[4] = comp.getPrecioV();
-
-				model.addRow(filas);
-			}
+			model.setColumnIdentifiers(encabezadoCompo);
+			llenarT();
 		} else if (seleccionado == 1) {
-			for (Componente comp : Tienda.getInstance().getMisComps()) {
+			model.setColumnIdentifiers(encabezadoDD);
+			CargarDiscoDuro();
 
-				if (comp instanceof DiscoDuro) {
-					filas[0] = comp.getNumSerie();
-					filas[1] = comp.getMarca();
-					filas[2] = comp.getModelo();
-					filas[3] = comp.getCantidad();
-					filas[4] = comp.getPrecioV();
-
-					model.addRow(filas);
-				}
-			}
 		} else if (seleccionado == 2) {
 			model.setColumnIdentifiers(encabezadoCombo);
 			cargarCombos();
-			
+
 		} else if (seleccionado == 3) {
-			for (Componente comp : Tienda.getInstance().getMisComps()) {
+			model.setColumnIdentifiers(encabezadoMother);
+			cargartarjeta();
 
-				if (comp instanceof TarjetaMadre) {
-					filas[0] = comp.getNumSerie();
-					filas[1] = comp.getMarca();
-					filas[2] = comp.getModelo();
-					filas[3] = comp.getCantidad();
-					filas[4] = comp.getPrecioV();
-
-					model.addRow(filas);
-				}
-			}
 		} else if (seleccionado == 4) {
-			for (Componente comp : Tienda.getInstance().getMisComps()) {
-
-				if (comp instanceof Microprocesador) {
-					filas[0] = comp.getNumSerie();
-					filas[1] = comp.getMarca();
-					filas[2] = comp.getModelo();
-					filas[3] = comp.getCantidad();
-					filas[4] = comp.getPrecioV();
-
-					model.addRow(filas);
-				}
-			}
+			model.setColumnIdentifiers(encabezadoMicro);
+			cargarMicro();
 
 		} else if (cbxFiltro.getSelectedIndex() == 5) {
+			model.setColumnIdentifiers(encabezadoRAM);
 			for (Componente comp : Tienda.getInstance().getMisComps()) {
-
 				if (comp instanceof MemoriaRam) {
 					filas[0] = comp.getNumSerie();
 					filas[1] = comp.getMarca();
 					filas[2] = comp.getModelo();
-					filas[3] = comp.getCantidad();
-					filas[4] = comp.getPrecioV();
+					filas[3] = comp.getPrecioV();
+					filas[4] = ((MemoriaRam) comp).getCantMemoria();
+					filas[5] = ((MemoriaRam) comp).getTipoMemoria();
 
 					model.addRow(filas);
 
@@ -618,27 +583,81 @@ public class Facturacion extends JDialog {
 	public static void cargarCombos() {
 		model.setRowCount(0);
 		filas = new Object[model.getColumnCount()];
-		if(!Tienda.getInstance().getMisCombos().isEmpty()) {
+		if (!Tienda.getInstance().getMisCombos().isEmpty()) {
 			for (Combo combo : Tienda.getInstance().getMisCombos()) {
 				filas[0] = combo.getNombre();
 				for (Componente componente : combo.getComponentes()) {
-					if(componente instanceof DiscoDuro) {
-						filas[1] = componente.getMarca() +" : "+ componente.getModelo();
+					if (componente instanceof DiscoDuro) {
+						filas[1] = componente.getMarca() + " : " + componente.getModelo();
 					}
-					if(componente instanceof Microprocesador) {
-						filas[2] = componente.getMarca() +" : "+ componente.getModelo();
+					if (componente instanceof Microprocesador) {
+						filas[2] = componente.getMarca() + " : " + componente.getModelo();
 					}
-					if(componente instanceof TarjetaMadre) {
-						filas[3] = componente.getMarca() +" : "+ componente.getModelo();
+					if (componente instanceof TarjetaMadre) {
+						filas[3] = componente.getMarca() + " : " + componente.getModelo();
 					}
-					if(componente instanceof MemoriaRam) {
-						filas[4] = componente.getMarca() +" : "+ componente.getModelo();
+					if (componente instanceof MemoriaRam) {
+						filas[4] = componente.getMarca() + " : " + componente.getModelo();
 					}
 				}
-				filas[5] = combo.getDesc()+"%";
+				filas[5] = combo.getDesc() + "%";
 				model.addRow(filas);
 			}
 		}
 	}
 
+	public static void CargarDiscoDuro() {
+		model.setRowCount(0);
+		filas = new Object[model.getColumnCount()];
+		if (!Tienda.getInstance().getMisCombos().isEmpty()) {
+			for (Componente comp : Tienda.getInstance().getMisComps()) {
+				if (comp instanceof DiscoDuro) {
+					filas[0] = comp.getNumSerie();
+					filas[1] = comp.getMarca();
+					filas[2] = comp.getModelo();
+					filas[3] = comp.getPrecioV();
+					filas[4] = ((DiscoDuro) comp).getCapacidad();
+					filas[5] = ((DiscoDuro) comp).getTipoConexion();
+					model.addRow(filas);
+				}
+			}
+		}
+	}
+
+	public static void cargartarjeta() {
+		model.setRowCount(0);
+		filas = new Object[model.getColumnCount()];
+		if (!Tienda.getInstance().getMisCombos().isEmpty()) {
+			for (Componente comp : Tienda.getInstance().getMisComps()) {
+				if (comp instanceof TarjetaMadre) {
+					filas[0] = comp.getNumSerie();
+					filas[1] = comp.getMarca();
+					filas[2] = comp.getModelo();
+					filas[3] = comp.getPrecioV();
+					filas[4] = ((TarjetaMadre) comp).getTipoConector();
+					filas[5] = ((TarjetaMadre) comp).getTipoRAM();
+
+					model.addRow(filas);
+				}
+			}
+		}
+	}
+
+	public static void cargarMicro() {
+		model.setRowCount(0);
+		filas = new Object[model.getColumnCount()];
+		if (!Tienda.getInstance().getMisCombos().isEmpty()) {
+			for (Componente comp : Tienda.getInstance().getMisComps()) {
+				if (comp instanceof Microprocesador) {
+					filas[0] = comp.getNumSerie();
+					filas[1] = comp.getMarca();
+					filas[2] = comp.getModelo();
+					filas[3] = comp.getPrecioV();
+					filas[4] = ((Microprocesador) comp).getVelocidadProccess();
+					filas[5] = ((Microprocesador) comp).getTipoConexion();
+					model.addRow(filas);
+				}
+			}
+		}
+	}
 }
